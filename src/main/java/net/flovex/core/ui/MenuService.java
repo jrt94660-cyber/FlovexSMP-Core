@@ -1,4 +1,5 @@
 package net.flovex.core.ui;
+
 import net.flovex.core.FlovexCore;
 import net.flovex.core.platform.PlatformService;
 import io.papermc.paper.dialog.Dialog;
@@ -18,23 +19,25 @@ import java.util.*;
 
 public final class MenuService implements Listener {
  private final FlovexCore plugin;private final PlatformService platform;
- private String inventoryTitle(){return ChatColor.translateAlternateColorCodes('&',plugin.menusConfig().getString("menus.main.title","&8FlovexCore Menu"));}
- private static final Map<Integer,String> COMMANDS=Map.ofEntries(Map.entry(10,"homes"),Map.entry(11,"ah"),Map.entry(12,"orders"),Map.entry(13,"sell"),Map.entry(14,"worth"),Map.entry(15,"friends"),Map.entry(16,"stats"),Map.entry(21,"settings"),Map.entry(22,"rtp"),Map.entry(23,"pvp"),Map.entry(24,"ffa"));
+ private record Entry(int slot,Material icon,String label,String command){}
  public MenuService(FlovexCore p,PlatformService s){plugin=p;platform=s;}
- public void show(Player p,String title,String body){plugin.getSounds().play(p,"menu-open");
+ private List<Entry> entries(String title){
+  String t=title.toLowerCase(Locale.ROOT);
+  if(t.contains("auction"))return List.of(new Entry(10,Material.BOOK,"My Listings","ah my"),new Entry(11,Material.CHEST,"Claim Purchases","ah claim"),new Entry(12,Material.WRITABLE_BOOK,"Buy Orders","orders"),new Entry(13,Material.HOPPER,"Sell Items","sell"),new Entry(14,Material.GOLD_INGOT,"Worth Browser","worth"),new Entry(15,Material.COMPASS,"Main Menu","menu"));
+  if(t.contains("sell"))return List.of(new Entry(11,Material.IRON_INGOT,"Sell Held Stack","sellhand"),new Entry(13,Material.HOPPER,"Sell Inventory","sellall"),new Entry(15,Material.GOLD_INGOT,"Worth Browser","worth"),new Entry(22,Material.ARROW,"Back","menu"));
+  if(t.toLowerCase(Locale.ROOT).contains("setting"))return List.of(new Entry(10,Material.MAP,"Scoreboard","scoreboard"),new Entry(11,Material.ENDER_PEARL,"TPA Auto","tpauto"),new Entry(12,Material.ENDER_EYE,"TPAHere Auto","tpahereauto"),new Entry(13,Material.PAPER,"Private Messages","pm"),new Entry(14,Material.NAME_TAG,"Team Chat","team chat"),new Entry(15,Material.PLAYER_HEAD,"Hide Players","hide"),new Entry(22,Material.ARROW,"Back","menu"));
+  if(t.contains("profile"))return List.of(new Entry(11,Material.PAPER,"Statistics","stats"),new Entry(13,Material.CLOCK,"Playtime","playtime"),new Entry(15,Material.ARROW,"Back","menu"));
+  return List.of(new Entry(10,Material.MAP,"Homes","homes"),new Entry(11,Material.DIAMOND,"Auction House","ah"),new Entry(12,Material.WRITABLE_BOOK,"Orders","orders"),new Entry(13,Material.HOPPER,"Sell","sell"),new Entry(14,Material.GOLD_INGOT,"Worth","worth"),new Entry(15,Material.PLAYER_HEAD,"Friends","friends"),new Entry(16,Material.PAPER,"Stats","stats"),new Entry(19,Material.COMPARATOR,"Settings","settings"),new Entry(20,Material.ENDER_PEARL,"Random Teleport","rtp"),new Entry(21,Material.IRON_SWORD,"Duels","queue"),new Entry(22,Material.SHIELD,"FFA","ffa"),new Entry(23,Material.BOOK,"Rules","rules"));
+ }
+ public void show(Player p,String title,String body){
+  plugin.getSounds().play(p,"menu-open");
+  List<Entry> entries=entries(title);
   if(!platform.isBedrock(p)&&plugin.getConfig().getBoolean("menus.java-native-dialogs",true)){
-   try{
-    List<ActionButton> buttons=new ArrayList<>();
-    add(buttons,"Homes","/homes");add(buttons,"Auction House","/ah");add(buttons,"Orders","/orders");add(buttons,"Sell","/sell");add(buttons,"Worth","/worth");add(buttons,"Friends","/friends");add(buttons,"Stats","/stats");add(buttons,"Settings","/settings");add(buttons,"RTP","/rtp");add(buttons,"PvP","/pvp");add(buttons,"FFA","/ffa");
-    p.showDialog(Dialog.create(b->b.empty().base(DialogBase.builder(Component.text(title)).body(List.of(DialogBody.plainMessage(Component.text(body)))).build()).type(DialogType.multiAction(buttons,null,2))));
-    return;
-   }catch(Throwable ex){plugin.getLogger().warning("Native dialog unavailable: "+ex.getMessage());}
+   try{List<ActionButton> buttons=new ArrayList<>();for(Entry e:entries)buttons.add(ActionButton.create(Component.text(e.label()),Component.text("Run /"+e.command()),150,DialogAction.commandTemplate("/"+e.command())));p.showDialog(Dialog.create(b->b.empty().base(DialogBase.builder(Component.text(title)).body(List.of(DialogBody.plainMessage(Component.text(body)))).build()).type(DialogType.multiAction(buttons,null,2))));return;}catch(Throwable ex){plugin.getLogger().warning("Native dialog unavailable: "+ex.getMessage());}
   }
-  Inventory inv=Bukkit.createInventory(null,27,inventoryTitle());
-  put(inv,10,Material.MAP,"Homes","/homes");put(inv,11,Material.DIAMOND,"Auction House","/ah");put(inv,12,Material.WRITABLE_BOOK,"Orders","/orders");put(inv,13,Material.HOPPER,"Sell","/sell");put(inv,14,Material.GOLD_INGOT,"Worth","/worth");put(inv,15,Material.PLAYER_HEAD,"Friends","/friends");put(inv,16,Material.PAPER,"Stats","/stats");put(inv,21,Material.COMPARATOR,"Settings","/settings");put(inv,22,Material.ENDER_PEARL,"Random Teleport","/rtp");put(inv,23,Material.IRON_SWORD,"PvP","/pvp");put(inv,24,Material.SHIELD,"FFA","/ffa");
+  String inventoryTitle=ChatColor.DARK_GRAY+"Flovex Menu: "+title;Inventory inv=Bukkit.createInventory(null,27,inventoryTitle);
+  for(Entry e:entries){ItemStack item=new ItemStack(e.icon());ItemMeta meta=item.getItemMeta();meta.setDisplayName(ChatColor.AQUA+e.label());meta.setLore(List.of(ChatColor.GRAY+"Click to open","§0cmd:"+e.command()));item.setItemMeta(meta);inv.setItem(e.slot(),item);}
   p.openInventory(inv);
  }
- private void add(List<ActionButton> b,String label,String command){b.add(ActionButton.create(Component.text(label),Component.text("Open "+label),150,DialogAction.commandTemplate(command)));}
- private void put(Inventory inv,int slot,Material type,String label,String command){ItemStack i=new ItemStack(type);ItemMeta m=i.getItemMeta();m.setDisplayName(ChatColor.AQUA+label);m.setLore(List.of(ChatColor.GRAY+"Click to open",ChatColor.DARK_GRAY+command));i.setItemMeta(m);inv.setItem(slot,i);}
- @EventHandler public void click(InventoryClickEvent e){if(!(e.getWhoClicked() instanceof Player p)||!e.getView().getTitle().equals(inventoryTitle()))return;e.setCancelled(true);String command=COMMANDS.get(e.getRawSlot());if(command!=null){p.closeInventory();Bukkit.dispatchCommand(p,command);}}
+ @EventHandler public void click(InventoryClickEvent e){if(!(e.getWhoClicked() instanceof Player p)||!e.getView().getTitle().startsWith(ChatColor.DARK_GRAY+"Flovex Menu:"))return;e.setCancelled(true);ItemStack item=e.getCurrentItem();if(item==null||!item.hasItemMeta()||!item.getItemMeta().hasLore())return;for(String line:item.getItemMeta().getLore())if(line.startsWith("§0cmd:")){String command=line.substring("§0cmd:".length());p.closeInventory();Bukkit.dispatchCommand(p,command);return;}}
 }
