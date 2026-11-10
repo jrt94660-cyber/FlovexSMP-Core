@@ -1,9 +1,11 @@
 chat:
   enabled: true
   slowmode-seconds: 0
+  max-message-length: 256
   blocked-words: []
 reports:
   notify-permission: flovexcore.staff
 punishments:
   tempban-default-seconds: 86400
   tempmute-default-seconds: 3600
+  persist: true
