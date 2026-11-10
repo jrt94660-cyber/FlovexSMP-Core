@@ -33,7 +33,6 @@ public final class Storage implements AutoCloseable {
    s.execute("CREATE INDEX IF NOT EXISTS idx_chat_logs_name ON chat_logs(name,created)");
    s.execute("CREATE TABLE IF NOT EXISTS punishments(id INTEGER PRIMARY KEY AUTOINCREMENT,target TEXT NOT NULL,staff TEXT NOT NULL,type TEXT NOT NULL,reason TEXT,expires INTEGER NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1)");
    s.execute("CREATE TABLE IF NOT EXISTS bounties(id INTEGER PRIMARY KEY AUTOINCREMENT,target TEXT NOT NULL,creator TEXT NOT NULL,description TEXT NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1,reward BLOB)");
-   s.execute("CREATE TABLE IF NOT EXISTS ffa_stats(uuid TEXT PRIMARY KEY,kills INTEGER DEFAULT 0,deaths INTEGER DEFAULT 0,rating INTEGER DEFAULT 1000)");
    s.execute("CREATE TABLE IF NOT EXISTS preferences(uuid TEXT NOT NULL,key TEXT NOT NULL,value TEXT NOT NULL,PRIMARY KEY(uuid,key))");
    s.execute("CREATE TABLE IF NOT EXISTS teams(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL UNIQUE,owner TEXT NOT NULL,home_world TEXT,home_x REAL,home_y REAL,home_z REAL,home_yaw REAL,home_pitch REAL,pvp INTEGER DEFAULT 1,created INTEGER NOT NULL)");
    s.execute("CREATE TABLE IF NOT EXISTS team_members(team_id INTEGER NOT NULL,uuid TEXT NOT NULL,role TEXT NOT NULL,joined INTEGER NOT NULL,PRIMARY KEY(team_id,uuid),FOREIGN KEY(team_id) REFERENCES teams(id) ON DELETE CASCADE)");
