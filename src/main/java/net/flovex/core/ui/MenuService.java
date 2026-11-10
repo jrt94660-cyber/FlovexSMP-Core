@@ -19,7 +19,7 @@ import java.util.*;
 public final class MenuService implements Listener {
  private final FlovexCore plugin;private final PlatformService platform;
  private static final String TITLE=ChatColor.DARK_GRAY+"FlovexCore Menu";
- private static final Map<Integer,String> COMMANDS=Map.of(10,"homes",11,"ah",12,"orders",13,"sell",14,"worth",15,"friends",16,"stats",21,"settings",22,"rtp",23,"pvp",24,"ffa");
+ private static final Map<Integer,String> COMMANDS=Map.ofEntries(Map.entry(10,"homes"),Map.entry(11,"ah"),Map.entry(12,"orders"),Map.entry(13,"sell"),Map.entry(14,"worth"),Map.entry(15,"friends"),Map.entry(16,"stats"),Map.entry(21,"settings"),Map.entry(22,"rtp"),Map.entry(23,"pvp"),Map.entry(24,"ffa"));
  public MenuService(FlovexCore p,PlatformService s){plugin=p;platform=s;}
  public void show(Player p,String title,String body){
   if(!platform.isBedrock(p)&&plugin.getConfig().getBoolean("menus.java-native-dialogs",true)){
