@@ -8,4 +8,22 @@ lines:
   - '&bKills: &f%kills%'
   - '&cDeaths: &f%deaths%'
   - '&ePlaytime: &f%playtime%'
-  - '&7Ping: &f%ping%ms'
+  - '&7Ping: &f%ping%ms'styles:
+  modern:
+    title: '&#38BDFB&lFLOVEXSMP'
+    lines:
+      - '&7%date%'
+      - '&f%player%'
+      - '&8&m----------------'
+      - '&bKills: &f%kills%'
+      - '&cDeaths: &f%deaths%'
+      - '&ePlaytime: &f%playtime%'
+      - '&7Ping: &f%ping%ms'
+  legacy:
+    title: '&b&lFLOVEXSMP'
+    lines:
+      - '&7%player%'
+      - '&aKills: &f%kills%'
+      - '&cDeaths: &f%deaths%'
+      - '&7Playtime: &f%playtime%'
+      - '&7Ping: &f%ping%ms'
