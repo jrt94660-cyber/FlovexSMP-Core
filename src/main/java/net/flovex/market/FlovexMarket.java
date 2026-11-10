@@ -23,6 +23,7 @@ public final class FlovexMarket extends JavaPlugin {
             MarketCommands commands=new MarketCommands(this,market,ui,scoreboard);
             for(String name:new String[]{"ah","orders","settings","sell","sellall","sellhand","sellmulti","worth"}){var command=getCommand(name);if(command!=null){command.setExecutor(commands);command.setTabCompleter(commands);}}
             scoreboard.start();
+            Bukkit.getScheduler().runTaskTimer(this,market::cleanupExpired,1200L,1200L);
             getLogger().info("FlovexMarket 1.0.0 enabled. Economy: "+(economy.available()?economy.providerName():"unavailable"));
             getLogger().info("Optional integrations: PlaceholderAPI="+Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")+", Geyser="+(Bukkit.getPluginManager().isPluginEnabled("Geyser-Spigot")||Bukkit.getPluginManager().isPluginEnabled("Geyser"))+", Floodgate="+Bukkit.getPluginManager().isPluginEnabled("floodgate"));
         }catch(Exception ex){getLogger().severe("FlovexMarket could not initialize: "+ex.getMessage());Bukkit.getPluginManager().disablePlugin(this);}
