@@ -106,6 +106,8 @@ commands:
   disguise: {description: Disguise using optional disguise integration}
   kill: {description: Kill yourself or a player}
   safety: {description: Toggle PvP safety}
+  phantom: {description: Toggle phantom spawning near you}
+  spawner: {description: Inspect or configure a spawner}
   voicechatconsent: {description: Toggle voice chat consent}
   warpmanager: {description: Manage warps}
 permissions:
