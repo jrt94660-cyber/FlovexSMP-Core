@@ -51,7 +51,7 @@ commands:
   ffastats: {description: FFA statistics}
   ffaarena: {description: Manage FFA arenas}
   pvp: {description: Ranked PvP}
-  report: {description: Report player}
+  report: {description: Report player}\n  reports: {description: Staff report queue}\n  chatlog: {description: Review chat logs}
   chat: {description: Chat moderation}
   freeze: {description: Freeze player}
   staffmode: {description: Staff mode}
