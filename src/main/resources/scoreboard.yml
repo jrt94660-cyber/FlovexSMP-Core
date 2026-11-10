@@ -8,7 +8,8 @@ lines:
   - '&bKills: &f%kills%'
   - '&cDeaths: &f%deaths%'
   - '&ePlaytime: &f%playtime%'
-  - '&7Ping: &f%ping%ms'styles:
+  - '&7Ping: &f%ping%ms'
+styles:
   modern:
     title: '&#38BDFB&lFLOVEXSMP'
     lines:
