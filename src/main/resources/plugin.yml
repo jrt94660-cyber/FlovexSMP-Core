@@ -117,6 +117,9 @@ permissions:
   flovexcore.market.use: {default: true}
   flovexcore.market.admin: {default: op}
   flovexcore.homes.use: {default: true}
+  flovexcore.homes.10: {default: false}
+  flovexcore.homes.20: {default: false}
+  flovexcore.homes.40: {default: false}
   flovexcore.homes.unlimited: {default: false}
   flovexcore.teleport.use: {default: true}
   flovexcore.social.use: {default: true}
