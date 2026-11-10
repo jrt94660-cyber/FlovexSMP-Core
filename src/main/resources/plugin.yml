@@ -14,6 +14,10 @@ commands:
   sell: {description: Open the sell menu}
   sellhand: {description: Sell held item}
   sellall: {description: Sell inventory}
+  sellmulti: {description: Sell multiple inventory stacks}
+  sellprogress: {description: View selling progress}
+  sellhistory: {description: View personal sell history}
+  topsell: {description: Top sellers leaderboard}
   worth: {description: Check item worth, aliases: [prices]}
   home: {description: Teleport home}
   homes: {description: List homes}
