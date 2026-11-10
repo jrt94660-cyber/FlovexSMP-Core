@@ -1,6 +1,6 @@
 package net.flovex.core.command;
 
-import net.flovex.core.FlovexCore;
+import net.flovex.core.FlovexCore;import net.flovex.core.util.ColorUtil;
 import net.flovex.core.data.Storage;
 import net.flovex.core.market.Marketplace;
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -28,7 +28,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  private boolean chatMuted=false;
  private record Request(UUID sender,boolean here,long created){}
  public CoreCommands(FlovexCore p){plugin=p;db=p.getStorage();market=p.getMarket();}
- private String color(String s){return ChatColor.translateAlternateColorCodes('&',s.replaceAll("(?i)&#([0-9a-f]{6})","§x§$1"));}
+ private String color(String s){return ColorUtil.color(s);}
  private void msg(CommandSender s,String m){s.sendMessage(color(plugin.getConfig().getString("prefix","&bFlovex &8» ")+m));}
  private boolean staff(CommandSender s){return s.hasPermission("flovexcore.staff")||s.hasPermission("flovexcore.admin");}
  private Player target(String n){return Bukkit.getPlayerExact(n);}
