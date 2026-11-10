@@ -1,5 +1,5 @@
 package net.flovex.core.scoreboard;
-import net.flovex.core.FlovexCore;import org.bukkit.*;import org.bukkit.entity.Player;import org.bukkit.scoreboard.*;import java.time.LocalDate;import java.util.*;
+import net.flovex.core.FlovexCore;import net.flovex.core.util.ColorUtil;import org.bukkit.*;import org.bukkit.entity.Player;import org.bukkit.scoreboard.*;import java.time.LocalDate;import java.util.*;
 public final class ScoreboardService{
  private final FlovexCore plugin;private int task;
  public ScoreboardService(FlovexCore p){plugin=p;}
@@ -7,5 +7,5 @@ public final class ScoreboardService{
  public void stop(){if(task!=0)Bukkit.getScheduler().cancelTask(task);}
  public void update(Player p){if(plugin.getStorage().preference(p.getUniqueId(),"scoreboard","true").equals("false"))return;var cfg=plugin.scoreboardConfig();Scoreboard b=Bukkit.getScoreboardManager().getNewScoreboard();Objective o=b.registerNewObjective("flovex","dummy",color(cfg.getString("title","&b&lFLOVEX")));o.setDisplaySlot(DisplaySlot.SIDEBAR);List<String> lines=cfg.getStringList("lines");int score=lines.size();Set<String> used=new HashSet<>();for(String raw:lines){String line=raw.replace("%player%",p.getName()).replace("%balance%",plugin.getEconomy().format(plugin.getEconomy().balance(p.getUniqueId()))).replace("%kills%",String.valueOf(p.getStatistic(Statistic.PLAYER_KILLS))).replace("%deaths%",String.valueOf(p.getStatistic(Statistic.DEATHS))).replace("%ping%",String.valueOf(p.getPing())).replace("%date%",LocalDate.now().toString()).replace("%playtime%",String.format("%dh",p.getStatistic(Statistic.PLAY_ONE_MINUTE)/72000));try{if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))line=(String)Class.forName("me.clip.placeholderapi.PlaceholderAPI").getMethod("setPlaceholders",Player.class,String.class).invoke(null,p,line);}catch(Throwable ignored){}line=color(line);while(!used.add(line))line=line+"§"+(score%10);o.getScore(line).setScore(score--);}p.setScoreboard(b);}
  public void toggle(Player p){boolean show=plugin.getStorage().preference(p.getUniqueId(),"scoreboard","true").equals("false");plugin.getStorage().setPreference(p.getUniqueId(),"scoreboard",String.valueOf(show));if(show)update(p);else p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());}
- private String color(String s){return ChatColor.translateAlternateColorCodes('&',s.replaceAll("(?i)&#([0-9a-f]{6})","§x§$1"));}
+ private String color(String s){return ColorUtil.color(s);}
 }
