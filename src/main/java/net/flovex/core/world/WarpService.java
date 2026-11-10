@@ -1,0 +1,9 @@
+package net.flovex.core.world;
+import net.flovex.core.data.Storage;import org.bukkit.*;import org.bukkit.entity.Player;import java.util.*;
+public final class WarpService{
+ private final Storage db;public WarpService(Storage d){db=d;}
+ public String set(Player p,String name){if(!name.matches("[A-Za-z0-9_-]{1,24}"))return "Warp name must be 1-24 letters, numbers, _ or -.";Location l=p.getLocation();db.update("INSERT INTO warps(name,world,x,y,z,yaw,pitch,creator,created) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(name) DO UPDATE SET world=excluded.world,x=excluded.x,y=excluded.y,z=excluded.z,yaw=excluded.yaw,pitch=excluded.pitch,creator=excluded.creator,created=excluded.created",name,l.getWorld().getName(),l.getX(),l.getY(),l.getZ(),l.getYaw(),l.getPitch(),p.getUniqueId().toString(),System.currentTimeMillis());return "Warp "+name+" saved.";}
+ public String delete(String name){return db.update("DELETE FROM warps WHERE lower(name)=lower(?)",name)>0?"Warp deleted.":"Warp not found.";}
+ public boolean go(Player p,String name){var r=db.rows("SELECT * FROM warps WHERE lower(name)=lower(?)",name);if(r.isEmpty())return false;var w=Bukkit.getWorld((String)r.getFirst().get("world"));if(w==null)return false;var x=r.getFirst();p.teleportAsync(new Location(w,((Number)x.get("x")).doubleValue(),((Number)x.get("y")).doubleValue(),((Number)x.get("z")).doubleValue(),((Number)x.get("yaw")).floatValue(),((Number)x.get("pitch")).floatValue()));return true;}
+ public List<String> list(){return db.rows("SELECT name FROM warps ORDER BY name").stream().map(r->String.valueOf(r.get("name"))).toList();}
+}
