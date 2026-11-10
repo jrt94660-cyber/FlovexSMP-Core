@@ -108,6 +108,7 @@ commands:
   safety: {description: Toggle PvP safety}
   phantom: {description: Toggle phantom spawning near you}
   spawner: {description: Inspect or configure a spawner}
+  cuboid: {description: Select and inspect cuboid regions}
   voicechatconsent: {description: Toggle voice chat consent}
   warpmanager: {description: Manage warps}
   portalmanager: {description: Manage server portals}
