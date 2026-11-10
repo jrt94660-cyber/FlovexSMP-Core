@@ -29,13 +29,14 @@ public final class MenuService implements Listener {
   if(t.contains("profile"))return List.of(new Entry(11,Material.PAPER,"Statistics","stats"),new Entry(13,Material.CLOCK,"Playtime","playtime"),new Entry(15,Material.ARROW,"Back","menu"));
   return List.of(new Entry(10,Material.MAP,"Homes","homes"),new Entry(11,Material.DIAMOND,"Auction House","ah"),new Entry(12,Material.WRITABLE_BOOK,"Orders","orders"),new Entry(13,Material.HOPPER,"Sell","sell"),new Entry(14,Material.GOLD_INGOT,"Worth","worth"),new Entry(15,Material.PLAYER_HEAD,"Friends","friends"),new Entry(16,Material.PAPER,"Stats","stats"),new Entry(19,Material.COMPARATOR,"Settings","settings"),new Entry(20,Material.ENDER_PEARL,"Random Teleport","rtp"),new Entry(21,Material.IRON_SWORD,"Duels","queue"),new Entry(22,Material.SHIELD,"FFA","ffa"),new Entry(23,Material.BOOK,"Rules","rules"),new Entry(24,Material.SHIELD,"Teams","team"),new Entry(25,Material.COMPASS,"Warps","warps"),new Entry(26,Material.WRITABLE_BOOK,"Help","help"));
  }
+ private String menuKey(String title){String t=title.toLowerCase(Locale.ROOT);if(t.contains("auction"))return "auction-house";if(t.contains("home"))return "homes";if(t.contains("setting"))return "settings";return "main";}
  public void show(Player p,String title,String body){
   plugin.getSounds().play(p,"menu-open");
   List<Entry> entries=entries(title);
   if(!platform.isBedrock(p)&&plugin.getConfig().getBoolean("menus.java-native-dialogs",true)){
    try{List<ActionButton> buttons=new ArrayList<>();for(Entry e:entries)buttons.add(ActionButton.create(Component.text(e.label()),Component.text("Run /"+e.command()),150,DialogAction.commandTemplate("/"+e.command())));p.showDialog(Dialog.create(b->b.empty().base(DialogBase.builder(Component.text(title)).body(List.of(DialogBody.plainMessage(Component.text(body)))).build()).type(DialogType.multiAction(buttons,null,2))));return;}catch(Throwable ex){plugin.getLogger().warning("Native dialog unavailable: "+ex.getMessage());}
   }
-  String inventoryTitle=ChatColor.DARK_GRAY+"Flovex Menu: "+title;Inventory inv=Bukkit.createInventory(null,27,inventoryTitle);
+  String key=menuKey(title);int rows=Math.max(1,Math.min(6,plugin.menusConfig().getInt("menus."+key+".rows",3)));String configured=plugin.menusConfig().getString("menus."+key+".title",title);String inventoryTitle=ChatColor.DARK_GRAY+"Flovex Menu: "+ChatColor.translateAlternateColorCodes('&',configured);Inventory inv=Bukkit.createInventory(null,rows*9,inventoryTitle);
   for(Entry e:entries){ItemStack item=new ItemStack(e.icon());ItemMeta meta=item.getItemMeta();meta.setDisplayName(ChatColor.AQUA+e.label());meta.setLore(List.of(ChatColor.GRAY+"Click to open","§0cmd:"+e.command()));item.setItemMeta(meta);inv.setItem(e.slot(),item);}
   p.openInventory(inv);
  }
