@@ -1,0 +1,12 @@
+enabled: true
+title: '&#38BDFB&lFLOVEXSMP'
+update-ticks: 20
+lines:
+  - '&7%date%'
+  - '&f%player%'
+  - '&8&m----------------'
+  - '&#38BDFB$ &f%balance%'
+  - '&bKills: &f%kills%'
+  - '&cDeaths: &f%deaths%'
+  - '&ePlaytime: &f%playtime%'
+  - '&7Ping: &f%ping%ms'

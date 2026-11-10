@@ -1,0 +1,8 @@
+package net.flovex.core.ui;
+import net.flovex.core.FlovexCore;import net.flovex.core.platform.PlatformService;import io.papermc.paper.dialog.Dialog;import io.papermc.paper.dialog.DialogBase;import io.papermc.paper.dialog.DialogBody;import io.papermc.paper.dialog.DialogType;import net.kyori.adventure.text.Component;import org.bukkit.*;import org.bukkit.entity.Player;import org.bukkit.inventory.*;import org.bukkit.inventory.meta.ItemMeta;import java.util.*;
+public final class MenuService{
+ private final FlovexCore plugin;private final PlatformService platform;
+ public MenuService(FlovexCore p,PlatformService s){plugin=p;platform=s;}
+ public void show(Player p,String title,String body){if(!platform.isBedrock(p)&&plugin.getConfig().getBoolean("menus.java-native-dialogs",true)){try{p.showDialog(Dialog.create(b->b.empty().base(DialogBase.builder(Component.text(title)).body(List.of(DialogBody.plainMessage(Component.text(body)))).build()).type(DialogType.notice()));return;}catch(Throwable ex){plugin.getLogger().warning("Native dialog unavailable for "+p.getName()+": "+ex.getMessage());}}Inventory inv=Bukkit.createInventory(null,27,ChatColor.DARK_GRAY+title);ItemStack info=new ItemStack(Material.BOOK);ItemMeta m=info.getItemMeta();m.setDisplayName(ChatColor.AQUA+title);m.setLore(Arrays.asList(ChatColor.GRAY+body.split("\\n")[0],ChatColor.GRAY+"Use the listed commands to continue."));info.setItemMeta(m);inv.setItem(13,info);p.openInventory(inv);}
+ public boolean isBedrock(Player p){return platform.isBedrock(p);}
+}
