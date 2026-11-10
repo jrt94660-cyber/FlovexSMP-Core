@@ -15,7 +15,7 @@ commands:
   sellhand: {description: Sell held item}
   sellall: {description: Sell inventory}
   sellmulti: {description: Sell multiple inventory stacks}
-  sellprogress: {description: View selling progress}
+  sellprogress: {description: View selling progress, aliases: [sellmultiplier]}
   sellhistory: {description: View personal sell history}
   topsell: {description: Top sellers leaderboard}
   worth: {description: Check item worth, aliases: [prices]}
@@ -37,7 +37,7 @@ commands:
   ignore: {description: Ignore player}
   unignore: {description: Unignore player}
   friends: {description: Manage friends, aliases: [friend]}
-  profile: {description: Player profile}
+  profile: {description: Player profile, aliases: [profileviewer]}
   stats: {description: Player stats}
   playtime: {description: Playtime, aliases: [pt]}
   ping: {description: Ping}
