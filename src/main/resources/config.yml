@@ -43,3 +43,5 @@ moderation:
 menus:
   java-native-dialogs: true
   bedrock-chest-fallback: true
+network:
+  servers: []
