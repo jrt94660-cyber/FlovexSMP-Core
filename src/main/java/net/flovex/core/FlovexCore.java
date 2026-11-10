@@ -112,6 +112,6 @@ public final class FlovexCore extends JavaPlugin {
  public YamlConfiguration settingsConfig(){return settingsCfg;}
  public YamlConfiguration homesConfig(){return homesCfg;}
  public YamlConfiguration teleportConfig(){return teleportCfg;}
- public YamlConfiguration pvpConfig(){return pvpCfg;}public YamlConfiguration moderationConfig(){return moderationCfg;}public YamlConfiguration rtpConfig(){return rtpCfg;}
+ public YamlConfiguration pvpConfig(){return pvpCfg;}public YamlConfiguration moderationConfig(){return moderationCfg;}public YamlConfiguration rtpConfig(){return rtpCfg;}public void saveModerationConfig(){try{moderationCfg.save(new File(getDataFolder(),"moderation.yml"));}catch(Exception e){getLogger().warning("Could not save moderation.yml: "+e.getMessage());}}
  public void savePvpConfig(){try{pvpCfg.save(new File(getDataFolder(),"pvp.yml"));}catch(Exception e){getLogger().warning("Could not save pvp.yml: "+e.getMessage());}}
 }
