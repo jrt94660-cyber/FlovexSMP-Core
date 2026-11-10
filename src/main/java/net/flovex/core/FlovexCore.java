@@ -32,11 +32,11 @@ public final class FlovexCore extends JavaPlugin {
  private WarpService warps;
  private MessageService messages;
  private SoundService sounds;
- private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,teleportCfg,pvpCfg,moderationCfg,rtpCfg,networkCfg;
+ private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,teleportCfg,moderationCfg,networkCfg;
 
  @Override public void onEnable() {
   saveDefaultConfig();
-  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","pvp.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","rtp.yml","network.yml"})saveResource(file,false);
+  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","network.yml"})saveResource(file,false);
   try {
    YamlConfiguration databaseCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"database.yml"));
    worth=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
@@ -48,9 +48,7 @@ public final class FlovexCore extends JavaPlugin {
    teamsCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"teams.yml"));
    warpsCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"warps.yml"));
    teleportCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"teleport.yml"));
-   pvpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"pvp.yml"));
    moderationCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"moderation.yml"));
-   rtpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"rtp.yml"));
    networkCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"network.yml"));
 
    storage=new Storage(getDataFolder().toPath(),databaseCfg.getString("storage.file","flovexcore.db"));
@@ -111,6 +109,5 @@ public final class FlovexCore extends JavaPlugin {
  public YamlConfiguration settingsConfig(){return settingsCfg;}
  
  public YamlConfiguration teleportConfig(){return teleportCfg;}
- public YamlConfiguration pvpConfig(){return pvpCfg;}public YamlConfiguration moderationConfig(){return moderationCfg;}public YamlConfiguration rtpConfig(){return rtpCfg;}public void saveModerationConfig(){try{moderationCfg.save(new File(getDataFolder(),"moderation.yml"));}catch(Exception e){getLogger().warning("Could not save moderation.yml: "+e.getMessage());}}
- public void savePvpConfig(){try{pvpCfg.save(new File(getDataFolder(),"pvp.yml"));}catch(Exception e){getLogger().warning("Could not save pvp.yml: "+e.getMessage());}}
+ public YamlConfiguration moderationConfig(){return moderationCfg;}public void saveModerationConfig(){try{moderationCfg.save(new File(getDataFolder(),"moderation.yml"));}catch(Exception e){getLogger().warning("Could not save moderation.yml: "+e.getMessage());}}
 }
