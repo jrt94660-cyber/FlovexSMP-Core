@@ -1,0 +1,9 @@
+enabled: true
+world: world
+min-radius: 1500
+max-radius: 10000
+attempts: 32
+cooldown-seconds: 60
+avoid-water: true
+avoid-lava: true
+avoid-leaves: true
