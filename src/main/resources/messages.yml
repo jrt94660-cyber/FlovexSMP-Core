@@ -1,0 +1,13 @@
+prefix: '&#38BDFB&lFLOVEX &8» '
+messages:
+  no-permission: '&cYou do not have permission.'
+  player-not-found: '&cPlayer not found.'
+  players-only: '&cThis command is for players.'
+  invalid-usage: '&cUsage: &f%usage%'
+  marketplace-unavailable: '&cMarketplace payments are unavailable.'
+  saved: '&aSaved.'
+  deleted: '&cDeleted.'
+  report-sent: '&aYour report has been submitted.'
+  muted: '&cYou are muted.'
+  teleport-success: '&aTeleported.'
+  teleport-cancelled: '&cTeleport cancelled.'

@@ -1,0 +1,8 @@
+defaults:
+  scoreboard: true
+  private-messages: true
+  tpa-auto: false
+  tpahere-auto: false
+  team-chat: false
+  hide-players: false
+  chat-notifications: true
