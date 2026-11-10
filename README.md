@@ -25,7 +25,8 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 ### Marketplace
 - Auction House: list, search, view own listings, cancel listings, buy listings, and claim purchases/proceeds
 - Player buy orders with reserved payments, partial fills, cancellation and expiry refunds
-- Sell menu, sell held stack, sell inventory, and configurable per-item Worth values
+- Sell menu, sell held stack, sell inventory/multi-sell, sell progress, sell history and top-seller leaderboard
+- Configurable per-item Worth values and a rotating farming-meta item with a sell multiplier
 - Vault economy bridge (ExcellentEconomy through Vault) is used only for marketplace transactions
 
 ### Player systems
@@ -34,9 +35,10 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 - TPA, TPAHere, accept/deny/cancel, separate TPA and TPAHere auto-accept settings
 - Friends, private messages, reply, ignore/unignore and player profiles
 - Player settings, scoreboard toggle, statistics, playtime and leaderboards
-- Random teleport with safe-location checks and cooldown
+- Random teleport with safe-location checks, cooldown and group RTP matchmaking queue
 - Teams with invites, member limits, team chat, team homes and friendly-fire toggle
 - Named warps and warp management
+- Configurable BungeeCord portals for proxy server transfers
 
 ### PvP
 - Duel challenges, accept/deny, duel queue, arena positions and draw requests
@@ -54,6 +56,7 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 - RTP, ping, rules/help/rank information, item rename, worth meta, clear dropped items, player logs and home inspection
 - Optional disguise bridge when LibsDisguises is installed
 - Optional voice-chat consent preference storage
+- Phantom-spawn preference and spawner inspection/management utility
 
 ## Java and Bedrock UI
 
@@ -86,7 +89,7 @@ Configuration files include:
 - `auction-house.yml`, `orders.yml`, `worth.yml` — marketplace limits and prices
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — player UI and defaults
 - `homes.yml`, `teleport.yml`, `rtp.yml` — home and teleport controls
-- `pvp.yml`, `teams.yml`, `warps.yml` — PvP, team and warp settings
+- `pvp.yml`, `teams.yml`, `warps.yml`, `network.yml` — PvP, team, warp and proxy portal settings
 - `messages.yml`, `sounds.yml`, `moderation.yml`, `rtp.yml`, `rules.yml` — text, audio, moderation, RTP and rules
 
 Permissions are declared in `plugin.yml`. Staff access defaults to OP; player feature permissions default to true.
