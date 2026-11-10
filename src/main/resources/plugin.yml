@@ -3,17 +3,17 @@ version: '1.0.0'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
-description: FlovexSMP core features.
-softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot]
+description: FlovexSMP player, marketplace, PvP and moderation core.
+softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
-  menu: {description: Open the core menu}
+  menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
-  sell: {description: Sell inventory items}
+  sell: {description: Open the sell menu}
   sellhand: {description: Sell held item}
-  sellall: {description: Sell all sellable items}
+  sellall: {description: Sell inventory}
   worth: {description: Check item worth, aliases: [prices]}
   home: {description: Teleport home}
   homes: {description: List homes}
@@ -32,29 +32,31 @@ commands:
   pm: {description: Toggle private messages}
   ignore: {description: Ignore player}
   unignore: {description: Unignore player}
-  friends: {description: Friends, aliases: [friend]}
+  friends: {description: Manage friends, aliases: [friend]}
   profile: {description: Player profile}
   stats: {description: Player stats}
   playtime: {description: Playtime, aliases: [pt]}
   ping: {description: Ping}
   rtp: {description: Random teleport, aliases: [randomteleport]}
-  bounty: {description: Bounties}
+  bounty: {description: Item bounties}
   leaderboard: {description: Leaderboards, aliases: [top]}
   scoreboard: {description: Toggle scoreboard, aliases: [sb]}
   settings: {description: Player settings}
   duel: {description: Duel challenge}
-  queue: {description: Duel queue}
-  leave: {description: Leave duel or queue}
-  draw: {description: Request draw}
-  arena: {description: Manage duel arenas}
+  queue: {description: Join duel queue}
+  leave: {description: Leave duel, queue or FFA}
+  draw: {description: Request duel draw}
+  arena: {description: Manage duel arena}
   ffa: {description: Free for all}
   ffastats: {description: FFA statistics}
-  ffaarena: {description: Manage FFA arenas}
-  pvp: {description: Ranked PvP}
-  report: {description: Report player}\n  reports: {description: Staff report queue}\n  chatlog: {description: Review chat logs}
+  ffaarena: {description: Manage FFA arena}
+  pvp: {description: Ranked PvP features}
+  report: {description: Report a player}
+  reports: {description: Staff report queue}
+  chatlog: {description: Review chat logs}
   chat: {description: Chat moderation}
-  freeze: {description: Freeze player}
-  staffmode: {description: Staff mode}
+  freeze: {description: Freeze a player}
+  staffmode: {description: Toggle staff mode}
   stafflist: {description: Online staff}
   staffchat: {description: Staff chat}
   helpop: {description: Contact staff}
@@ -78,11 +80,20 @@ commands:
   findplayer: {description: Find player}
   nightvision: {description: Night vision}
   god: {description: God mode}
+  team: {description: Team management}
+  warp: {description: Teleport to a warp}
+  warps: {description: List warps}
+  setwarp: {description: Create or update a warp}
+  delwarp: {description: Delete a warp}
+  hide: {description: Hide or show other players}
+  rules: {description: View server rules}
+  help: {description: View FlovexCore help}
+  ranks: {description: View rank information}
   rename: {description: Rename held item}
   meta: {description: View current worth meta}
   clearlag: {description: Clear dropped items}
   logs: {description: View player logs}
-  seehomes: {description: View another player homes}
+  seehomes: {description: View another player's homes}
   blacklist: {description: Blacklist a player}
   unblacklist: {description: Remove a player blacklist}
   offend: {description: Record a player offense}
@@ -91,7 +102,7 @@ commands:
   kill: {description: Kill yourself or a player}
   safety: {description: Toggle PvP safety}
   voicechatconsent: {description: Toggle voice chat consent}
-  warpmanager: {description: Manage warps}\n  team: {description: Team management}\n  warp: {description: Teleport to a warp}\n  warps: {description: List warps}\n  setwarp: {description: Create or update a warp}\n  delwarp: {description: Delete a warp}\n  hide: {description: Hide or show other players}\n  rules: {description: View server rules}\n  help: {description: View FlovexCore help}\n  ranks: {description: View rank information}
+  warpmanager: {description: Manage warps}
 permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
