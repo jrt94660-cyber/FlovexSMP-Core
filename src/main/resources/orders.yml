@@ -1,0 +1,6 @@
+enabled: true
+max-active-per-player: 10
+max-duration-hours: 72
+max-amount: 100000
+minimum-unit-price: 1.0
+reserve-funds: true

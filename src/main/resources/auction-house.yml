@@ -1,0 +1,10 @@
+enabled: true
+listing:
+  max-per-player: 10
+  duration-hours: 48
+  min-price: 1.0
+  max-price: 1000000000000.0
+  tax-percent: 5.0
+menu:
+  rows: 6
+  title: '&8Flovex Auction House'
