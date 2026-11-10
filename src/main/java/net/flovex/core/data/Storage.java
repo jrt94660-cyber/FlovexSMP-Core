@@ -22,6 +22,12 @@ public final class Storage implements AutoCloseable {
    s.execute("CREATE TABLE IF NOT EXISTS reports(id INTEGER PRIMARY KEY AUTOINCREMENT,reporter TEXT NOT NULL,target TEXT NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL,status TEXT DEFAULT 'OPEN')");
    s.execute("CREATE TABLE IF NOT EXISTS chat_logs(id INTEGER PRIMARY KEY AUTOINCREMENT,uuid TEXT NOT NULL,name TEXT NOT NULL,message TEXT NOT NULL,created INTEGER NOT NULL)");
    s.execute("CREATE TABLE IF NOT EXISTS blacklists(uuid TEXT PRIMARY KEY,name TEXT NOT NULL,staff TEXT NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1)");
+   try{s.execute("ALTER TABLE bounties ADD COLUMN reward BLOB");}catch(SQLException ignored){}
+   s.execute("CREATE INDEX IF NOT EXISTS idx_auctions_active ON auctions(sold,expires)");
+   s.execute("CREATE INDEX IF NOT EXISTS idx_orders_material ON orders(material,remaining,expires)");
+   s.execute("CREATE INDEX IF NOT EXISTS idx_claims_owner ON claims(owner,claimed)");
+   s.execute("CREATE INDEX IF NOT EXISTS idx_reports_status ON reports(status,created)");
+   s.execute("CREATE INDEX IF NOT EXISTS idx_chat_logs_name ON chat_logs(name,created)");
    s.execute("CREATE TABLE IF NOT EXISTS punishments(id INTEGER PRIMARY KEY AUTOINCREMENT,target TEXT NOT NULL,staff TEXT NOT NULL,type TEXT NOT NULL,reason TEXT,expires INTEGER NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1)");
    s.execute("CREATE TABLE IF NOT EXISTS bounties(id INTEGER PRIMARY KEY AUTOINCREMENT,target TEXT NOT NULL,creator TEXT NOT NULL,description TEXT NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1,reward BLOB)");
    s.execute("CREATE TABLE IF NOT EXISTS ffa_stats(uuid TEXT PRIMARY KEY,kills INTEGER DEFAULT 0,deaths INTEGER DEFAULT 0,rating INTEGER DEFAULT 1000)");
