@@ -1,7 +1,0 @@
-matching:
-  enabled: true
-  prioritize-highest-unit-price: true
-  partial-fulfillment: true
-  reserve-budget-on-create: true
-expiration:
-  refund-remaining-budget: true
