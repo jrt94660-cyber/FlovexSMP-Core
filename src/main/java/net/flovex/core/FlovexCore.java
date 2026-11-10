@@ -6,6 +6,7 @@ import net.flovex.core.economy.EconomyHook;
 import net.flovex.core.integration.FlovexExpansion;
 import net.flovex.core.market.Marketplace;
 import net.flovex.core.market.MetaService;
+import net.flovex.core.network.PortalService;
 import net.flovex.core.platform.PlatformService;
 import net.flovex.core.scoreboard.ScoreboardService;
 import net.flovex.core.social.TeamService;
@@ -23,6 +24,7 @@ public final class FlovexCore extends JavaPlugin {
  private EconomyHook economy;
  private Marketplace market;
  private MetaService meta;
+ private PortalService portals;
  private PlatformService platform;
  private MenuService menus;
  private ScoreboardService scoreboard;
@@ -30,11 +32,11 @@ public final class FlovexCore extends JavaPlugin {
  private WarpService warps;
  private MessageService messages;
  private SoundService sounds;
- private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,homesCfg,teleportCfg,pvpCfg,moderationCfg,rtpCfg;
+ private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,homesCfg,teleportCfg,pvpCfg,moderationCfg,rtpCfg,networkCfg;
 
  @Override public void onEnable() {
   saveDefaultConfig();
-  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","homes.yml","teleport.yml","menus.yml","sounds.yml","pvp.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","rtp.yml"})saveResource(file,false);
+  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","homes.yml","teleport.yml","menus.yml","sounds.yml","pvp.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","rtp.yml","network.yml"})saveResource(file,false);
   try {
    YamlConfiguration databaseCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"database.yml"));
    worth=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
@@ -50,12 +52,14 @@ public final class FlovexCore extends JavaPlugin {
    pvpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"pvp.yml"));
    moderationCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"moderation.yml"));
    rtpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"rtp.yml"));
+   networkCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"network.yml"));
 
    storage=new Storage(getDataFolder().toPath(),databaseCfg.getString("storage.file","flovexcore.db"));
    economy=new EconomyHook();
    platform=new PlatformService();
    market=new Marketplace(storage,economy,auctionCfg,ordersCfg);
    meta=new MetaService(storage,worth);
+   portals=new PortalService(this,storage,networkCfg);
    teams=new TeamService(storage,teamsCfg);
    warps=new WarpService(storage,warpsCfg);
    messages=new MessageService(this);
@@ -70,6 +74,8 @@ public final class FlovexCore extends JavaPlugin {
    }
    Bukkit.getPluginManager().registerEvents(commands,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
+   Bukkit.getPluginManager().registerEvents(portals,this);
+   Bukkit.getMessenger().registerOutgoingPluginChannel(this,"BungeeCord");
    if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))new FlovexExpansion(this).register();
 
    scoreboard.start();
@@ -86,11 +92,13 @@ public final class FlovexCore extends JavaPlugin {
   }
  }
 
- @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(storage!=null)storage.close();}
+ @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
  public MetaService getMeta(){return meta;}
+ public PortalService getPortals(){return portals;}
+ public YamlConfiguration networkConfig(){return networkCfg;}
  public PlatformService getPlatform(){return platform;}
  public MenuService getMenus(){return menus;}
  public ScoreboardService getScoreboard(){return scoreboard;}
