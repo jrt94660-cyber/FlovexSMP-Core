@@ -31,20 +31,12 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 
 ### Player systems
 - UUID-based SQLite player records and persistent playtime/statistics
-- Homes with permission-based limits, rename/delete and configurable teleport delay/cancellation
 - TPA, TPAHere, accept/deny/cancel, separate TPA and TPAHere auto-accept settings
 - Friends, private messages, reply, ignore/unignore and player profiles
 - Player settings, scoreboard toggle, statistics, playtime and leaderboards
-- Random teleport with safe-location checks, cooldown and group RTP matchmaking queue
 - Teams with invites, member limits, team chat, team homes and friendly-fire toggle
 - Named warps and warp management
 - Configurable BungeeCord portals for proxy server transfers
-
-### PvP
-- Duel challenges, accept/deny, duel queue, arena positions and draw requests
-- FFA join/leave, configurable arena spawn, persistent FFA kills/deaths/rating
-- PvP rating/leaderboard, personal safety toggle and team friendly-fire protection
-- No combat-tag implementation
 
 ### Moderation and staff
 - Player reports and staff report queue
@@ -53,7 +45,7 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 - Freeze, vanish, staff chat/list/helpop, inventory inspection, teleport, fly, heal, feed, gamemode, god mode and other staff utilities
 
 ### Utilities
-- RTP, ping, rules/help/rank information, item rename, worth meta, clear dropped items, player logs and home inspection
+- ping, rules/help/rank information, item rename, worth meta, clear dropped items and player logs
 - Optional disguise bridge when LibsDisguises is installed
 - Optional voice-chat consent preference storage
 - Phantom-spawn preference, spawner inspection/management and staff cuboid selection utility
@@ -72,7 +64,6 @@ Java players receive interactive Paper native Dialog menus. Floodgate-detected B
   - `%flovexcore_blocks_broken%`
   - `%flovexcore_blocks_placed%`
   - `%flovexcore_playtime%`
-  - `%flovexcore_homes%`
   - `%flovexcore_team%`
   - `%flovexcore_ffa_rating%`
   - `%flovexcore_ping%`
@@ -90,12 +81,14 @@ Configuration files include:
 - `database.yml` — SQLite file and connection settings
 - `auction-house.yml`, `orders.yml`, `worth.yml` — marketplace limits and prices
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — player UI and defaults
-- `homes.yml`, `teleport.yml`, `rtp.yml` — home and teleport controls
-- `pvp.yml`, `teams.yml`, `warps.yml`, `network.yml` — PvP, team, warp and proxy portal settings
+- `teleport.yml` — teleport controls
+- `teams.yml`, `warps.yml`, `network.yml` — team, warp and proxy portal settings
 - `messages.yml`, `sounds.yml`, `moderation.yml`, `rtp.yml`, `rules.yml` — text, audio, moderation, RTP and rules
 
 Permissions are declared in `plugin.yml`. Staff access defaults to OP; player feature permissions default to true.
 
 ## Explicit exclusions
+
+Homes, RTP, RTP queue, Duels, duel queue, FFA and Ranked PvP are handled by separate FlovexSMP plugins and are not registered or implemented by FlovexCore.
 
 FlovexCore intentionally does **not** implement Shop, Spawn, AFK, Crates, Broadcasts, Store, Discord, Media, combat-tag, Ender Chest, a custom Economy, Shards, or Maintenance. It does not create a new currency.
