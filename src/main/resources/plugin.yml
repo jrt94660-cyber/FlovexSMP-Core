@@ -5,6 +5,8 @@ api-version: '26.2'
 authors: [Flovex]
 description: FlovexSMP core features.
 softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot]
+libraries:
+  - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
   menu: {description: Open the core menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
