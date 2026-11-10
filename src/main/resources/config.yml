@@ -45,3 +45,6 @@ menus:
   bedrock-chest-fallback: true
 network:
   servers: []
+
+phantom:
+  radius: 64
