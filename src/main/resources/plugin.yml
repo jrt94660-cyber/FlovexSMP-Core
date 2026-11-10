@@ -1,5 +1,5 @@
 name: FlovexCore
-version: '1.0.1'
+version: '1.0.2'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
@@ -19,11 +19,6 @@ commands:
   sellhistory: {description: View personal sell history}
   topsell: {description: Top sellers leaderboard}
   worth: {description: Check item worth, aliases: [prices]}
-  home: {description: Teleport home}
-  homes: {description: List homes}
-  sethome: {description: Set home}
-  delhome: {description: Delete home}
-  renamehome: {description: Rename home}
   tpa: {description: Request teleport}
   tpahere: {description: Request player teleport}
   tpaccept: {description: Accept teleport}
@@ -87,7 +82,6 @@ commands:
   meta: {description: View current worth meta}
   clearlag: {description: Clear dropped items}
   logs: {description: View player logs}
-  seehomes: {description: View another player's homes}
   blacklist: {description: Blacklist a player}
   unblacklist: {description: Remove a player blacklist}
   offend: {description: Record a player offense}
@@ -106,11 +100,6 @@ permissions:
   flovexcore.staff: {default: op}
   flovexcore.market.use: {default: true}
   flovexcore.market.admin: {default: op}
-  flovexcore.homes.use: {default: true}
-  flovexcore.homes.10: {default: false}
-  flovexcore.homes.20: {default: false}
-  flovexcore.homes.40: {default: false}
-  flovexcore.homes.unlimited: {default: false}
   flovexcore.teleport.use: {default: true}
   flovexcore.social.use: {default: true}
   flovexcore.pvp.use: {default: true}
