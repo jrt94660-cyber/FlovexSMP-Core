@@ -1,0 +1,4 @@
+storage:
+  file: flovexcore.db
+  busy-timeout-ms: 5000
+  journal-mode: WAL

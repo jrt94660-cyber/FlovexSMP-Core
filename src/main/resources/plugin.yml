@@ -1,0 +1,90 @@
+name: FlovexCore
+version: '1.0.0'
+main: net.flovex.core.FlovexCore
+api-version: '26.2'
+authors: [Flovex]
+description: FlovexSMP core features.
+softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot]
+commands:
+  menu: {description: Open the core menu}
+  auctionhouse: {description: Auction House, aliases: [ah]}
+  orders: {description: Player buy orders}
+  sell: {description: Sell inventory items}
+  sellhand: {description: Sell held item}
+  sellall: {description: Sell all sellable items}
+  worth: {description: Check item worth, aliases: [prices]}
+  home: {description: Teleport home}
+  homes: {description: List homes}
+  sethome: {description: Set home}
+  delhome: {description: Delete home}
+  renamehome: {description: Rename home}
+  tpa: {description: Request teleport}
+  tpahere: {description: Request player teleport}
+  tpaccept: {description: Accept teleport}
+  tpadeny: {description: Deny teleport}
+  tpacancel: {description: Cancel teleport}
+  tpauto: {description: Toggle TPA auto}
+  tpahereauto: {description: Toggle TPAHere auto}
+  msg: {description: Private message, aliases: [message, tell, w]}
+  reply: {description: Reply, aliases: [r]}
+  pm: {description: Toggle private messages}
+  ignore: {description: Ignore player}
+  unignore: {description: Unignore player}
+  friends: {description: Friends, aliases: [friend]}
+  profile: {description: Player profile}
+  stats: {description: Player stats}
+  playtime: {description: Playtime, aliases: [pt]}
+  ping: {description: Ping}
+  rtp: {description: Random teleport, aliases: [randomteleport]}
+  bounty: {description: Bounties}
+  leaderboard: {description: Leaderboards, aliases: [top]}
+  scoreboard: {description: Toggle scoreboard, aliases: [sb]}
+  settings: {description: Player settings}
+  duel: {description: Duel challenge}
+  queue: {description: Duel queue}
+  leave: {description: Leave duel or queue}
+  draw: {description: Request draw}
+  arena: {description: Manage duel arenas}
+  ffa: {description: Free for all}
+  ffastats: {description: FFA statistics}
+  ffaarena: {description: Manage FFA arenas}
+  pvp: {description: Ranked PvP}
+  report: {description: Report player}
+  chat: {description: Chat moderation}
+  freeze: {description: Freeze player}
+  staffmode: {description: Staff mode}
+  stafflist: {description: Online staff}
+  staffchat: {description: Staff chat}
+  helpop: {description: Contact staff}
+  punishments: {description: Punishment history}
+  warn: {description: Warn player}
+  kick: {description: Kick player}
+  ban: {description: Ban player}
+  tempban: {description: Temporary ban}
+  unban: {description: Unban player}
+  mute: {description: Mute player}
+  tempmute: {description: Temporary mute}
+  unmute: {description: Unmute player}
+  fly: {description: Toggle flight}
+  flyspeed: {description: Set flight speed}
+  heal: {description: Heal player}
+  feed: {description: Feed player}
+  gamemode: {description: Change gamemode, aliases: [gm]}
+  vanish: {description: Toggle vanish}
+  invsee: {description: Inspect inventory}
+  teleport: {description: Teleport player, aliases: [tp]}
+  findplayer: {description: Find player}
+  nightvision: {description: Night vision}
+  god: {description: God mode}
+permissions:
+  flovexcore.admin: {default: op}
+  flovexcore.staff: {default: op}
+  flovexcore.market.use: {default: true}
+  flovexcore.market.admin: {default: op}
+  flovexcore.homes.use: {default: true}
+  flovexcore.homes.unlimited: {default: false}
+  flovexcore.teleport.use: {default: true}
+  flovexcore.social.use: {default: true}
+  flovexcore.pvp.use: {default: true}
+  flovexcore.moderation.use: {default: op}
+  flovexcore.staffmode: {default: op}

@@ -1,0 +1,45 @@
+prefix: '&#38BDFB&lFLOVEX &8» '
+homes:
+  default-limit: 5
+  limits:
+    flovexcore.homes.10: 10
+    flovexcore.homes.20: 20
+    flovexcore.homes.40: 40
+    flovexcore.homes.unlimited: 999
+teleport:
+  delay-seconds: 3
+  request-expiry-seconds: 60
+  cancel-on-move: true
+  cancel-on-damage: true
+rtp:
+  enabled: true
+  world: world
+  min-radius: 1500
+  max-radius: 10000
+  attempts: 32
+  cooldown-seconds: 60
+marketplace:
+  max-auctions: 10
+  listing-hours: 48
+  tax-percent: 5.0
+  min-price: 1.0
+  max-price: 1000000000000.0
+  max-order-amount: 100000
+scoreboard:
+  enabled: true
+  update-ticks: 20
+chat:
+  enabled: true
+  slowmode-seconds: 0
+  max-length: 256
+  blocked-words: []
+pvp:
+  duel-enabled: true
+  ffa-enabled: true
+  countdown-seconds: 5
+moderation:
+  tempban-default-seconds: 86400
+  tempmute-default-seconds: 3600
+menus:
+  java-native-dialogs: true
+  bedrock-chest-fallback: true
