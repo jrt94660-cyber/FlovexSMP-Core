@@ -77,7 +77,7 @@ commands:
   teleport: {description: Teleport player, aliases: [tp]}
   findplayer: {description: Find player}
   nightvision: {description: Night vision}
-  god: {description: God mode}
+  god: {description: God mode}\n  team: {description: Team management}\n  warp: {description: Teleport to a warp}\n  warps: {description: List warps}\n  setwarp: {description: Create or update a warp}\n  delwarp: {description: Delete a warp}\n  hide: {description: Hide or show other players}\n  rules: {description: View server rules}\n  help: {description: View FlovexCore help}\n  ranks: {description: View rank information}
 permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
