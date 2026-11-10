@@ -42,6 +42,7 @@ commands:
   playtime: {description: Playtime, aliases: [pt]}
   ping: {description: Ping}
   rtp: {description: Random teleport, aliases: [randomteleport]}
+  rtpq: {description: Join random teleport queue}
   bounty: {description: Item bounties}
   leaderboard: {description: Leaderboards, aliases: [top]}
   scoreboard: {description: Toggle scoreboard, aliases: [sb]}
