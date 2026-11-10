@@ -110,6 +110,7 @@ commands:
   spawner: {description: Inspect or configure a spawner}
   voicechatconsent: {description: Toggle voice chat consent}
   warpmanager: {description: Manage warps}
+  portalmanager: {description: Manage server portals}
 permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
