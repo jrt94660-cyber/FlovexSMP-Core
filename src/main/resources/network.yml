@@ -1,0 +1,6 @@
+enabled: true
+servers: []
+portals:
+  enabled: true
+  default-radius: 3.0
+  cooldown-seconds: 10
