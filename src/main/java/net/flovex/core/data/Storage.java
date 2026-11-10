@@ -22,6 +22,7 @@ public final class Storage implements AutoCloseable {
    s.execute("CREATE TABLE IF NOT EXISTS reports(id INTEGER PRIMARY KEY AUTOINCREMENT,reporter TEXT NOT NULL,target TEXT NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL,status TEXT DEFAULT 'OPEN')");
    s.execute("CREATE TABLE IF NOT EXISTS chat_logs(id INTEGER PRIMARY KEY AUTOINCREMENT,uuid TEXT NOT NULL,name TEXT NOT NULL,message TEXT NOT NULL,created INTEGER NOT NULL)");
    s.execute("CREATE TABLE IF NOT EXISTS blacklists(uuid TEXT PRIMARY KEY,name TEXT NOT NULL,staff TEXT NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL,active INTEGER DEFAULT 1)");
+   s.execute("CREATE TABLE IF NOT EXISTS meta_state(id INTEGER PRIMARY KEY CHECK(id=1),current_item TEXT NOT NULL,next_rotation INTEGER NOT NULL)");
    try{s.execute("ALTER TABLE bounties ADD COLUMN reward BLOB");}catch(SQLException ignored){}
    s.execute("CREATE INDEX IF NOT EXISTS idx_auctions_active ON auctions(sold,expires)");
    s.execute("CREATE INDEX IF NOT EXISTS idx_orders_material ON orders(material,remaining,expires)");
