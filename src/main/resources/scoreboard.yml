@@ -5,7 +5,6 @@ lines:
   - '&7%date%'
   - '&f%player%'
   - '&8&m----------------'
-  - '&#38BDFB$ &f%balance%'
   - '&bKills: &f%kills%'
   - '&cDeaths: &f%deaths%'
   - '&ePlaytime: &f%playtime%'
