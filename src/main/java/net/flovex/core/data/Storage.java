@@ -13,7 +13,6 @@ public final class Storage implements AutoCloseable {
    s.execute("PRAGMA journal_mode=WAL");s.execute("PRAGMA foreign_keys=ON");s.execute("PRAGMA busy_timeout=5000");
    s.execute("CREATE TABLE IF NOT EXISTS player_data(uuid TEXT PRIMARY KEY,last_name TEXT,first_join INTEGER,play_ticks INTEGER DEFAULT 0,last_seen INTEGER DEFAULT 0)");
    s.execute("CREATE TABLE IF NOT EXISTS player_stats(uuid TEXT PRIMARY KEY,kills INTEGER DEFAULT 0,deaths INTEGER DEFAULT 0,blocks_broken INTEGER DEFAULT 0,blocks_placed INTEGER DEFAULT 0)");
-   s.execute("CREATE TABLE IF NOT EXISTS homes(id INTEGER PRIMARY KEY AUTOINCREMENT,owner TEXT NOT NULL,name TEXT NOT NULL,world TEXT NOT NULL,x REAL,y REAL,z REAL,yaw REAL,pitch REAL,UNIQUE(owner,name))");
    s.execute("CREATE TABLE IF NOT EXISTS social(owner TEXT NOT NULL,target TEXT NOT NULL,kind TEXT NOT NULL,created INTEGER NOT NULL,PRIMARY KEY(owner,target,kind))");
    s.execute("CREATE TABLE IF NOT EXISTS requests(target TEXT NOT NULL,sender TEXT NOT NULL,kind TEXT NOT NULL,created INTEGER NOT NULL,PRIMARY KEY(target,sender,kind))");
    s.execute("CREATE TABLE IF NOT EXISTS auctions(id INTEGER PRIMARY KEY AUTOINCREMENT,seller TEXT NOT NULL,item BLOB NOT NULL,price REAL NOT NULL,created INTEGER NOT NULL,expires INTEGER NOT NULL,sold INTEGER DEFAULT 0)");
