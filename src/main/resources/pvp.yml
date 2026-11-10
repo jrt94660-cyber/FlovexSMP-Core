@@ -1,0 +1,12 @@
+duels:
+  enabled: true
+  countdown-seconds: 5
+  arena:
+    setpos1: ''
+    setpos2: ''
+ffa:
+  enabled: true
+  spawn: null
+ranked:
+  enabled: true
+  rating-start: 1000

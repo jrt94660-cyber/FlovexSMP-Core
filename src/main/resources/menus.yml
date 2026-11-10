@@ -1,0 +1,5 @@
+menus:
+  main: {title: '&8FlovexCore', rows: 6}
+  homes: {title: '&8Your Homes', rows: 6}
+  auction-house: {title: '&8Flovex Auction House', rows: 6}
+  settings: {title: '&8Player Settings', rows: 3}

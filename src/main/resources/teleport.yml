@@ -1,0 +1,4 @@
+delay-seconds: 3
+request-expiry-seconds: 60
+cancel-on-move: true
+cancel-on-damage: true

@@ -1,0 +1,9 @@
+chat:
+  enabled: true
+  slowmode-seconds: 0
+  blocked-words: []
+reports:
+  notify-permission: flovexcore.staff
+punishments:
+  tempban-default-seconds: 86400
+  tempmute-default-seconds: 3600
