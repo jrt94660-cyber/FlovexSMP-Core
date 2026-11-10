@@ -7,3 +7,7 @@ cooldown-seconds: 60
 avoid-water: true
 avoid-lava: true
 avoid-leaves: true
+queue:
+  enabled: true
+  match-size: 2
+  spread-radius: 12
