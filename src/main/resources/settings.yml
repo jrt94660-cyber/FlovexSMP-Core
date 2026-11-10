@@ -1,5 +1,6 @@
 defaults:
   scoreboard: true
+  scoreboard-style: modern
   private-messages: true
   tpa-auto: false
   tpahere-auto: false
