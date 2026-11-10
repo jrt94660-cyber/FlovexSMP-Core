@@ -5,6 +5,7 @@ import net.flovex.core.data.Storage;
 import net.flovex.core.economy.EconomyHook;
 import net.flovex.core.integration.FlovexExpansion;
 import net.flovex.core.market.Marketplace;
+import net.flovex.core.market.MetaService;
 import net.flovex.core.platform.PlatformService;
 import net.flovex.core.scoreboard.ScoreboardService;
 import net.flovex.core.social.TeamService;
@@ -21,6 +22,7 @@ public final class FlovexCore extends JavaPlugin {
  private Storage storage;
  private EconomyHook economy;
  private Marketplace market;
+ private MetaService meta;
  private PlatformService platform;
  private MenuService menus;
  private ScoreboardService scoreboard;
@@ -53,6 +55,7 @@ public final class FlovexCore extends JavaPlugin {
    economy=new EconomyHook();
    platform=new PlatformService();
    market=new Marketplace(storage,economy,auctionCfg,ordersCfg);
+   meta=new MetaService(storage,worth);
    teams=new TeamService(storage,teamsCfg);
    warps=new WarpService(storage,warpsCfg);
    messages=new MessageService(this);
@@ -71,6 +74,7 @@ public final class FlovexCore extends JavaPlugin {
 
    scoreboard.start();
    Bukkit.getScheduler().runTaskTimer(this,()->market.cleanup(),1200L,1200L);
+   Bukkit.getScheduler().runTaskTimer(this,()->meta.checkRotation(),20L,20L);
    Bukkit.getScheduler().runTaskTimer(this,()->Bukkit.getOnlinePlayers().forEach(player->{
     storage.update("INSERT INTO player_data(uuid,last_name,first_join,play_ticks,last_seen) VALUES(?,?,?,?,?) ON CONFLICT(uuid) DO UPDATE SET last_name=excluded.last_name,play_ticks=player_data.play_ticks+1200,last_seen=excluded.last_seen",player.getUniqueId().toString(),player.getName(),System.currentTimeMillis(),1200,System.currentTimeMillis());
    }),1200L,1200L);
@@ -86,6 +90,7 @@ public final class FlovexCore extends JavaPlugin {
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
+ public MetaService getMeta(){return meta;}
  public PlatformService getPlatform(){return platform;}
  public MenuService getMenus(){return menus;}
  public ScoreboardService getScoreboard(){return scoreboard;}
