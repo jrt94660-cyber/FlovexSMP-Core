@@ -1,5 +1,5 @@
 package net.flovex.core.ui;
-import net.flovex.core.FlovexCore;import net.flovex.core.platform.PlatformService;import io.papermc.paper.dialog.Dialog;import io.papermc.paper.dialog.DialogBase;import io.papermc.paper.dialog.DialogBody;import io.papermc.paper.dialog.DialogType;import net.kyori.adventure.text.Component;import org.bukkit.*;import org.bukkit.entity.Player;import org.bukkit.inventory.*;import org.bukkit.inventory.meta.ItemMeta;import java.util.*;
+import net.flovex.core.FlovexCore;import net.flovex.core.platform.PlatformService;import io.papermc.paper.dialog.Dialog;import io.papermc.paper.registry.data.dialog.DialogBase;import io.papermc.paper.registry.data.dialog.body.DialogBody;import io.papermc.paper.registry.data.dialog.type.DialogType;import net.kyori.adventure.text.Component;import org.bukkit.*;import org.bukkit.entity.Player;import org.bukkit.inventory.*;import org.bukkit.inventory.meta.ItemMeta;import java.util.*;
 public final class MenuService{
  private final FlovexCore plugin;private final PlatformService platform;
  public MenuService(FlovexCore p,PlatformService s){plugin=p;platform=s;}
