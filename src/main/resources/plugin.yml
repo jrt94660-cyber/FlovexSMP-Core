@@ -1,5 +1,5 @@
 name: FlovexCore
-version: '1.0.0'
+version: '1.0.1'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
@@ -41,21 +41,10 @@ commands:
   stats: {description: Player stats}
   playtime: {description: Playtime, aliases: [pt]}
   ping: {description: Ping}
-  rtp: {description: Random teleport, aliases: [randomteleport]}
-  rtpq: {description: Join random teleport queue}
   bounty: {description: Item bounties}
   leaderboard: {description: Leaderboards, aliases: [top]}
   scoreboard: {description: Toggle scoreboard, aliases: [sb]}
   settings: {description: Player settings}
-  duel: {description: Duel challenge}
-  queue: {description: Join duel queue}
-  leave: {description: Leave duel, queue or FFA}
-  draw: {description: Request duel draw}
-  arena: {description: Manage duel arena}
-  ffa: {description: Free for all}
-  ffastats: {description: FFA statistics}
-  ffaarena: {description: Manage FFA arena}
-  pvp: {description: Ranked PvP features}
   report: {description: Report a player}
   reports: {description: Staff report queue}
   chatlog: {description: Review chat logs}
