@@ -1,6 +1,0 @@
-default-limit: 5
-limits:
-  flovexcore.homes.10: 10
-  flovexcore.homes.20: 20
-  flovexcore.homes.40: 40
-  flovexcore.homes.unlimited: 999
