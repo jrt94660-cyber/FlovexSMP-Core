@@ -39,6 +39,18 @@ public final class MenuService implements Listener {
   for(Entry e:entries){ItemStack item=new ItemStack(e.icon());ItemMeta meta=item.getItemMeta();meta.setDisplayName(ChatColor.AQUA+e.label());meta.setLore(List.of(ChatColor.GRAY+"Click to open","§0cmd:"+e.command()));item.setItemMeta(meta);inv.setItem(e.slot(),item);}
   p.openInventory(inv);
  }
+ public void showAuction(Player p,String body,List<Map<String,String>> listings){
+  plugin.getSounds().play(p,"menu-open");
+  List<ActionButton> buttons=new ArrayList<>();
+  for(Map<String,String> listing:listings)buttons.add(ActionButton.create(Component.text(listing.get("label")),Component.text("Buy this listing"),150,DialogAction.commandTemplate("/"+listing.get("command"))));
+  buttons.add(ActionButton.create(Component.text("My Listings"),Component.text("Manage your auctions"),150,DialogAction.commandTemplate("/ah my")));
+  buttons.add(ActionButton.create(Component.text("Claim Purchases"),Component.text("Collect purchases and proceeds"),150,DialogAction.commandTemplate("/ah claim")));
+  buttons.add(ActionButton.create(Component.text("Buy Orders"),Component.text("View player buy orders"),150,DialogAction.commandTemplate("/orders")));
+  buttons.add(ActionButton.create(Component.text("Sell"),Component.text("Open sell menu"),150,DialogAction.commandTemplate("/sell")));
+  buttons.add(ActionButton.create(Component.text("Main Menu"),Component.text("Return to FlovexCore"),150,DialogAction.commandTemplate("/menu")));
+  try{p.showDialog(Dialog.create(b->b.empty().base(DialogBase.builder(Component.text("Flovex Auction House")).body(List.of(DialogBody.plainMessage(Component.text(body)))).build()).type(DialogType.multiAction(buttons,null,2))));}
+  catch(Throwable ex){plugin.getLogger().warning("Auction dialog unavailable: "+ex.getMessage());show(p,"Flovex Auction House",body);}
+ }
  public void showHomes(Player p,List<String> homes){
   plugin.getSounds().play(p,"menu-open");
   if(!platform.isBedrock(p)&&plugin.getConfig().getBoolean("menus.java-native-dialogs",true)){
