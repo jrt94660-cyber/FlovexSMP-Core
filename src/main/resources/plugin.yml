@@ -77,7 +77,21 @@ commands:
   teleport: {description: Teleport player, aliases: [tp]}
   findplayer: {description: Find player}
   nightvision: {description: Night vision}
-  god: {description: God mode}\n  team: {description: Team management}\n  warp: {description: Teleport to a warp}\n  warps: {description: List warps}\n  setwarp: {description: Create or update a warp}\n  delwarp: {description: Delete a warp}\n  hide: {description: Hide or show other players}\n  rules: {description: View server rules}\n  help: {description: View FlovexCore help}\n  ranks: {description: View rank information}
+  god: {description: God mode}
+  rename: {description: Rename held item}
+  meta: {description: View current worth meta}
+  clearlag: {description: Clear dropped items}
+  logs: {description: View player logs}
+  seehomes: {description: View another player homes}
+  blacklist: {description: Blacklist a player}
+  unblacklist: {description: Remove a player blacklist}
+  offend: {description: Record a player offense}
+  servers: {description: View network server information}
+  disguise: {description: Disguise using optional disguise integration}
+  kill: {description: Kill yourself or a player}
+  safety: {description: Toggle PvP safety}
+  voicechatconsent: {description: Toggle voice chat consent}
+  warpmanager: {description: Manage warps}\n  team: {description: Team management}\n  warp: {description: Teleport to a warp}\n  warps: {description: List warps}\n  setwarp: {description: Create or update a warp}\n  delwarp: {description: Delete a warp}\n  hide: {description: Hide or show other players}\n  rules: {description: View server rules}\n  help: {description: View FlovexCore help}\n  ranks: {description: View rank information}
 permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
