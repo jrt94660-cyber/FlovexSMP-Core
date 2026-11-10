@@ -1,0 +1,23 @@
+name: FlovexMarket
+version: '1.0.0'
+main: net.flovex.market.FlovexMarket
+api-version: '26.2'
+authors: [Flovex]
+description: Integrated market, orders, worth, settings and scoreboard.
+softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot]
+commands:
+  ah: {description: Open auction house}
+  orders: {description: Player buy orders}
+  settings: {description: Market preferences}
+  sell: {description: Sell items}
+  sellall: {description: Sell inventory}
+  sellhand: {description: Sell held stack}
+  sellmulti: {description: Sell matching items}
+  worth: {description: Check item worth}
+permissions:
+  flovexmarket.admin: {default: op}
+  flovexmarket.auction.list: {default: true}
+  flovexmarket.auction.buy: {default: true}
+  flovexmarket.orders.create: {default: true}
+  flovexmarket.sell: {default: true}
+  flovexmarket.settings: {default: true}

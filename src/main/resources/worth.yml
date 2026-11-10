@@ -1,0 +1,11 @@
+# Material names are Bukkit Material enum names. Values are per item.
+prices:
+  DIAMOND: 250.0
+  EMERALD: 150.0
+  IRON_INGOT: 12.0
+  GOLD_INGOT: 20.0
+  NETHERITE_INGOT: 2500.0
+  OBSIDIAN: 8.0
+  ANCIENT_DEBRIS: 1800.0
+  ELYTRA: 200000000.0
+  DRAGON_HEAD: 50000000.0
