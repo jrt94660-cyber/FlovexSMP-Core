@@ -28,11 +28,11 @@ public final class FlovexCore extends JavaPlugin {
  private WarpService warps;
  private MessageService messages;
  private SoundService sounds;
- private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,homesCfg,teleportCfg,pvpCfg;
+ private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,homesCfg,teleportCfg,pvpCfg,moderationCfg,rtpCfg;
 
  @Override public void onEnable() {
   saveDefaultConfig();
-  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","homes.yml","teleport.yml","menus.yml","sounds.yml","pvp.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml"})saveResource(file,false);
+  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","homes.yml","teleport.yml","menus.yml","sounds.yml","pvp.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","rtp.yml"})saveResource(file,false);
   try {
    YamlConfiguration databaseCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"database.yml"));
    worth=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
@@ -46,6 +46,8 @@ public final class FlovexCore extends JavaPlugin {
    homesCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"homes.yml"));
    teleportCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"teleport.yml"));
    pvpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"pvp.yml"));
+   moderationCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"moderation.yml"));
+   rtpCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"rtp.yml"));
 
    storage=new Storage(getDataFolder().toPath(),databaseCfg.getString("storage.file","flovexcore.db"));
    economy=new EconomyHook();
@@ -97,6 +99,6 @@ public final class FlovexCore extends JavaPlugin {
  public YamlConfiguration settingsConfig(){return settingsCfg;}
  public YamlConfiguration homesConfig(){return homesCfg;}
  public YamlConfiguration teleportConfig(){return teleportCfg;}
- public YamlConfiguration pvpConfig(){return pvpCfg;}
+ public YamlConfiguration pvpConfig(){return pvpCfg;}public YamlConfiguration moderationConfig(){return moderationCfg;}public YamlConfiguration rtpConfig(){return rtpCfg;}
  public void savePvpConfig(){try{pvpCfg.save(new File(getDataFolder(),"pvp.yml"));}catch(Exception e){getLogger().warning("Could not save pvp.yml: "+e.getMessage());}}
 }
