@@ -56,7 +56,7 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 - RTP, ping, rules/help/rank information, item rename, worth meta, clear dropped items, player logs and home inspection
 - Optional disguise bridge when LibsDisguises is installed
 - Optional voice-chat consent preference storage
-- Phantom-spawn preference and spawner inspection/management utility
+- Phantom-spawn preference, spawner inspection/management and staff cuboid selection utility
 
 ## Java and Bedrock UI
 
@@ -81,6 +81,8 @@ Java players receive interactive Paper native Dialog menus. Floodgate-detected B
 ## Data and configuration
 
 Player data is stored in `plugins/FlovexCore/flovexcore.db` and keyed by UUID. SQLite is loaded through Paper's plugin library mechanism.
+
+Portal transfers use the BungeeCord plugin-message channel and require a BungeeCord-compatible proxy with the destination server names configured in `network.yml`.
 
 Configuration files include:
 
