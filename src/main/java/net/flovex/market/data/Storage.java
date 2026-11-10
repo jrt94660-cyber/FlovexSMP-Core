@@ -47,7 +47,7 @@ public final class Storage implements AutoCloseable {
     public synchronized String preference(UUID uuid,String key,String fallback){
         try { var r=rows("SELECT value FROM preferences WHERE uuid=? AND pref=?",uuid.toString(),key); return r.isEmpty()?fallback:String.valueOf(r.getFirst().get("value")); } catch(SQLException e){return fallback;}
     }
-    public synchronized void preference(UUID uuid,String key,String value){
+    public synchronized void setPreference(UUID uuid,String key,String value){
         try { update("INSERT INTO preferences(uuid,pref,value) VALUES(?,?,?) ON CONFLICT(uuid,pref) DO UPDATE SET value=excluded.value",uuid.toString(),key,value); } catch(SQLException ignored){}
     }
     @Override public synchronized void close(){try{connection.close();}catch(SQLException ignored){}}
