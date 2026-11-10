@@ -81,13 +81,13 @@ Player data is stored in `plugins/FlovexCore/flovexcore.db` and keyed by UUID. S
 
 Configuration files include:
 
-- `config.yml` — global defaults and chat/RTP switches
+- `config.yml` — global feature defaults
 - `database.yml` — SQLite file and connection settings
 - `auction-house.yml`, `orders.yml`, `worth.yml` — marketplace limits and prices
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — player UI and defaults
 - `homes.yml`, `teleport.yml`, `rtp.yml` — home and teleport controls
 - `pvp.yml`, `teams.yml`, `warps.yml` — PvP, team and warp settings
-- `messages.yml`, `sounds.yml`, `moderation.yml`, `rules.yml` — text, audio, moderation and rules
+- `messages.yml`, `sounds.yml`, `moderation.yml`, `rtp.yml`, `rules.yml` — text, audio, moderation, RTP and rules
 
 Permissions are declared in `plugin.yml`. Staff access defaults to OP; player feature permissions default to true.
 
