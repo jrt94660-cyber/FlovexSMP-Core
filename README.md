@@ -65,7 +65,6 @@ Java players receive interactive Paper native Dialog menus. Floodgate-detected B
   - `%flovexcore_blocks_placed%`
   - `%flovexcore_playtime%`
   - `%flovexcore_team%`
-  - `%flovexcore_ffa_rating%`
   - `%flovexcore_ping%`
   - `%flovexcore_platform%`
 
@@ -83,7 +82,7 @@ Configuration files include:
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — player UI and defaults
 - `teleport.yml` — teleport controls
 - `teams.yml`, `warps.yml`, `network.yml` — team, warp and proxy portal settings
-- `messages.yml`, `sounds.yml`, `moderation.yml`, `rtp.yml`, `rules.yml` — text, audio, moderation, RTP and rules
+- `messages.yml`, `sounds.yml`, `moderation.yml`, `rules.yml` — text, audio, moderation and rules
 
 Permissions are declared in `plugin.yml`. Staff access defaults to OP; player feature permissions default to true.
 
