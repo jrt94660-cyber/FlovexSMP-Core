@@ -1,9 +1,9 @@
 name: FlovexCore
-version: '1.0.2'
+version: '1.0.3'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
-description: FlovexSMP player, marketplace, PvP and moderation core.
+description: FlovexSMP player, marketplace and moderation core.
 softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
