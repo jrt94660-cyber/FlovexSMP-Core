@@ -1,0 +1,5 @@
+teams:
+  max-members: 10
+  invite-expiry-seconds: 120
+  friendly-fire-default: false
+  home-enabled: true

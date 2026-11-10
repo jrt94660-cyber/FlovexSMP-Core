@@ -1,0 +1,3 @@
+warps:
+  require-permission: false
+  permission-prefix: flovexcore.warp.
