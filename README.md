@@ -23,10 +23,9 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 ## Implemented feature groups
 
 ### Marketplace
+- Built-in item selling, sell menus, sell commands, worth pricing, and sell statistics are excluded; use your separate selling plugin.
 - Auction House: list, search, view own listings, cancel listings, buy listings, and claim purchases/proceeds
-- Player buy orders with reserved payments, partial fills, cancellation and expiry refunds
-- Sell menu, sell held stack, sell inventory/multi-sell, sell progress, sell history and top-seller leaderboard
-- Configurable per-item Worth values and a rotating farming-meta item with a sell multiplier
+- Player buy orders with reserved payments, cancellation and expiry refunds
 - Vault economy bridge (ExcellentEconomy through Vault) is used only for marketplace transactions
 
 ### Player systems
@@ -56,7 +55,7 @@ Java players receive interactive Paper native Dialog menus. Floodgate-detected B
 
 ## Integrations and placeholders
 
-- Vault is accessed only by the marketplace service; FlovexCore does not add a balance, pay command, economy or currency.
+- Vault is accessed only by the Auction House and Orders services; FlovexCore does not add a balance, pay command, economy or currency.
 - ExcellentEconomy is supported through its Vault economy provider.
 - PlaceholderAPI is optional. FlovexCore registers these placeholders when PlaceholderAPI is present:
   - `%flovexcore_kills%`
@@ -78,7 +77,7 @@ Configuration files include:
 
 - `config.yml` — global feature defaults
 - `database.yml` — SQLite file and connection settings
-- `auction-house.yml`, `orders.yml`, `worth.yml` — marketplace limits and prices
+- `auction-house.yml`, `orders.yml` — marketplace limits and prices
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — player UI and defaults
 - `teleport.yml` — teleport controls
 - `teams.yml`, `warps.yml`, `network.yml` — team, warp and proxy portal settings
