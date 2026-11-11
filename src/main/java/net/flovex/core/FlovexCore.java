@@ -5,7 +5,6 @@ import net.flovex.core.data.Storage;
 import net.flovex.core.economy.EconomyHook;
 import net.flovex.core.integration.FlovexExpansion;
 import net.flovex.core.market.Marketplace;
-import net.flovex.core.market.MetaService;
 import net.flovex.core.network.PortalService;
 import net.flovex.core.platform.PlatformService;
 import net.flovex.core.scoreboard.ScoreboardService;
@@ -23,7 +22,6 @@ public final class FlovexCore extends JavaPlugin {
  private Storage storage;
  private EconomyHook economy;
  private Marketplace market;
- private MetaService meta;
  private PortalService portals;
  private PlatformService platform;
  private MenuService menus;
@@ -32,14 +30,13 @@ public final class FlovexCore extends JavaPlugin {
  private WarpService warps;
  private MessageService messages;
  private SoundService sounds;
- private YamlConfiguration worth,scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,teleportCfg,moderationCfg,networkCfg;
+ private YamlConfiguration scoreboardCfg,menusCfg,settingsCfg,auctionCfg,ordersCfg,teamsCfg,warpsCfg,teleportCfg,moderationCfg,networkCfg;
 
  @Override public void onEnable() {
   saveDefaultConfig();
-  for(String file:new String[]{"database.yml","worth.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","network.yml"})saveResource(file,false);
+  for(String file:new String[]{"database.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","network.yml"})saveResource(file,false);
   try {
    YamlConfiguration databaseCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"database.yml"));
-   worth=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
    scoreboardCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"scoreboard.yml"));
    menusCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"menus.yml"));
    settingsCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"settings.yml"));
@@ -55,7 +52,6 @@ public final class FlovexCore extends JavaPlugin {
    economy=new EconomyHook();
    platform=new PlatformService();
    market=new Marketplace(storage,economy,auctionCfg,ordersCfg);
-   meta=new MetaService(storage,worth);
    portals=new PortalService(this,storage,networkCfg);
    teams=new TeamService(storage,teamsCfg);
    warps=new WarpService(storage,warpsCfg);
@@ -77,7 +73,6 @@ public final class FlovexCore extends JavaPlugin {
 
    scoreboard.start();
    Bukkit.getScheduler().runTaskTimer(this,()->market.cleanup(),1200L,1200L);
-   Bukkit.getScheduler().runTaskTimer(this,()->meta.checkRotation(),20L,20L);
    Bukkit.getScheduler().runTaskTimer(this,()->Bukkit.getOnlinePlayers().forEach(player->{
     storage.update("INSERT INTO player_data(uuid,last_name,first_join,play_ticks,last_seen) VALUES(?,?,?,?,?) ON CONFLICT(uuid) DO UPDATE SET last_name=excluded.last_name,play_ticks=player_data.play_ticks+1200,last_seen=excluded.last_seen",player.getUniqueId().toString(),player.getName(),System.currentTimeMillis(),1200,System.currentTimeMillis());
    }),1200L,1200L);
@@ -93,13 +88,11 @@ public final class FlovexCore extends JavaPlugin {
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
- public MetaService getMeta(){return meta;}
  public PortalService getPortals(){return portals;}
  public YamlConfiguration networkConfig(){return networkCfg;}
  public PlatformService getPlatform(){return platform;}
  public MenuService getMenus(){return menus;}
  public ScoreboardService getScoreboard(){return scoreboard;}
- public YamlConfiguration worthConfig(){return worth;}
  public YamlConfiguration scoreboardConfig(){return scoreboardCfg;}
  public TeamService getTeams(){return teams;}
  public WarpService getWarps(){return warps;}
