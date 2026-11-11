@@ -44,7 +44,7 @@ The output is `target/FlovexCore.jar`. GitHub Actions builds on Temurin Java 25 
 - Freeze, vanish, staff chat/list/helpop, inventory inspection, teleport, fly, heal, feed, gamemode, god mode and other staff utilities
 
 ### Utilities
-- ping, rules/help/rank information, item rename, worth meta, clear dropped items and player logs
+- ping, rules/help/rank information, item rename, clear dropped items and player logs
 - Optional disguise bridge when LibsDisguises is installed
 - Optional voice-chat consent preference storage
 - Phantom-spawn preference, spawner inspection/management and staff cuboid selection utility
