@@ -71,7 +71,6 @@ commands:
   help: {description: View FlovexCore help}
   ranks: {description: View rank information}
   rename: {description: Rename held item}
-  meta: {description: View current worth meta}
   clearlag: {description: Clear dropped items}
   logs: {description: View player logs}
   blacklist: {description: Blacklist a player}
