@@ -6,10 +6,10 @@ defaults:
   scoreboard-kills: true
   scoreboard-deaths: true
   scoreboard-playtime: true
-  private-messages: true
-  tpa-auto: false
-  tpahere-auto: false
-  team-chat: false
+  pm: true
+  tpauto: false
+  tpahereauto: false
+  teamchat: false
   hide-players: false
   chat-notifications: true
   server-sounds: true
