@@ -54,19 +54,43 @@ public final class RtpService {
             int radius = min + random.nextInt(Math.max(1, max - min + 1));
             int x = (int) Math.round(Math.cos(angle) * radius);
             int z = (int) Math.round(Math.sin(angle) * radius);
-            int y = world.getHighestBlockYAt(x, z);
-            Block floor = world.getBlockAt(x, y, z);
-            Block feet = world.getBlockAt(x, y + 1, z);
-            Block head = world.getBlockAt(x, y + 2, z);
-            if (!floor.getType().isSolid() || floor.getType()==Material.BEDROCK || floor.isLiquid() || feet.isLiquid() || head.isLiquid()
-                    || !feet.isPassable() || !head.isPassable()) continue;
-            Location destination = new Location(world, x + 0.5, y + 1, z + 0.5);
-            if (!world.getWorldBorder().isInside(destination)) continue;
+            Location destination = findSafeLocation(world, x, z);
+            if (destination == null || !world.getWorldBorder().isInside(destination)) continue;
             plugin.getMessages().actionBar(player,"&bFinding a safe location...");
             player.teleportAsync(destination).thenAccept(success -> Bukkit.getScheduler().runTask(plugin, () ->
                 plugin.getMessages().actionBar(player,success ? "&aRandom teleport complete." : "&cTeleport failed.")));
             return;
         }
         player.sendMessage(Component.text("Could not find a safe location. Try again."));
+    }
+    private Location findSafeLocation(World world, int x, int z) {
+        if (world.getEnvironment() == World.Environment.NETHER) {
+            int minY = world.getMinHeight() + 8;
+            int maxY = Math.min(world.getMaxHeight() - 4, 120);
+            for (int attempt = 0; attempt < 80; attempt++) {
+                int y = minY + random.nextInt(Math.max(1, maxY - minY));
+                Location location = safeAt(world, x, y, z);
+                if (location != null) return location;
+            }
+            return null;
+        }
+        int y = world.getHighestBlockYAt(x, z);
+        return safeAt(world, x, y, z);
+    }
+
+    private Location safeAt(World world, int x, int y, int z) {
+        if (y <= world.getMinHeight() || y + 2 >= world.getMaxHeight()) return null;
+        Block floor = world.getBlockAt(x, y, z);
+        Block feet = world.getBlockAt(x, y + 1, z);
+        Block head = world.getBlockAt(x, y + 2, z);
+        Material ground = floor.getType();
+        if (!ground.isSolid() || floor.isLiquid() || ground == Material.BEDROCK ||
+            ground == Material.MAGMA_BLOCK || ground == Material.CACTUS ||
+            ground == Material.CAMPFIRE || ground == Material.SOUL_CAMPFIRE ||
+            ground == Material.FIRE || ground == Material.SOUL_FIRE ||
+            ground == Material.WITHER_ROSE || ground == Material.SWEET_BERRY_BUSH ||
+            ground == Material.POWDER_SNOW || feet.isLiquid() || head.isLiquid() ||
+            !feet.isPassable() || !head.isPassable()) return null;
+        return new Location(world, x + 0.5, y + 1, z + 0.5);
     }
 }
