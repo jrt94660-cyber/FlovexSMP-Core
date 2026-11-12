@@ -14,17 +14,10 @@ Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 
 ## Included systems
 
-### Economy, shop, and selling
-- 54-slot Quick Buy shop backed by the full worth catalog in `worth.yml`, with configured vanilla-material blacklist and auto-balanced prices for unlisted items
-- Shop buy prices use a 20x worth multiplier
-- Shop buy prices use a 20x multiplier for listed and auto-balanced items
-- Sell prices are 50% of the resulting shop price; sell value cannot exceed shop price
-- Confirmation menu before money is charged or items are removed
-- `/shop`, `/sell`, `/sellhand`, `/sellall`, `/sellmulti`, `/sellmultiplier`, `/sellprogress`, `/worth`, `/sellhistory`, and `/topsell`
-- Vault `/balance`, `/pay`, and staff money adjustment commands
-- Shard balance, shard payments, kill rewards, and the configured Shard Shop catalog through the Bow item
-- Amethyst Drill, Shovel, Chopper, Sell Axe, and Haste Potion tools with configured expiry; Sell Axe uses the same sale confirmation and 50% shop-price rule
+### Economy and marketplace
+- Vault-compatible balance and payment commands, with staff money adjustment
 - Auction House listings/search/buy/claim/cancel and player buy orders with reserved funds, expiry refunds, and claims
+- Dshop 1.0.40 exclusively owns `/shop`, `/shardshop`, `/sell`, and `/sell worth`; FlovexCore intentionally does not register duplicate commands or duplicate shard/sell storage
 
 ### Player and social systems
 - TPA, TPAHere, accept/deny/cancel, auto-accept preferences, and a queued Overworld RTP
@@ -38,7 +31,7 @@ Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 - LuckPerms group-priority loading from `luckpermsranks.yml`; this file only controls display order and never creates or edits LuckPerms groups
 - Tablist and scoreboard display the selected LuckPerms group prefix only; they do not concatenate inherited prefixes
 - FlovexSMP gradient tablist, online count, branded scoreboard, compact money formatting (k/m/b/t/q/qq)
-- Chat formatting uses the selected LuckPerms prefix and FlovexSMP blue styling; join title and RTP/shop actionbars use the same branding
+- Chat formatting uses the selected LuckPerms prefix and FlovexSMP blue styling; join title and RTP actionbars use the same branding
 - Settings categories: Chat, Notifications, PvP, Visuals, Privacy, Scoreboard, General
 - Privacy category places TPA Auto first; settings persist per UUID
 - Java clients receive native Paper Dialogs; Bedrock clients receive chest-GUI fallbacks where supported
@@ -49,14 +42,13 @@ Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 
 ### Utilities and integrations
 - Rules/help/rank information, item rename, clear dropped items, player logs, phantom preference, spawner inspection/management, cuboid selection, voice-chat consent
-- UUID-based SQLite player data, preferences, stats, social records, teams, marketplace, moderation, sales, and shard balances
-- PlaceholderAPI expansion for kills, deaths, blocks, playtime, team, ping, platform, money, and shards
+- UUID-based SQLite player data, preferences, stats, social records, teams, marketplace, and moderation
+- PlaceholderAPI expansion for kills, deaths, blocks, playtime, team, ping, platform, and money
 
 ## Configuration
 
-- `config.yml` — prefix, chat/title style, tablist, RTP, shop, and shard settings
+- `config.yml` — prefix, chat/title style, tablist, and RTP settings
 - `luckpermsranks.yml` — highest-to-lowest display priority
-- `shop.yml` and `worth.yml` — Quick Buy, Shard Shop, and item values
 - `scoreboard.yml`, `settings.yml`, `menus.yml` — scoreboard and player UI
 - `auction-house.yml`, `orders.yml` — marketplace limits and expiry
 - `teleport.yml`, `teams.yml`, `warps.yml`, `network.yml` — player movement and network systems
