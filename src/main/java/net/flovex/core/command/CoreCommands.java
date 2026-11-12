@@ -179,7 +179,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  }
  int max=plugin.moderationConfig().getInt("chat.max-message-length",256);
  if(messageText.length()>max){e.setCancelled(true);msg(p,"&cMessage too long.");return;}
- if(!staff(p)&&plugin.moderationConfig().getStringList("chat.blocked-words").stream().anyMatch(w->!w.isBlank()&&plain.toLowerCase(Locale.ROOT).contains(w.toLowerCase(Locale.ROOT)))){e.setCancelled(true);msg(p,"&cYour message contains a blocked word.");return;}
+ if(!staff(p)&&plugin.moderationConfig().getStringList("chat.blocked-words").stream().anyMatch(w->!w.isBlank()&&messageText.toLowerCase(Locale.ROOT).contains(w.toLowerCase(Locale.ROOT)))){e.setCancelled(true);msg(p,"&cYour message contains a blocked word.");return;}
  db.update("INSERT INTO chat_logs(uuid,name,message,created) VALUES(?,?,?,?)",id(p),p.getName(),messageText,System.currentTimeMillis());
  if(Boolean.parseBoolean(db.preference(p.getUniqueId(),"teamchat","false"))){if(plugin.getTeams().hasTeam(p)){e.setCancelled(true);Bukkit.getScheduler().runTask(plugin,()->plugin.getTeams().chat(p,messageText));return;}db.setPreference(p.getUniqueId(),"teamchat","false");msg(p,"&cYou are not in a team; team chat was disabled.");}
  for(Player viewer:Bukkit.getOnlinePlayers())if(!viewer.equals(p)&&!db.rows("SELECT target FROM social WHERE owner=? AND target=? AND kind='IGNORE'",viewer.getUniqueId().toString(),id(p)).isEmpty())e.viewers().remove(viewer);
