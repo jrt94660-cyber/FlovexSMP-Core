@@ -12,8 +12,6 @@ import net.flovex.core.scoreboard.TablistService;
 import net.flovex.core.rank.RankService;
 import net.flovex.core.world.RtpService;
 import net.flovex.core.world.RtpQueueService;
-import net.flovex.core.shop.ShopService;
-import net.flovex.core.shop.ShardShopService;
 import net.flovex.core.social.TeamService;
 import net.flovex.core.text.MessageService;
 import net.flovex.core.text.SoundService;
@@ -38,8 +36,6 @@ public final class FlovexCore extends JavaPlugin {
  private TablistService tablist;
  private RtpService rtp;
  private RtpQueueService rtpQueue;
- private ShopService shop;
- private ShardShopService shardShop;
  private TeamService teams;
  private WarpService warps;
  private MessageService messages;
@@ -48,7 +44,7 @@ public final class FlovexCore extends JavaPlugin {
 
  @Override public void onEnable() {
   saveDefaultConfig();
-  for(String file:new String[]{"database.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","network.yml","shop.yml","worth.yml"})saveResource(file,false);
+  for(String file:new String[]{"database.yml","scoreboard.yml","teleport.yml","menus.yml","sounds.yml","moderation.yml","teams.yml","warps.yml","rules.yml","messages.yml","settings.yml","auction-house.yml","orders.yml","network.yml"})saveResource(file,false);
   try {
    YamlConfiguration databaseCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"database.yml"));
    scoreboardCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"scoreboard.yml"));
@@ -77,10 +73,6 @@ public final class FlovexCore extends JavaPlugin {
    ranks=new RankService(this);
    tablist=new TablistService(this);
    rtp=new RtpService(this);
-   YamlConfiguration shopCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"shop.yml"));
-   YamlConfiguration worthCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
-   shop=new ShopService(this,economy,shopCfg,worthCfg);
-   shardShop=new ShardShopService(this,shopCfg.getConfigurationSection("SHARD-MENU"));
    rtpQueue=new RtpQueueService(this);
 
    CoreCommands commands=new CoreCommands(this);
@@ -89,8 +81,6 @@ public final class FlovexCore extends JavaPlugin {
     if(command!=null){command.setExecutor(commands);command.setTabCompleter(commands);}
    }
    Bukkit.getPluginManager().registerEvents(commands,this);
-   Bukkit.getPluginManager().registerEvents(shop,this);
-   Bukkit.getPluginManager().registerEvents(shardShop,this);
    Bukkit.getPluginManager().registerEvents(rtp,this);
    Bukkit.getPluginManager().registerEvents(rtpQueue,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
@@ -102,7 +92,6 @@ public final class FlovexCore extends JavaPlugin {
    scoreboard.start();
    tablist.start();
    rtpQueue.start();
-   shardShop.start();
    Bukkit.getScheduler().runTaskTimer(this,()->market.cleanup(),1200L,1200L);
    Bukkit.getScheduler().runTaskTimer(this,()->Bukkit.getOnlinePlayers().forEach(player->{
     storage.update("INSERT INTO player_data(uuid,last_name,first_join,play_ticks,last_seen) VALUES(?,?,?,?,?) ON CONFLICT(uuid) DO UPDATE SET last_name=excluded.last_name,play_ticks=player_data.play_ticks+1200,last_seen=excluded.last_seen",player.getUniqueId().toString(),player.getName(),System.currentTimeMillis(),1200,System.currentTimeMillis());
@@ -115,7 +104,7 @@ public final class FlovexCore extends JavaPlugin {
   }
  }
 
- @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(tablist!=null)tablist.stop();if(rtpQueue!=null)rtpQueue.stop();if(shardShop!=null)shardShop.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
+ @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(tablist!=null)tablist.stop();if(rtpQueue!=null)rtpQueue.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
@@ -128,8 +117,6 @@ public final class FlovexCore extends JavaPlugin {
  public RankService getRanks(){return ranks;}
  public RtpService getRtp(){return rtp;}
  public RtpQueueService getRtpQueue(){return rtpQueue;}
- public ShopService getShop(){return shop;}
- public ShardShopService getShardShop(){return shardShop;}
  public YamlConfiguration scoreboardConfig(){return scoreboardCfg;}
  public TeamService getTeams(){return teams;}
  public WarpService getWarps(){return warps;}
