@@ -1,13 +1,14 @@
 name: FlovexCore
-version: '1.0.4'
+version: '1.0.5'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
 description: FlovexSMP player, marketplace and moderation core.
-softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
+softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
+  rtp: {description: Open the three-world random teleport dialog}
   menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
