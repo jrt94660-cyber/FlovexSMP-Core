@@ -66,9 +66,21 @@ public final class RankService {
 
     public String getDisplayPrefix(Player player) {
         String group = getPrimaryDisplayGroup(player);
-        return "&7" + group + " ";
+        try {
+            Class<?> provider = Class.forName("net.luckperms.api.LuckPermsProvider");
+            Object api = provider.getMethod("get").invoke(null);
+            Object manager = api.getClass().getMethod("getGroupManager").invoke(api);
+            Object groupObject = manager.getClass().getMethod("getGroup", String.class).invoke(manager, group);
+            if (groupObject == null) return "&7" + group;
+            Object cached = groupObject.getClass().getMethod("getCachedData").invoke(groupObject);
+            Class<?> queryOptions = Class.forName("net.luckperms.api.query.QueryOptions");
+            Object options = queryOptions.getMethod("defaultContextualOptions").invoke(null);
+            Object meta = cached.getClass().getMethod("getMetaData", queryOptions).invoke(cached, options);
+            Object prefix = meta.getClass().getMethod("getPrefix").invoke(meta);
+            if (prefix != null && !String.valueOf(prefix).isBlank()) return String.valueOf(prefix).replace('§', '&');
+        } catch (Throwable ignored) {}
+        return "&7" + group;
     }
-
     public void apply(Player player) {
         String group = getPrimaryDisplayGroup(player);
         player.playerListName(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand()
