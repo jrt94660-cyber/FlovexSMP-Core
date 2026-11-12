@@ -13,6 +13,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -265,6 +266,14 @@ public final class ShardShopService implements Listener {
         if (event.getClickedBlock().getState() instanceof InventoryHolder holder) {
             event.setCancelled(true);
             plugin.getShop().sellContainer(player, holder.getInventory());
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true) public void onConsume(PlayerItemConsumeEvent event) {
+        if (expired(event.getItem())) {
+            event.setCancelled(true);
+            event.getPlayer().getInventory().setItemInMainHand(null);
+            plugin.getMessages().actionBar(event.getPlayer(), "&cYour amethyst item has expired.");
         }
     }
 
