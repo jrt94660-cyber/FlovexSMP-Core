@@ -71,7 +71,7 @@ public final class RankService {
             Object api = provider.getMethod("get").invoke(null);
             Object manager = api.getClass().getMethod("getGroupManager").invoke(api);
             Object groupObject = manager.getClass().getMethod("getGroup", String.class).invoke(manager, group);
-            if (groupObject == null) return "&7" + group;
+            if (groupObject == null) return "";
             Object cached = groupObject.getClass().getMethod("getCachedData").invoke(groupObject);
             Class<?> queryOptions = Class.forName("net.luckperms.api.query.QueryOptions");
             Object options = queryOptions.getMethod("defaultContextualOptions").invoke(null);
@@ -79,7 +79,7 @@ public final class RankService {
             Object prefix = meta.getClass().getMethod("getPrefix").invoke(meta);
             if (prefix != null && !String.valueOf(prefix).isBlank()) return String.valueOf(prefix).replace('§', '&');
         } catch (Throwable ignored) {}
-        return "&7" + group;
+        return "";
     }
     public void apply(Player player) {
         String group = getPrimaryDisplayGroup(player);
