@@ -555,7 +555,7 @@ QUICK-BUY:
     # Automatically calculate a fair balanced price for items missing from worth.yml
     AUTO-BALANCE-MISSING: true
     # Auto-balanced items use a 10x buy multiplier against the unscaled estimated baseline.
-    AUTO-BALANCE-MULTIPLIER: 10.0
+    AUTO-BALANCE-MULTIPLIER: 20.0
     # WORTH (default) still prices items that are not listed under FIXED-ITEMS from worth.yml.
     # AUCTION-ONLY leaves those items out of stock until a matching auction listing exists.
     # A material under FIXED-ITEMS sells at that price per item even when the auction house is empty.
