@@ -13,6 +13,7 @@ import net.flovex.core.rank.RankService;
 import net.flovex.core.world.RtpService;
 import net.flovex.core.world.RtpQueueService;
 import net.flovex.core.shop.ShopService;
+import net.flovex.core.shop.ShardShopService;
 import net.flovex.core.social.TeamService;
 import net.flovex.core.text.MessageService;
 import net.flovex.core.text.SoundService;
@@ -38,6 +39,7 @@ public final class FlovexCore extends JavaPlugin {
  private RtpService rtp;
  private RtpQueueService rtpQueue;
  private ShopService shop;
+ private ShardShopService shardShop;
  private TeamService teams;
  private WarpService warps;
  private MessageService messages;
@@ -78,6 +80,7 @@ public final class FlovexCore extends JavaPlugin {
    YamlConfiguration shopCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"shop.yml"));
    YamlConfiguration worthCfg=YamlConfiguration.loadConfiguration(new File(getDataFolder(),"worth.yml"));
    shop=new ShopService(this,economy,shopCfg,worthCfg);
+   shardShop=new ShardShopService(this,shopCfg.getConfigurationSection("SHARD-MENU"));
    rtpQueue=new RtpQueueService(this);
 
    CoreCommands commands=new CoreCommands(this);
@@ -87,6 +90,7 @@ public final class FlovexCore extends JavaPlugin {
    }
    Bukkit.getPluginManager().registerEvents(commands,this);
    Bukkit.getPluginManager().registerEvents(shop,this);
+   Bukkit.getPluginManager().registerEvents(shardShop,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
    Bukkit.getPluginManager().registerEvents(settings,this);
    Bukkit.getPluginManager().registerEvents(portals,this);
@@ -122,6 +126,7 @@ public final class FlovexCore extends JavaPlugin {
  public RtpService getRtp(){return rtp;}
  public RtpQueueService getRtpQueue(){return rtpQueue;}
  public ShopService getShop(){return shop;}
+ public ShardShopService getShardShop(){return shardShop;}
  public YamlConfiguration scoreboardConfig(){return scoreboardCfg;}
  public TeamService getTeams(){return teams;}
  public WarpService getWarps(){return warps;}
