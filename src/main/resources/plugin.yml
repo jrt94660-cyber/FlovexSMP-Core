@@ -97,6 +97,10 @@ permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
   flovexcore.market.use: {default: true}
+  flovexcore.shop.use: {default: true}
+  flovexcore.sell.use: {default: true}
+  flovexcore.rtp.queue: {default: true}
+  flovexcore.settings.use: {default: true}
   flovexcore.market.admin: {default: op}
   flovexcore.teleport.use: {default: true}
   flovexcore.social.use: {default: true}
