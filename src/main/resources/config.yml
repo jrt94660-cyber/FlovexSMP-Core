@@ -14,10 +14,9 @@ rtp:
     overworld: world
     nether: world_nether
     end: world_the_end
+  queue-interval-ticks: 100
 
 shop:
   drop-items-if-full: true
 sell:
   price-fraction: 0.5
-rtp:
-  queue-interval-ticks: 100
