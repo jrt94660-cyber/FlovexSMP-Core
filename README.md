@@ -1,6 +1,6 @@
 # FlovexCore
 
-FlovexCore is the standalone Paper core for FlovexSMP. It is being rebuilt as a source-first plugin in this repository; it does not load or depend on the old UltimateDonutSMP2 plugin.
+FlovexCore is the standalone Paper core for FlovexSMP. Current source version: **1.0.8**. It is being rebuilt as a source-first plugin in this repository; it does not load or depend on the old UltimateDonutSMP2 plugin.
 
 ## Build
 
