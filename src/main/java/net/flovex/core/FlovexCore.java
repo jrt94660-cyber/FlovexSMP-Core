@@ -91,6 +91,8 @@ public final class FlovexCore extends JavaPlugin {
    Bukkit.getPluginManager().registerEvents(commands,this);
    Bukkit.getPluginManager().registerEvents(shop,this);
    Bukkit.getPluginManager().registerEvents(shardShop,this);
+   Bukkit.getPluginManager().registerEvents(rtp,this);
+   Bukkit.getPluginManager().registerEvents(rtpQueue,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
    Bukkit.getPluginManager().registerEvents(settings,this);
    Bukkit.getPluginManager().registerEvents(portals,this);
