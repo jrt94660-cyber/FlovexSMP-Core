@@ -39,7 +39,12 @@ public final class SettingsService implements Listener {
             new Setting("pm", "Private Messages", "Allow incoming private messages", "true")
         ),
         "scoreboard", List.of(
-            new Setting("scoreboard", "Sidebar Scoreboard", "Show or hide the sidebar", "true")
+            new Setting("scoreboard", "Sidebar Scoreboard", "Show or hide the sidebar", "true"),
+            new Setting("scoreboard-money", "Money", "Show money on the scoreboard", "true"),
+            new Setting("scoreboard-shards", "Shards", "Show shards on the scoreboard", "true"),
+            new Setting("scoreboard-kills", "Kills", "Show kills on the scoreboard", "true"),
+            new Setting("scoreboard-deaths", "Deaths", "Show deaths on the scoreboard", "true"),
+            new Setting("scoreboard-playtime", "Playtime", "Show playtime on the scoreboard", "true")
         ),
         "general", List.of(
             new Setting("phantom-enabled", "Phantom Spawning", "Allow phantoms to spawn near you", "true"),
