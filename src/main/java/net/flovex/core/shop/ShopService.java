@@ -25,6 +25,8 @@ public final class ShopService implements Listener {
     private final double sellFraction;
     private final Set<String> blacklist = new HashSet<>();
     private final int maxItems;
+    private final boolean autoBalanceMissing;
+    private final double autoBalanceMultiplier;
     private final String shopTitle;
 
     public ShopService(FlovexCore plugin, EconomyHook economy,
@@ -36,6 +38,8 @@ public final class ShopService implements Listener {
         this.sellFraction = Math.max(0, Math.min(1, plugin.getConfig().getDouble("sell.price-fraction", 0.5)));
         this.blacklist.addAll(shop.getStringList("QUICK-BUY.CHOOSE-ITEM.BLACKLIST").stream().map(x -> x.toUpperCase(Locale.ROOT)).toList());
         this.maxItems = Math.max(45, shop.getInt("QUICK-BUY.CHOOSE-ITEM.MAX-ITEMS", 2000));
+        this.autoBalanceMissing = shop.getBoolean("QUICK-BUY.PRICING.AUTO-BALANCE-MISSING", true);
+        this.autoBalanceMultiplier = Math.max(0, shop.getDouble("QUICK-BUY.PRICING.AUTO-BALANCE-MULTIPLIER", shopMultiplier));
         this.shopTitle = ChatColor.translateAlternateColorCodes('&', shop.getString("QUICK-BUY.TITLE", "&8Quick Buy"));
         for (String category : worthConfig.getConfigurationSection("TYPE").getKeys(false)) {
             var section = worthConfig.getConfigurationSection("TYPE." + category);
@@ -45,6 +49,25 @@ public final class ShopService implements Listener {
                 if (material != null && material.isItem()) worth.putIfAbsent(material, section.getDouble(key));
             }
         }
+        if (autoBalanceMissing) {
+            double ratio = shopMultiplier <= 0 ? 1.0 : autoBalanceMultiplier / shopMultiplier;
+            for (Material material : Material.values()) {
+                if (material.isItem() && !blocked(material) && !worth.containsKey(material)) {
+                    worth.put(material, estimateWorth(material) * ratio);
+                }
+            }
+        }
+    }
+
+    private double estimateWorth(Material material) {
+        String name = material.name();
+        if (name.contains("DIAMOND") || name.contains("NETHERITE") || name.endsWith("_INGOT") || name.endsWith("_GEM") || name.endsWith("_ORE")) return 12.0;
+        if (name.endsWith("_LOG") || name.endsWith("_WOOD") || name.endsWith("_PLANKS") || name.endsWith("_STEM") || name.endsWith("_HYPHAE")) return 2.0;
+        if (name.endsWith("_SWORD") || name.endsWith("_PICKAXE") || name.endsWith("_AXE") || name.endsWith("_SHOVEL") || name.endsWith("_HOE") || name.endsWith("_HELMET") || name.endsWith("_CHESTPLATE") || name.endsWith("_LEGGINGS") || name.endsWith("_BOOTS")) return 20.0;
+        if (name.contains("POTION") || name.contains("TOTEM") || name.contains("ELYTRA") || name.contains("TRIDENT") || name.contains("MACE")) return 30.0;
+        if (name.contains("WHEAT") || name.contains("CARROT") || name.contains("POTATO") || name.contains("BEETROOT") || name.contains("BREAD") || name.contains("APPLE")) return 1.5;
+        if (name.endsWith("_BLOCK")) return 3.0;
+        return 1.0;
     }
 
     public double shopMultiplier() { return shopMultiplier; }
