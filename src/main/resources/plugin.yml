@@ -1,5 +1,5 @@
 name: FlovexCore
-version: '1.0.5'
+version: '1.0.6'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
@@ -9,6 +9,12 @@ libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
   rtp: {description: Open the three-world random teleport dialog}
+  rtpq: {description: Join or leave the random teleport queue}
+  shop: {description: Open the Quick Buy shop}
+  sell: {description: Open the sell inventory}
+  sellhand: {description: Sell the item in your hand}
+  sellall: {description: Sell all sellable inventory items}
+  worth: {description: Check shop and sell prices}
   menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
