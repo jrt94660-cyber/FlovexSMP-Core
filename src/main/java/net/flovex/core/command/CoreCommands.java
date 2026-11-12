@@ -43,6 +43,12 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  @Override public boolean onCommand(CommandSender s,Command c,String label,String[] a){String cmd=c.getName().toLowerCase(Locale.ROOT);Player p=s instanceof Player?(Player)s:null;
  switch(cmd){
  case "rtp"->{if(!player(s))return true;if(a.length==0){plugin.getRtp().open(p);}else plugin.getRtp().teleport(p,a[0]);}
+ case "rtpq"->{if(!player(s))return true;if(a.length==0){plugin.getRtpQueue().open(p);}else switch(a[0].toLowerCase(Locale.ROOT)){case "join"->plugin.getRtpQueue().join(p);case "leave"->plugin.getRtpQueue().leave(p);case "status"->msg(p,plugin.getRtpQueue().position(p.getUniqueId())==0?"&7You are not queued.":"&bQueue position: &f"+plugin.getRtpQueue().position(p.getUniqueId()));default->msg(p,"&cUsage: /rtpq <join|leave|status>");}} 
+ case "shop"->{if(!player(s))return true;plugin.getShop().openShop(p,0);}
+ case "sell"->{if(!player(s))return true;plugin.getShop().openSell(p);}
+ case "sellhand"->{if(!player(s))return true;int amount=p.getInventory().getItemInMainHand().getAmount();if(a.length>0)try{amount=Integer.parseInt(a[0]);}catch(NumberFormatException ex){msg(p,"&cUsage: /sellhand [amount]");return true;}plugin.getShop().sellHand(p,amount);}
+ case "sellall"->{if(!player(s))return true;plugin.getShop().sellAll(p);}
+ case "worth"->{Material material=a.length>0?Material.matchMaterial(a[0]):p==null?null:p.getInventory().getItemInMainHand().getType();if(material==null||material.isAir()){msg(s,"&cUsage: /worth <item> or hold an item.");return true;}msg(s,"&f"+material.name()+" &7Buy: &a$"+String.format(Locale.US,"%,.2f",plugin.getShop().buyUnitPrice(material))+" &7Sell: &a$"+String.format(Locale.US,"%,.2f",plugin.getShop().sellUnitPrice(material)));}
  case "menu"->{if(!player(s))return true;plugin.getMenus().show(p,"FlovexCore","Social: /friends, /msg\nMarketplace: /ah, /orders\nPlayer: /stats, /settings");}
  case "tpa","tpahere"->{if(!player(s))return true;if(a.length<1){msg(s,"&cUsage: /"+cmd+" <player>");return true;}Player t=target(a[0]);if(t==null){msg(s,"&cPlayer not found.");return true;}request(p,t,cmd.equals("tpahere"));}
  case "tpaccept"->{if(!player(s))return true;Request r=requests.remove(p.getUniqueId());if(r==null||System.currentTimeMillis()-r.created()>plugin.teleportConfig().getInt("request-expiry-seconds",60)*1000L){msg(p,"&cNo pending request.");return true;}Player from=Bukkit.getPlayer(r.sender());if(from==null){msg(p,"&cRequester is offline.");return true;}if(r.here())teleport(from,p);else teleport(p,from);}
@@ -157,6 +163,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  String name=command.getName().toLowerCase(Locale.ROOT);
  if(args.length==1)return switch(name){
   case "rtp"->List.of("overworld","nether","end");
+  case "rtpq"->List.of("join","leave","status");
   case "auctionhouse"->List.of("sell","buy","claim","search","my","cancel");
   case "orders"->List.of("create","cancel","my");
   case "friends"->List.of("list","add","remove");
