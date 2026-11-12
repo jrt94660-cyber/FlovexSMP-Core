@@ -10,10 +10,14 @@ import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.event.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.entity.Player;
 import java.util.*;
 
-public final class RtpService {
+public final class RtpService implements Listener {
     private final FlovexCore plugin;
     private final Random random = new Random();
 
@@ -32,9 +36,33 @@ public final class RtpService {
                     .build())
                 .type(DialogType.multiAction(buttons, null, 3))));
         } catch (Throwable error) {
-            plugin.getLogger().warning("Could not open RTP dialog: " + error.getMessage());
-            player.sendMessage(Component.text("Use /rtp overworld, /rtp nether, or /rtp end."));
+            openFallback(player);
         }
+    }
+
+    private void openFallback(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "Random Teleport");
+        inventory.setItem(11, option(Material.GRASS_BLOCK, "&aOverworld", "&7Random teleport in the Overworld"));
+        inventory.setItem(13, option(Material.NETHERRACK, "&cNether", "&7Random teleport in the Nether"));
+        inventory.setItem(15, option(Material.END_STONE, "&eEnd", "&7Random teleport in the End"));
+        player.openInventory(inventory);
+    }
+
+    @EventHandler public void onDialogFallbackClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player) || !event.getView().getTitle().equals(ChatColor.DARK_GRAY + "Random Teleport")) return;
+        event.setCancelled(true);
+        if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+        String target = switch (event.getSlot()) { case 11 -> "overworld"; case 13 -> "nether"; case 15 -> "end"; default -> null; };
+        if (target != null) { player.closeInventory(); teleport(player, target); }
+    }
+
+    private ItemStack option(Material material, String name, String lore) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        meta.setLore(List.of(ChatColor.translateAlternateColorCodes('&', lore)));
+        item.setItemMeta(meta);
+        return item;
     }
 
     public void teleport(Player player, String target) {
