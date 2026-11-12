@@ -5,6 +5,7 @@ import net.flovex.core.data.Storage;
 import net.flovex.core.market.Marketplace;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.*;
@@ -70,7 +71,12 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
 
  case "auctionhouse"->{if(!player(s))return true;if(a.length==0)openMarket(p);else if(a[0].equalsIgnoreCase("sell")&&a.length>1){try{if(market.list(p,Double.parseDouble(a[1])))msg(p,"&aItem listed.");else msg(p,"&cListing failed.");}catch(Exception e){msg(p,"&cInvalid price.");}}else if(a[0].equalsIgnoreCase("buy")&&a.length>1){try{msg(p,market.buy(p,Long.parseLong(a[1]))?"&aPurchase complete. Use /ah claim.":"&cPurchase failed.");}catch(Exception e){msg(p,"&cInvalid listing ID.");}}else if(a[0].equalsIgnoreCase("claim"))msg(p,"&aClaimed "+market.claim(p)+" claim(s).");else if(a[0].equalsIgnoreCase("my")){for(var r:db.rows("SELECT id,price,expires FROM auctions WHERE seller=? AND sold=0",id(p)))msg(p,"&f#"+r.get("id")+" &a$"+r.get("price"));}else if(a[0].equalsIgnoreCase("cancel")&&a.length>1){try{msg(p,market.cancelListing(p,Long.parseLong(a[1]))?"&aListing cancelled. Use /ah claim.":"&cCould not cancel listing.");}catch(Exception e){msg(p,"&cInvalid listing ID.");}}else if(a[0].equalsIgnoreCase("search"))openMarket(p,a.length>1?String.join(" ",Arrays.copyOfRange(a,1,a.length)):"");}
  case "orders"->{if(!player(s))return true;if(a.length>=4&&a[0].equalsIgnoreCase("create")){Material m=Material.matchMaterial(a[1]);try{if(market.createOrder(p,m,Integer.parseInt(a[2]),Double.parseDouble(a[3])))msg(p,"&aBuy order created and funds reserved.");else msg(p,"&cCould not create order.");}catch(Exception e){msg(p,"&cUsage: /orders create <material> <amount> <unit-price>");}}else if(a.length>=2&&a[0].equalsIgnoreCase("cancel")){try{msg(p,market.cancelOrder(p,Long.parseLong(a[1]))?"&aOrder cancelled and remaining funds refunded.":"&cCould not cancel order.");}catch(Exception e){msg(p,"&cInvalid order ID.");}}else{msg(p,"&bActive buy orders:");for(var r:db.rows("SELECT id,material,remaining,unit_price FROM orders WHERE remaining>0 AND expires>? ORDER BY unit_price DESC",System.currentTimeMillis()))msg(p,"&f#"+r.get("id")+" "+r.get("material")+" x"+r.get("remaining")+" &a$"+r.get("unit_price"));msg(p,"&7Create: /orders create <material> <amount> <unit-price> | /orders cancel <id>");}}
- case "settings"->{if(!player(s))return true;if(a.length==0){plugin.getSettings().open(p,null);}else if(a[0].equalsIgnoreCase("toggle")&&a.length>=2){plugin.getSettings().toggle(p,a[1]);plugin.getSettings().open(p,a.length>=3?a[2]:null);}else if(a[0].equalsIgnoreCase("style")){String current=db.preference(p.getUniqueId(),"scoreboard-style","modern");String value=current.equalsIgnoreCase("modern")?"legacy":"modern";db.setPreference(p.getUniqueId(),"scoreboard-style",value);plugin.getScoreboard().update(p);plugin.getSettings().open(p,"scoreboard");}else plugin.getSettings().open(p,a[0]);}
+ case "settings"->{if(!player(s))return true;if(a.length==0){plugin.getSettings().open(p,null);}else if(a[0].equalsIgnoreCase("toggle")&&a.length>=2){plugin.getSettings().toggle(p,a[1]);plugin.getSettings().open(p,a.length>=3?a[2]:null);}else if(a[0].equalsIgnoreCase("style")){String current=db.preference(p.getUniqueId(),"scoreboard-style","modern");String value=current.equalsIgnoreCase("modern")?"legacy":"modern";db.setPreference(p.getUniqueId(),"scoreboard-style",value);plugin.getScoreboard().update(p);
+ if(plugin.getConfig().getBoolean("titles.join.enabled",true)){
+  String title=plugin.getConfig().getString("titles.join.title","&#38BDFB&lFLOVEXSMP");
+  String subtitle=plugin.getConfig().getString("titles.join.subtitle","&7Welcome back, &f%player%");
+  plugin.getMessages().title(p,title,subtitle.replace("%player%",p.getName()));
+ }plugin.getSettings().open(p,"scoreboard");}else plugin.getSettings().open(p,a[0]);}
  case "scoreboard"->{if(!player(s))return true;plugin.getScoreboard().toggle(p);msg(p,"&aScoreboard preference updated.");}
  case "leaderboard"->{String stat=a.length>0?a[0]:"playtime";msg(s,"&bTop "+stat+":");if(stat.equalsIgnoreCase("playtime")){for(var r:db.rows("SELECT last_name,play_ticks FROM player_data ORDER BY play_ticks DESC LIMIT 10"))msg(s,"&f"+r.get("last_name")+" &7- &e"+(((Number)r.get("play_ticks")).longValue()/72000)+"h");}else if(stat.equalsIgnoreCase("kills")||stat.equalsIgnoreCase("deaths")){for(var r:db.rows("SELECT p.last_name,s."+stat+" AS score FROM player_stats s LEFT JOIN player_data p ON p.uuid=s.uuid ORDER BY s."+stat+" DESC LIMIT 10"))msg(s,"&f"+r.get("last_name")+" &7- &e"+r.get("score"));}else msg(s,"&7Use playtime, kills or deaths.");}
  case "report"->{if(!player(s))return true;if(a.length<2){msg(p,"&cUsage: /report <player> <reason>");return true;}try{db.update("INSERT INTO reports(reporter,target,reason,created) VALUES(?,?,?,?)",id(p),Bukkit.getOfflinePlayer(a[0]).getUniqueId().toString(),String.join(" ",Arrays.copyOfRange(a,1,a.length)),System.currentTimeMillis());msgKey(p,"report-sent","&aYour report has been submitted.");for(Player online:Bukkit.getOnlinePlayers())if(online.hasPermission(plugin.moderationConfig().getString("reports.notify-permission","flovexcore.staff")))msg(online,"&cNew report filed by "+p.getName()+".");}catch(Exception ignored){}}
@@ -155,6 +161,13 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  if(delay>0&&now-last<delay*1000L&&!staff(p)){e.setCancelled(true);msg(p,"&cSlow down.");return;}
  lastChat.put(p.getUniqueId(),now);
  String plain=net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(e.message());
+ if(!p.hasPermission("flovexcore.chat.color"))plain=plain.replaceAll("(?i)[&§][0-9a-fk-orx]","");
+ if(plugin.getConfig().getBoolean("chat.format-enabled",true)){
+  String format=plugin.getConfig().getString("chat.format","%prefix%%player%&7: &f%message%");
+  String rendered=format.replace("%prefix%",plugin.getRanks().getDisplayPrefix(p)).replace("%player%",p.getName()).replace("%message%",plain);
+  Component chatLine=LegacyComponentSerializer.legacySection().deserialize(ColorUtil.color(rendered));
+  e.renderer((source,displayName,message,viewer)->chatLine);
+ }
  int max=plugin.moderationConfig().getInt("chat.max-message-length",256);
  if(plain.length()>max){e.setCancelled(true);msg(p,"&cMessage too long.");return;}
  if(!staff(p)&&plugin.moderationConfig().getStringList("chat.blocked-words").stream().anyMatch(w->!w.isBlank()&&plain.toLowerCase(Locale.ROOT).contains(w.toLowerCase(Locale.ROOT)))){e.setCancelled(true);msg(p,"&cYour message contains a blocked word.");return;}
