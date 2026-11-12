@@ -15,24 +15,6 @@ commands:
   addmoney: {description: Add money to a player, permission: flovexcore.staff}
   removemoney: {description: Remove money from a player, permission: flovexcore.staff}
   setmoney: {description: Set a player's money, permission: flovexcore.staff}
-  shop: {description: Open the Quick Buy shop, permission: flovexcore.shop.use}
-  shardshop: {description: Open the Shard Shop, permission: flovexcore.shards.use}
-  amethysttool: {description: Give configured amethyst tools, permission: flovexcore.shards.admin}
-  shards: {description: View shard balance, permission: flovexcore.shards.use}
-  shardpay: {description: Pay shards to another player, permission: flovexcore.shards.use}
-  addshards: {description: Add shards to a player}
-  removeshards: {description: Remove shards from a player}
-  setshards: {description: Set a player's shard balance}
-  sell: {description: Open the sell inventory, permission: flovexcore.sell.use}
-  sellhand: {description: Sell the item in your hand, permission: flovexcore.sell.use}
-  sellall: {description: Sell all sellable inventory items, permission: flovexcore.sell.use}
-  sellmulti: {description: Open multi-item selling}
-  sellmultiplier: {description: View the sell multiplier}
-  sellprogress: {description: View your selling progress}
-  meta: {description: View item market value}
-  sellhistory: {description: View your recent sales}
-  topsell: {description: View top sellers, aliases: [sellstats]}
-  worth: {description: Check shop and sell prices, aliases: [prices], permission: flovexcore.sell.use}
   menu: {description: Open the FlovexCore menu, aliases: [donut, dialog]}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
@@ -115,11 +97,6 @@ permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
   flovexcore.market.use: {default: true}
-  flovexcore.shop.use: {default: true}
-  flovexcore.shards.use: {default: true}
-  flovexcore.shards.admin: {default: op}
-  flovexcore.sell.use: {default: true}
-  flovexcore.rtp.queue: {default: true}
   flovexcore.settings.use: {default: true}
   flovexcore.chat.color: {default: op}
   flovexcore.market.admin: {default: op}
