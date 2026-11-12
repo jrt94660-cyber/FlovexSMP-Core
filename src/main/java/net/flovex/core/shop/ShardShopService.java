@@ -269,8 +269,9 @@ public final class ShardShopService implements Listener {
     }
 
     @EventHandler public void onHeld(PlayerItemHeldEvent event) {
-        ItemStack next = event.getPlayer().getInventory().getItem(event.getNewSlot());
-        if (expireHeld(event.getPlayer(), next)) event.setCancelled(true);
+        Player player = event.getPlayer();
+        ItemStack next = player.getInventory().getItem(event.getNewSlot());
+        if (expired(next)) { event.setCancelled(true); player.getInventory().setItem(event.getNewSlot(), null); plugin.getMessages().actionBar(player, "&cYour amethyst item has expired."); }
     }
 
     private String toolType(ItemStack item) {
