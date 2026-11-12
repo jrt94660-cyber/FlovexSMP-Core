@@ -42,6 +42,10 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
 
  @Override public boolean onCommand(CommandSender s,Command c,String label,String[] a){String cmd=c.getName().toLowerCase(Locale.ROOT);Player p=s instanceof Player?(Player)s:null;
  switch(cmd){
+ case "shardshop"->{if(!player(s))return true;plugin.getShardShop().open(p);}
+ case "shards"->{if(!player(s))return true;msg(p,"&dYour Shards: &f"+String.format(Locale.US,"%,d",plugin.getShardShop().balance(p.getUniqueId())));}
+ case "shardpay"->{if(!player(s))return true;if(a.length<2){msg(p,"&cUsage: /shardpay <player> <amount>");return true;}Player target=target(a[0]);if(target==null){msg(p,"&cPlayer not found.");return true;}try{long amount=Long.parseLong(a[1]);if(amount<=0||target.equals(p)||!plugin.getShardShop().take(p.getUniqueId(),amount)){msg(p,"&cInvalid amount or insufficient shards.");return true;}plugin.getShardShop().add(target.getUniqueId(),amount);msg(p,"&aSent "+amount+" Shards to "+target.getName()+".");msg(target,"&dReceived "+amount+" Shards from "+p.getName()+".");}catch(NumberFormatException ex){msg(p,"&cInvalid amount.");}}
+ case "addshards","removeshards","setshards"->{if(!staff(s)||a.length<2){msg(s,"&cUsage: /"+cmd+" <player> <amount>");return true;}OfflinePlayer target=Bukkit.getOfflinePlayer(a[0]);try{long amount=Long.parseLong(a[1]);if(cmd.equals("addshards"))plugin.getShardShop().add(target.getUniqueId(),amount);else if(cmd.equals("setshards"))plugin.getShardShop().set(target.getUniqueId(),amount);else if(!plugin.getShardShop().take(target.getUniqueId(),amount)){msg(s,"&cPlayer does not have enough shards.");return true;}msg(s,"&aUpdated "+a[0]+"'s shard balance.");}catch(NumberFormatException ex){msg(s,"&cInvalid amount.");}}
  case "rtp"->{if(!player(s))return true;if(a.length==0){plugin.getRtp().open(p);}else plugin.getRtp().teleport(p,a[0]);}
  case "rtpq"->{if(!player(s))return true;if(a.length==0){plugin.getRtpQueue().open(p);}else switch(a[0].toLowerCase(Locale.ROOT)){case "join"->plugin.getRtpQueue().join(p);case "leave"->plugin.getRtpQueue().leave(p);case "status"->msg(p,plugin.getRtpQueue().position(p.getUniqueId())==0?"&7You are not queued.":"&bQueue position: &f"+plugin.getRtpQueue().position(p.getUniqueId()));default->msg(p,"&cUsage: /rtpq <join|leave|status>");}} 
  case "shop"->{if(!player(s))return true;plugin.getShop().openShop(p,0);}
@@ -163,6 +167,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  String name=command.getName().toLowerCase(Locale.ROOT);
  if(args.length==1)return switch(name){
   case "rtp"->List.of("overworld","nether","end");
+  case "rtpq"->List.of("join","leave","status");
   case "rtpq"->List.of("join","leave","status");
   case "auctionhouse"->List.of("sell","buy","claim","search","my","cancel");
   case "orders"->List.of("create","cancel","my");
