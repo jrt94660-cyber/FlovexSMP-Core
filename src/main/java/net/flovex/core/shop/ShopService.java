@@ -124,7 +124,7 @@ public final class ShopService implements Listener {
 
     public void sellHand(Player player, int requested) {
         ItemStack hand = player.getInventory().getItemInMainHand();
-        if (hand.getType().isAir() || !isSellable(hand.getType())) { player.sendMessage("§cThat item cannot be sold."); return; }
+        if (hand.getType().isAir() || !isSellable(hand.getType())) { player.sendMessage(plugin.getMessages().prefix() + "§cThat item cannot be sold."); return; }
         int amount = Math.max(1, Math.min(requested, hand.getAmount()));
         ItemStack snapshot = hand.clone(); snapshot.setAmount(amount);
         confirm(player, new Pending(false, List.of(snapshot), null, amount, sellUnitPrice(hand.getType()) * amount, null));
@@ -138,7 +138,7 @@ public final class ShopService implements Listener {
             items.add(stack.clone());
             total += sellUnitPrice(stack.getType()) * stack.getAmount();
         }
-        if (items.isEmpty()) { player.sendMessage("§cThis container has no sellable items."); return; }
+        if (items.isEmpty()) { player.sendMessage(plugin.getMessages().prefix() + "§cThis container has no sellable items."); return; }
         confirm(player, new Pending(false, items, null, items.stream().mapToInt(ItemStack::getAmount).sum(), total, container));
     }
 
@@ -150,7 +150,7 @@ public final class ShopService implements Listener {
             items.add(stack.clone());
             total += sellUnitPrice(stack.getType()) * stack.getAmount();
         }
-        if (items.isEmpty()) { player.sendMessage("§cYou have no sellable items."); return; }
+        if (items.isEmpty()) { player.sendMessage(plugin.getMessages().prefix() + "§cYou have no sellable items."); return; }
         confirm(player, new Pending(false, items, null, items.stream().mapToInt(ItemStack::getAmount).sum(), total, null));
     }
 
@@ -176,7 +176,7 @@ public final class ShopService implements Listener {
     private void buy(Player player, Material material) {
         int amount = Math.min(material.getMaxStackSize(), 64);
         double total = buyUnitPrice(material) * amount;
-        if (!economy.available()) { player.sendMessage("§cEconomy provider unavailable."); return; }
+        if (!economy.available()) { player.sendMessage(plugin.getMessages().prefix() + "§cEconomy provider unavailable."); return; }
         confirm(player, new Pending(true, List.of(), material, amount, total, null));
     }
 
@@ -185,7 +185,7 @@ public final class ShopService implements Listener {
         if (transaction == null) return;
         if (transaction.buy()) {
             if (!economy.withdraw(player.getUniqueId(), transaction.total())) {
-                player.sendMessage("§cInsufficient funds.");
+                player.sendMessage(plugin.getMessages().prefix() + "§cInsufficient funds.");
                 return;
             }
             ItemStack item = new ItemStack(transaction.material(), transaction.amount());
@@ -194,16 +194,16 @@ public final class ShopService implements Listener {
                 if (plugin.getConfig().getBoolean("shop.drop-items-if-full", true)) overflow.values().forEach(x -> player.getWorld().dropItemNaturally(player.getLocation(), x));
                 else {
                     economy.deposit(player.getUniqueId(), transaction.total());
-                    player.sendMessage("§cYour inventory is full. Purchase refunded.");
+                    player.sendMessage(plugin.getMessages().prefix() + "§cYour inventory is full. Purchase refunded.");
                     return;
                 }
             }
             player.sendMessage("§aPurchased " + transaction.amount() + " " + pretty(transaction.material()) + " for §f$" + money(transaction.total()));
         } else {
-            if (!removeSnapshots(player, transaction.items(), transaction.sourceInventory())) { player.sendMessage("§cThe items changed. Sale cancelled."); return; }
+            if (!removeSnapshots(player, transaction.items(), transaction.sourceInventory())) { player.sendMessage(plugin.getMessages().prefix() + "§cThe items changed. Sale cancelled."); return; }
             if (!economy.deposit(player.getUniqueId(), transaction.total())) {
                 transaction.items().forEach(x -> { if (transaction.sourceInventory() == null) player.getInventory().addItem(x); else transaction.sourceInventory().addItem(x); });
-                player.sendMessage("§cCould not deposit money. Items returned.");
+                player.sendMessage(plugin.getMessages().prefix() + "§cCould not deposit money. Items returned.");
                 return;
             }
             plugin.getStorage().update("INSERT INTO sell_history(uuid,amount,total,created) VALUES(?,?,?,?)",
