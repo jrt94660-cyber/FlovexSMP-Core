@@ -8,8 +8,13 @@ softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geys
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
-  rtp: {description: Open the three-world random teleport dialog, permission: flovexcore.teleport.use}
+  rtp: {description: Open the three-world random teleport dialog, aliases: [randomteleport, randomtp], permission: flovexcore.teleport.use}
   rtpq: {description: Join or leave the random teleport queue, permission: flovexcore.teleport.use}
+  balance: {description: View a money balance, aliases: [bal, money]}
+  pay: {description: Pay another player}
+  addmoney: {description: Add money to a player, permission: flovexcore.staff}
+  removemoney: {description: Remove money from a player, permission: flovexcore.staff}
+  setmoney: {description: Set a player's money, permission: flovexcore.staff}
   shop: {description: Open the Quick Buy shop, permission: flovexcore.shop.use}
   shardshop: {description: Open the Shard Shop, permission: flovexcore.shards.use}
   amethysttool: {description: Give configured amethyst tools, permission: flovexcore.shards.admin}
@@ -21,6 +26,10 @@ commands:
   sell: {description: Open the sell inventory, permission: flovexcore.sell.use}
   sellhand: {description: Sell the item in your hand, permission: flovexcore.sell.use}
   sellall: {description: Sell all sellable inventory items, permission: flovexcore.sell.use}
+  sellmulti: {description: Open multi-item selling}
+  sellmultiplier: {description: View the sell multiplier}
+  sellprogress: {description: View your selling progress}
+  meta: {description: View item market value}
   sellhistory: {description: View your recent sales}
   topsell: {description: View top sellers}
   worth: {description: Check shop and sell prices, permission: flovexcore.sell.use}
