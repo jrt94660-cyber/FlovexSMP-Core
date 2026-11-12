@@ -20,3 +20,5 @@ shop:
   drop-items-if-full: true
 sell:
   price-fraction: 0.5
+shards:
+  per-kill: 1
