@@ -8,21 +8,21 @@ softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geys
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
-  rtp: {description: Open the three-world random teleport dialog}
-  rtpq: {description: Join or leave the random teleport queue}
-  shop: {description: Open the Quick Buy shop}
-  shardshop: {description: Open the Shard Shop}
-  shards: {description: View shard balance}
-  shardpay: {description: Pay shards to another player}
+  rtp: {description: Open the three-world random teleport dialog, permission: flovexcore.teleport.use}
+  rtpq: {description: Join or leave the random teleport queue, permission: flovexcore.teleport.use}
+  shop: {description: Open the Quick Buy shop, permission: flovexcore.shop.use}
+  shardshop: {description: Open the Shard Shop, permission: flovexcore.shards.use}
+  shards: {description: View shard balance, permission: flovexcore.shards.use}
+  shardpay: {description: Pay shards to another player, permission: flovexcore.shards.use}
   addshards: {description: Add shards to a player}
   removeshards: {description: Remove shards from a player}
   setshards: {description: Set a player's shard balance}
-  sell: {description: Open the sell inventory}
-  sellhand: {description: Sell the item in your hand}
-  sellall: {description: Sell all sellable inventory items}
+  sell: {description: Open the sell inventory, permission: flovexcore.sell.use}
+  sellhand: {description: Sell the item in your hand, permission: flovexcore.sell.use}
+  sellall: {description: Sell all sellable inventory items, permission: flovexcore.sell.use}
   sellhistory: {description: View your recent sales}
   topsell: {description: View top sellers}
-  worth: {description: Check shop and sell prices}
+  worth: {description: Check shop and sell prices, permission: flovexcore.sell.use}
   menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
@@ -46,7 +46,7 @@ commands:
   bounty: {description: Item bounties}
   leaderboard: {description: Leaderboards, aliases: [top]}
   scoreboard: {description: Toggle scoreboard, aliases: [sb]}
-  settings: {description: Player settings}
+  settings: {description: Player settings, permission: flovexcore.settings.use}
   report: {description: Report a player}
   reports: {description: Staff report queue}
   chatlog: {description: Review chat logs}
@@ -111,6 +111,7 @@ permissions:
   flovexcore.sell.use: {default: true}
   flovexcore.rtp.queue: {default: true}
   flovexcore.settings.use: {default: true}
+  flovexcore.chat.color: {default: op}
   flovexcore.market.admin: {default: op}
   flovexcore.teleport.use: {default: true}
   flovexcore.social.use: {default: true}
