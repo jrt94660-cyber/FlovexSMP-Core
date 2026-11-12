@@ -26,7 +26,7 @@ public final class TablistService {
     public void update(Player player) {
         if (plugin.getRanks() != null) plugin.getRanks().apply(player);
         String header = plugin.getConfig().getString("tablist.header", "&b&lFLOVEXSMP");
-        String footer = plugin.getConfig().getString("tablist.footer", "&7flovexsmp.play-mc.fun");
+        String footer = plugin.getConfig().getString("tablist.footer", "&f%online% Players &8• &7flovexsmp.play-mc.fun").replace("%online%", String.valueOf(Bukkit.getOnlinePlayers().size()));
         player.sendPlayerListHeaderAndFooter(legacy.deserialize(header), legacy.deserialize(footer));
     }
 }
