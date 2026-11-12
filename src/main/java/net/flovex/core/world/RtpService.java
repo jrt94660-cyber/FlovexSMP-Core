@@ -90,7 +90,7 @@ public final class RtpService implements Listener {
                 plugin.getMessages().actionBar(player,success ? "&aRandom teleport complete." : "&cTeleport failed.")));
             return;
         }
-        player.sendMessage(Component.text("Could not find a safe location. Try again."));
+        player.sendMessage(plugin.getMessages().prefix() + "§cCould not find a safe location. Try again.");
     }
     private Location findSafeLocation(World world, int x, int z) {
         if (world.getEnvironment() == World.Environment.NETHER) {
