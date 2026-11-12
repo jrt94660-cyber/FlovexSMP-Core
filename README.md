@@ -90,3 +90,7 @@ Permissions are declared in `plugin.yml`. Staff access defaults to OP; player fe
 Homes, RTP, RTP queue, Duels, duel queue, FFA and Ranked PvP are handled by separate FlovexSMP plugins and are not registered or implemented by FlovexCore.
 
 FlovexCore intentionally does **not** implement Shop, Spawn, AFK, Crates, Broadcasts, Store, Discord, Media, combat-tag, Ender Chest, a custom Economy, Shards, or Maintenance. It does not create a new currency.
+
+## FlovexCore 1.0.5 rebuild
+
+The `flovexcore-rebuild` branch adds LuckPerms rank priority display, a tablist header/footer, and `/rtp` with Overworld, Nether, and End choices. The LuckPerms groups remain managed by LuckPerms; `luckpermsranks.yml` only controls display priority.
