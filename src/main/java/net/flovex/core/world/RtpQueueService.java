@@ -8,7 +8,7 @@ import io.papermc.paper.registry.data.dialog.body.DialogBody;
 import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -70,7 +70,7 @@ public final class RtpQueueService implements Listener {
         ItemStack item = new ItemStack(material);
         var meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
-        meta.setLore(Arrays.stream(lore.split("\\n")).map(x -> ChatColor.translateAlternateColorCodes('&', x)).toList());
+        List<String> lines = new ArrayList<>(); for (String line : lore.split("\\n")) lines.add(ChatColor.translateAlternateColorCodes('&', line)); meta.setLore(lines);
         item.setItemMeta(meta);
         return item;
     }
