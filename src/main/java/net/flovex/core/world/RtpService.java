@@ -24,6 +24,7 @@ public final class RtpService implements Listener {
     public RtpService(FlovexCore plugin) { this.plugin = plugin; }
 
     public void open(Player player) {
+        if (plugin.getPlatform().isBedrock(player)) { openFallback(player); return; }
         List<ActionButton> buttons = List.of(
             ActionButton.create(Component.text("Overworld"), Component.text("Random teleport"), 120, DialogAction.commandTemplate("/rtp overworld")),
             ActionButton.create(Component.text("Nether"), Component.text("Random teleport"), 120, DialogAction.commandTemplate("/rtp nether")),
