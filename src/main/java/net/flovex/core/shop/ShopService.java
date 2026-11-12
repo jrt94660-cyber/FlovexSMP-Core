@@ -41,6 +41,8 @@ public final class ShopService implements Listener {
         }
     }
 
+    public double shopMultiplier() { return shopMultiplier; }
+    public double sellFraction() { return sellFraction; }
     public double buyUnitPrice(Material material) { return worth.getOrDefault(material, 0.0) * shopMultiplier; }
     public double sellUnitPrice(Material material) { return buyUnitPrice(material) * sellFraction; }
     public boolean isSellable(Material material) { return sellUnitPrice(material) > 0 && material.isItem(); }
