@@ -4,7 +4,7 @@ main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
 description: FlovexSMP player, marketplace and moderation core.
-softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
+softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, CoinsEngine, floodgate, Geyser-Spigot, LibsDisguises]
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
