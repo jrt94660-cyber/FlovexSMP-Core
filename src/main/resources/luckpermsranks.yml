@@ -1,0 +1,18 @@
+# LuckPerms group display priority.
+# This file does NOT create or manage LuckPerms groups.
+# Add group names here in highest-to-lowest priority order.
+# Groups not listed here are treated as lowest priority.
+ranks:
+  - owner
+  - manager
+  - developer
+  - sradmin
+  - admin
+  - srmod
+  - mod
+  - srhelper
+  - helper
+  - flovex++
+  - flovex+
+  - booster
+  - default

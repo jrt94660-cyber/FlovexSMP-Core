@@ -1,9 +1,18 @@
 defaults:
   scoreboard: true
   scoreboard-style: modern
-  private-messages: true
-  tpa-auto: false
-  tpahere-auto: false
-  team-chat: false
+  scoreboard-money: true
+  scoreboard-shards: true
+  scoreboard-kills: true
+  scoreboard-deaths: true
+  scoreboard-playtime: true
+  pm: true
+  tpauto: false
+  tpahereauto: false
+  teamchat: false
   hide-players: false
   chat-notifications: true
+  server-sounds: true
+  safety: false
+  phantom-enabled: true
+  voicechat-consent: false

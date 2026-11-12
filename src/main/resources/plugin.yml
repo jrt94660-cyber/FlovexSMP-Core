@@ -1,14 +1,21 @@
 name: FlovexCore
-version: '1.0.4'
+version: '1.0.8'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
 description: FlovexSMP player, marketplace and moderation core.
-softdepend: [Vault, ExcellentEconomy, PlaceholderAPI, floodgate, Geyser-Spigot, LibsDisguises]
+softdepend: [LuckPerms, Vault, ExcellentEconomy, PlaceholderAPI, CoinsEngine, floodgate, Geyser-Spigot, LibsDisguises]
 libraries:
   - org.xerial:sqlite-jdbc:3.50.3.0
 commands:
-  menu: {description: Open the FlovexCore menu}
+  rtp: {description: Open the three-world random teleport dialog, aliases: [randomteleport, randomtp], permission: flovexcore.teleport.use}
+  rtpq: {description: Join or leave the random teleport queue, permission: flovexcore.teleport.use}
+  balance: {description: View a money balance, aliases: [bal, money]}
+  pay: {description: Pay another player}
+  addmoney: {description: Add money to a player, permission: flovexcore.staff}
+  removemoney: {description: Remove money from a player, permission: flovexcore.staff}
+  setmoney: {description: Set a player's money, permission: flovexcore.staff}
+  menu: {description: Open the FlovexCore menu, aliases: [donut, dialog]}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
   tpa: {description: Request teleport}
@@ -29,17 +36,17 @@ commands:
   playtime: {description: Playtime, aliases: [pt]}
   ping: {description: Ping}
   bounty: {description: Item bounties}
-  leaderboard: {description: Leaderboards, aliases: [top]}
+  leaderboard: {description: Leaderboards, aliases: [lb, top, baltop]}
   scoreboard: {description: Toggle scoreboard, aliases: [sb]}
-  settings: {description: Player settings}
+  settings: {description: Player settings, permission: flovexcore.settings.use}
   report: {description: Report a player}
   reports: {description: Staff report queue}
   chatlog: {description: Review chat logs}
   chat: {description: Chat moderation}
   freeze: {description: Freeze a player}
-  staffmode: {description: Toggle staff mode}
+  staffmode: {description: Toggle staff mode, aliases: [staff]}
   stafflist: {description: Online staff}
-  staffchat: {description: Staff chat}
+  staffchat: {description: Staff chat, aliases: [sc]}
   helpop: {description: Contact staff}
   punishments: {description: Punishment history}
   warn: {description: Warn player}
@@ -58,9 +65,9 @@ commands:
   vanish: {description: Toggle vanish}
   invsee: {description: Inspect inventory}
   teleport: {description: Teleport player, aliases: [tp]}
-  findplayer: {description: Find player}
-  nightvision: {description: Night vision}
-  god: {description: God mode}
+  findplayer: {description: Find player, aliases: [fp]}
+  nightvision: {description: Night vision, aliases: [nv]}
+  god: {description: God mode, aliases: [godmode]}
   team: {description: Team management}
   warp: {description: Teleport to a warp}
   warps: {description: List warps}
@@ -69,7 +76,7 @@ commands:
   hide: {description: Hide or show other players}
   rules: {description: View server rules}
   help: {description: View FlovexCore help}
-  ranks: {description: View rank information}
+  ranks: {description: View rank information, aliases: [rank]}
   rename: {description: Rename held item}
   clearlag: {description: Clear dropped items}
   logs: {description: View player logs}
@@ -81,7 +88,7 @@ commands:
   kill: {description: Kill yourself or a player}
   safety: {description: Toggle PvP safety}
   phantom: {description: Toggle phantom spawning near you}
-  spawner: {description: Inspect or configure a spawner}
+  spawner: {description: Inspect or configure a spawner, aliases: [spawners]}
   cuboid: {description: Select and inspect cuboid regions}
   voicechatconsent: {description: Toggle voice chat consent}
   warpmanager: {description: Manage warps}
@@ -90,6 +97,8 @@ permissions:
   flovexcore.admin: {default: op}
   flovexcore.staff: {default: op}
   flovexcore.market.use: {default: true}
+  flovexcore.settings.use: {default: true}
+  flovexcore.chat.color: {default: op}
   flovexcore.market.admin: {default: op}
   flovexcore.teleport.use: {default: true}
   flovexcore.social.use: {default: true}

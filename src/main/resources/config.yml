@@ -1,5 +1,25 @@
 prefix: '&#38BDFB&lFLOVEX &8» '
+chat:
+  format-enabled: true
+  format: '%prefix%%player%&7: &f%message%'
+titles:
+  join:
+    enabled: true
+    title: '&#38BDFB&lFLOVEXSMP'
+    subtitle: '&7Welcome back, &f%player%'
 menus:
   java-native-dialogs: true
 phantom:
   radius: 64
+
+tablist:
+  header: '&#38BDFB&lF&#48C5FC&lL&#59CDFC&lO&#69D4FD&lV&#7ADCFD&lE&#8AE4FE&lX &#A5F3FC&lS&#8AE4FE&lM&#69D4FD&lP'
+  footer: '&f%online% Players &8• &7flovexsmp.play-mc.fun'
+rtp:
+  min-radius: 10000
+  max-radius: 15000
+  worlds:
+    overworld: world
+    nether: world_nether
+    end: world_the_end
+  queue-interval-ticks: 100

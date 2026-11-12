@@ -8,10 +8,15 @@ import net.flovex.core.market.Marketplace;
 import net.flovex.core.network.PortalService;
 import net.flovex.core.platform.PlatformService;
 import net.flovex.core.scoreboard.ScoreboardService;
+import net.flovex.core.scoreboard.TablistService;
+import net.flovex.core.rank.RankService;
+import net.flovex.core.world.RtpService;
+import net.flovex.core.world.RtpQueueService;
 import net.flovex.core.social.TeamService;
 import net.flovex.core.text.MessageService;
 import net.flovex.core.text.SoundService;
 import net.flovex.core.ui.MenuService;
+import net.flovex.core.ui.SettingsService;
 import net.flovex.core.world.WarpService;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,7 +30,12 @@ public final class FlovexCore extends JavaPlugin {
  private PortalService portals;
  private PlatformService platform;
  private MenuService menus;
+ private SettingsService settings;
  private ScoreboardService scoreboard;
+ private RankService ranks;
+ private TablistService tablist;
+ private RtpService rtp;
+ private RtpQueueService rtpQueue;
  private TeamService teams;
  private WarpService warps;
  private MessageService messages;
@@ -58,7 +68,12 @@ public final class FlovexCore extends JavaPlugin {
    messages=new MessageService(this);
    sounds=new SoundService(this);
    menus=new MenuService(this,platform);
+   settings=new SettingsService(this,platform);
    scoreboard=new ScoreboardService(this);
+   ranks=new RankService(this);
+   tablist=new TablistService(this);
+   rtp=new RtpService(this);
+   rtpQueue=new RtpQueueService(this);
 
    CoreCommands commands=new CoreCommands(this);
    for(String name:getDescription().getCommands().keySet()){
@@ -66,12 +81,17 @@ public final class FlovexCore extends JavaPlugin {
     if(command!=null){command.setExecutor(commands);command.setTabCompleter(commands);}
    }
    Bukkit.getPluginManager().registerEvents(commands,this);
+   Bukkit.getPluginManager().registerEvents(rtp,this);
+   Bukkit.getPluginManager().registerEvents(rtpQueue,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
+   Bukkit.getPluginManager().registerEvents(settings,this);
    Bukkit.getPluginManager().registerEvents(portals,this);
    Bukkit.getMessenger().registerOutgoingPluginChannel(this,"BungeeCord");
    if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))new FlovexExpansion(this).register();
 
    scoreboard.start();
+   tablist.start();
+   rtpQueue.start();
    Bukkit.getScheduler().runTaskTimer(this,()->market.cleanup(),1200L,1200L);
    Bukkit.getScheduler().runTaskTimer(this,()->Bukkit.getOnlinePlayers().forEach(player->{
     storage.update("INSERT INTO player_data(uuid,last_name,first_join,play_ticks,last_seen) VALUES(?,?,?,?,?) ON CONFLICT(uuid) DO UPDATE SET last_name=excluded.last_name,play_ticks=player_data.play_ticks+1200,last_seen=excluded.last_seen",player.getUniqueId().toString(),player.getName(),System.currentTimeMillis(),1200,System.currentTimeMillis());
@@ -84,7 +104,7 @@ public final class FlovexCore extends JavaPlugin {
   }
  }
 
- @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
+ @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(tablist!=null)tablist.stop();if(rtpQueue!=null)rtpQueue.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
@@ -92,7 +112,11 @@ public final class FlovexCore extends JavaPlugin {
  public YamlConfiguration networkConfig(){return networkCfg;}
  public PlatformService getPlatform(){return platform;}
  public MenuService getMenus(){return menus;}
+ public SettingsService getSettings(){return settings;}
  public ScoreboardService getScoreboard(){return scoreboard;}
+ public RankService getRanks(){return ranks;}
+ public RtpService getRtp(){return rtp;}
+ public RtpQueueService getRtpQueue(){return rtpQueue;}
  public YamlConfiguration scoreboardConfig(){return scoreboardCfg;}
  public TeamService getTeams(){return teams;}
  public WarpService getWarps(){return warps;}
