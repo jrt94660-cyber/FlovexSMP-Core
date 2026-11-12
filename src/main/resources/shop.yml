@@ -548,13 +548,13 @@ QUICK-BUY:
 
   # Dynamic pricing settings for Quick Buy and market price estimation
   PRICING:
-    # Disabled so every Quick Buy price follows the configured 10x original-base buy rule.
+    # Disabled so Quick Buy uses worth values and the configured 20x buy multiplier.
     USE-AUCTION-HOUSE: false
-    # Buy multiplier relative to the doubled sell value in worth.yml. 5x doubled sell = 10x original base price.
+    # Buy multiplier relative to worth.yml. All listed items use 20x worth.
     WORTH-MULTIPLIER: 20.0
     # Automatically calculate a fair balanced price for items missing from worth.yml
     AUTO-BALANCE-MISSING: true
-    # Auto-balanced items use a 10x buy multiplier against the unscaled estimated baseline.
+    # Auto-balanced items use a 20x buy multiplier against the estimated baseline.
     AUTO-BALANCE-MULTIPLIER: 20.0
     # WORTH (default) still prices items that are not listed under FIXED-ITEMS from worth.yml.
     # AUCTION-ONLY leaves those items out of stock until a matching auction listing exists.
