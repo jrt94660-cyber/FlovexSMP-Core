@@ -2,6 +2,7 @@ package net.flovex.core.shop;
 
 import net.flovex.core.FlovexCore;
 import net.flovex.core.economy.EconomyHook;
+import net.flovex.core.util.MoneyFormat;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
@@ -235,5 +236,5 @@ public final class ShopService implements Listener {
         item.setItemMeta(meta); return item;
     }
     private String pretty(Material material) { String s=material.name().toLowerCase(Locale.ROOT).replace('_',' '); return Character.toUpperCase(s.charAt(0))+s.substring(1); }
-    private String money(double value) { return String.format(Locale.US, "%,.2f", value); }
+    private String money(double value) { return MoneyFormat.compact(value); }
 }
