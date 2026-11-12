@@ -77,13 +77,13 @@ public final class RtpQueueService implements Listener {
 
     public void join(Player player) {
         if (queue.add(player.getUniqueId())) {
-            player.sendMessage("§aAdded to the RTP queue. Position: §f" + position(player.getUniqueId()));
-        } else player.sendMessage("§eYou are already in the RTP queue. Position: §f" + position(player.getUniqueId()));
+            player.sendMessage(plugin.getMessages().prefix() + "§aAdded to the RTP queue. Position: §f" + position(player.getUniqueId()));
+        } else player.sendMessage(plugin.getMessages().prefix() + "§eYou are already in the RTP queue. Position: §f" + position(player.getUniqueId()));
     }
 
     public void leave(Player player) {
-        if (queue.remove(player.getUniqueId())) player.sendMessage("§cRemoved from the RTP queue.");
-        else player.sendMessage("§7You are not in the RTP queue.");
+        if (queue.remove(player.getUniqueId())) player.sendMessage(plugin.getMessages().prefix() + "§cRemoved from the RTP queue.");
+        else player.sendMessage(plugin.getMessages().prefix() + "§7You are not in the RTP queue.");
     }
 
     public int position(UUID uuid) {
@@ -104,7 +104,7 @@ public final class RtpQueueService implements Listener {
         iterator.remove();
         Player player = Bukkit.getPlayer(next);
         if (player == null || !player.isOnline()) return;
-        player.sendMessage("§bYour place in the RTP queue is ready. Finding a safe location...");
+        player.sendMessage(plugin.getMessages().prefix() + "§bYour place in the RTP queue is ready. Finding a safe location...");
         plugin.getRtp().teleport(player, "overworld");
     }
 }
