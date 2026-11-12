@@ -102,6 +102,7 @@ public final class FlovexCore extends JavaPlugin {
    scoreboard.start();
    tablist.start();
    rtpQueue.start();
+   shardShop.start();
    Bukkit.getScheduler().runTaskTimer(this,()->market.cleanup(),1200L,1200L);
    Bukkit.getScheduler().runTaskTimer(this,()->Bukkit.getOnlinePlayers().forEach(player->{
     storage.update("INSERT INTO player_data(uuid,last_name,first_join,play_ticks,last_seen) VALUES(?,?,?,?,?) ON CONFLICT(uuid) DO UPDATE SET last_name=excluded.last_name,play_ticks=player_data.play_ticks+1200,last_seen=excluded.last_seen",player.getUniqueId().toString(),player.getName(),System.currentTimeMillis(),1200,System.currentTimeMillis());
@@ -114,7 +115,7 @@ public final class FlovexCore extends JavaPlugin {
   }
  }
 
- @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(tablist!=null)tablist.stop();if(rtpQueue!=null)rtpQueue.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
+ @Override public void onDisable(){if(scoreboard!=null)scoreboard.stop();if(tablist!=null)tablist.stop();if(rtpQueue!=null)rtpQueue.stop();if(shardShop!=null)shardShop.stop();Bukkit.getMessenger().unregisterOutgoingPluginChannel(this,"BungeeCord");if(storage!=null)storage.close();}
  public Storage getStorage(){return storage;}
  public EconomyHook getEconomy(){return economy;}
  public Marketplace getMarket(){return market;}
