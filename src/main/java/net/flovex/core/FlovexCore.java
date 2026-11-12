@@ -17,6 +17,7 @@ import net.flovex.core.social.TeamService;
 import net.flovex.core.text.MessageService;
 import net.flovex.core.text.SoundService;
 import net.flovex.core.ui.MenuService;
+import net.flovex.core.ui.SettingsService;
 import net.flovex.core.world.WarpService;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,6 +31,7 @@ public final class FlovexCore extends JavaPlugin {
  private PortalService portals;
  private PlatformService platform;
  private MenuService menus;
+ private SettingsService settings;
  private ScoreboardService scoreboard;
  private RankService ranks;
  private TablistService tablist;
@@ -68,6 +70,7 @@ public final class FlovexCore extends JavaPlugin {
    messages=new MessageService(this);
    sounds=new SoundService(this);
    menus=new MenuService(this,platform);
+   settings=new SettingsService(this,platform);
    scoreboard=new ScoreboardService(this);
    ranks=new RankService(this);
    tablist=new TablistService(this);
@@ -85,6 +88,7 @@ public final class FlovexCore extends JavaPlugin {
    Bukkit.getPluginManager().registerEvents(commands,this);
    Bukkit.getPluginManager().registerEvents(shop,this);
    Bukkit.getPluginManager().registerEvents(menus,this);
+   Bukkit.getPluginManager().registerEvents(settings,this);
    Bukkit.getPluginManager().registerEvents(portals,this);
    Bukkit.getMessenger().registerOutgoingPluginChannel(this,"BungeeCord");
    if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))new FlovexExpansion(this).register();
@@ -112,6 +116,7 @@ public final class FlovexCore extends JavaPlugin {
  public YamlConfiguration networkConfig(){return networkCfg;}
  public PlatformService getPlatform(){return platform;}
  public MenuService getMenus(){return menus;}
+ public SettingsService getSettings(){return settings;}
  public ScoreboardService getScoreboard(){return scoreboard;}
  public RankService getRanks(){return ranks;}
  public RtpService getRtp(){return rtp;}
