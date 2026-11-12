@@ -1,5 +1,5 @@
 name: FlovexCore
-version: '1.0.6'
+version: '1.0.7'
 main: net.flovex.core.FlovexCore
 api-version: '26.2'
 authors: [Flovex]
