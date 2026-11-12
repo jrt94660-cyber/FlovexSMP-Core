@@ -7,3 +7,7 @@ defaults:
   team-chat: false
   hide-players: false
   chat-notifications: true
+  server-sounds: true
+  safety: false
+  phantom-enabled: true
+  voicechat-consent: false
