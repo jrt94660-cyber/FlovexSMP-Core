@@ -55,12 +55,12 @@ public final class RtpService {
             int x = (int) Math.round(Math.cos(angle) * radius);
             int z = (int) Math.round(Math.sin(angle) * radius);
             int y = world.getHighestBlockYAt(x, z);
-            Block floor = world.getBlockAt(x, y - 1, z);
-            Block feet = world.getBlockAt(x, y, z);
-            Block head = world.getBlockAt(x, y + 1, z);
+            Block floor = world.getBlockAt(x, y, z);
+            Block feet = world.getBlockAt(x, y + 1, z);
+            Block head = world.getBlockAt(x, y + 2, z);
             if (!floor.getType().isSolid() || floor.isLiquid() || feet.isLiquid() || head.isLiquid()
                     || !feet.isPassable() || !head.isPassable()) continue;
-            Location destination = new Location(world, x + 0.5, y, z + 0.5);
+            Location destination = new Location(world, x + 0.5, y + 1, z + 0.5);
             player.sendMessage(Component.text("Finding a safe location..."));
             player.teleportAsync(destination).thenAccept(success -> Bukkit.getScheduler().runTask(plugin, () ->
                 player.sendMessage(Component.text(success ? "Random teleport complete." : "Teleport failed."))));
