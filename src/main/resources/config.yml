@@ -13,8 +13,8 @@ phantom:
   radius: 64
 
 tablist:
-  header: '&#38BDFB&lFLOVEXSMP'
-  footer: '&7flovexsmp.play-mc.fun'
+  header: '&#38BDFB&lF&#48C5FC&lL&#59CDFC&lO&#69D4FD&lV&#7ADCFD&lE&#8AE4FE&lX &#A5F3FC&lS&#8AE4FE&lM&#69D4FD&lP'
+  footer: '&f%online% Players &8• &7flovexsmp.play-mc.fun'
 rtp:
   min-radius: 1000
   max-radius: 10000
