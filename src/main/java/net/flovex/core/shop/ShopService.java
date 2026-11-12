@@ -23,6 +23,9 @@ public final class ShopService implements Listener {
     private final Map<UUID, Pending> pending = new HashMap<>();
     private final double shopMultiplier;
     private final double sellFraction;
+    private final Set<String> blacklist = new HashSet<>();
+    private final int maxItems;
+    private final String shopTitle;
 
     public ShopService(FlovexCore plugin, EconomyHook economy,
                        org.bukkit.configuration.file.FileConfiguration shop,
@@ -31,6 +34,9 @@ public final class ShopService implements Listener {
         this.economy = economy;
         this.shopMultiplier = Math.max(0, shop.getDouble("QUICK-BUY.PRICING.WORTH-MULTIPLIER", 20.0));
         this.sellFraction = Math.max(0, Math.min(1, plugin.getConfig().getDouble("sell.price-fraction", 0.5)));
+        this.blacklist.addAll(shop.getStringList("QUICK-BUY.CHOOSE-ITEM.BLACKLIST").stream().map(x -> x.toUpperCase(Locale.ROOT)).toList());
+        this.maxItems = Math.max(45, shop.getInt("QUICK-BUY.CHOOSE-ITEM.MAX-ITEMS", 2000));
+        this.shopTitle = ChatColor.translateAlternateColorCodes('&', shop.getString("QUICK-BUY.TITLE", "&8Quick Buy"));
         for (String category : worthConfig.getConfigurationSection("TYPE").getKeys(false)) {
             var section = worthConfig.getConfigurationSection("TYPE." + category);
             if (section == null) continue;
@@ -45,14 +51,14 @@ public final class ShopService implements Listener {
     public double sellFraction() { return sellFraction; }
     public double buyUnitPrice(Material material) { return worth.getOrDefault(material, 0.0) * shopMultiplier; }
     public double sellUnitPrice(Material material) { return buyUnitPrice(material) * sellFraction; }
-    public boolean isSellable(Material material) { return sellUnitPrice(material) > 0 && material.isItem(); }
+    public boolean isSellable(Material material) { return sellUnitPrice(material) > 0 && material.isItem() && !blocked(material); }
 
     public void openShop(Player player, int page) {
         List<Material> materials = worth.keySet().stream().filter(m -> m.isItem() && buyUnitPrice(m) > 0)
                 .sorted(Comparator.comparing(Material::name)).toList();
         int maxPage = Math.max(0, (materials.size() - 1) / 45);
         page = Math.max(0, Math.min(page, maxPage));
-        Inventory inv = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "Flovex Shop");
+        Inventory inv = Bukkit.createInventory(null, 54, shopTitle);
         int start = page * 45;
         for (int i = 0; i < 45 && start + i < materials.size(); i++) {
             Material material = materials.get(start + i);
@@ -212,7 +218,7 @@ public final class ShopService implements Listener {
         View view = views.get(player.getUniqueId());
         if (view == null) return;
         String title = event.getView().getTitle();
-        if (!title.startsWith(ChatColor.DARK_GRAY + "Flovex Shop") &&
+        if (!title.equals(shopTitle) &&
                 !title.startsWith(ChatColor.DARK_GRAY + "Flovex Sell") &&
                 !title.startsWith(ChatColor.DARK_GRAY + "Confirm Purchase") &&
                 !title.startsWith(ChatColor.DARK_GRAY + "Confirm Sale")) return;
@@ -243,7 +249,16 @@ public final class ShopService implements Listener {
 
     public void close(Player player) { views.remove(player.getUniqueId()); }
     public double worth(Material material) { return worth.getOrDefault(material, 0.0); }
-    public List<String> materials() { return worth.keySet().stream().map(Material::name).sorted().toList(); }
+    public List<String> materials() { return worth.keySet().stream().filter(m -> !blocked(m)).map(Material::name).sorted().toList(); }
+    private boolean blocked(Material material) {
+        String name = material.name();
+        if (name.endsWith("_SPAWN_EGG") || name.equals("SPAWNER") || name.equals("TRIAL_SPAWNER") || name.equals("VAULT")) return true;
+        for (String rule : blacklist) {
+            if (rule.endsWith("*") && name.startsWith(rule.substring(0, rule.length() - 1))) return true;
+            if (name.equals(rule)) return true;
+        }
+        return false;
+    }
     private ItemStack button(Material material, String name, String lore) {
         ItemStack item = new ItemStack(material); ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
