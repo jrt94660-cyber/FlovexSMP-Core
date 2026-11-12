@@ -13,7 +13,7 @@ import java.util.*;
 
 public final class ShopService implements Listener {
     private enum Menu { SHOP, SELL, CONFIRM_BUY, CONFIRM_SELL }
-    private record Pending(boolean buy, List<ItemStack> items, Material material, int amount, double total) {}
+    private record Pending(boolean buy, List<ItemStack> items, Material material, int amount, double total, Inventory sourceInventory) {}
     private record View(Menu menu, int page, List<Material> materials, List<Integer> inventorySlots) {}
 
     private final FlovexCore plugin;
@@ -96,7 +96,19 @@ public final class ShopService implements Listener {
         if (hand.getType().isAir() || !isSellable(hand.getType())) { player.sendMessage("§cThat item cannot be sold."); return; }
         int amount = Math.max(1, Math.min(requested, hand.getAmount()));
         ItemStack snapshot = hand.clone(); snapshot.setAmount(amount);
-        confirm(player, new Pending(false, List.of(snapshot), null, amount, sellUnitPrice(hand.getType()) * amount));
+        confirm(player, new Pending(false, List.of(snapshot), null, amount, sellUnitPrice(hand.getType()) * amount, null));
+    }
+
+    public void sellContainer(Player player, Inventory container) {
+        List<ItemStack> items = new ArrayList<>();
+        double total = 0;
+        for (ItemStack stack : container.getContents()) {
+            if (stack == null || stack.getType().isAir() || !isSellable(stack.getType())) continue;
+            items.add(stack.clone());
+            total += sellUnitPrice(stack.getType()) * stack.getAmount();
+        }
+        if (items.isEmpty()) { player.sendMessage("§cThis container has no sellable items."); return; }
+        confirm(player, new Pending(false, items, null, items.stream().mapToInt(ItemStack::getAmount).sum(), total, container));
     }
 
     public void sellAll(Player player) {
@@ -108,7 +120,7 @@ public final class ShopService implements Listener {
             total += sellUnitPrice(stack.getType()) * stack.getAmount();
         }
         if (items.isEmpty()) { player.sendMessage("§cYou have no sellable items."); return; }
-        confirm(player, new Pending(false, items, null, items.stream().mapToInt(ItemStack::getAmount).sum(), total));
+        confirm(player, new Pending(false, items, null, items.stream().mapToInt(ItemStack::getAmount).sum(), total, null));
     }
 
     private void confirm(Player player, Pending transaction) {
@@ -134,7 +146,7 @@ public final class ShopService implements Listener {
         int amount = Math.min(material.getMaxStackSize(), 64);
         double total = buyUnitPrice(material) * amount;
         if (!economy.available()) { player.sendMessage("§cEconomy provider unavailable."); return; }
-        confirm(player, new Pending(true, List.of(), material, amount, total));
+        confirm(player, new Pending(true, List.of(), material, amount, total, null));
     }
 
     private void finish(Player player) {
@@ -157,9 +169,9 @@ public final class ShopService implements Listener {
             }
             player.sendMessage("§aPurchased " + transaction.amount() + " " + pretty(transaction.material()) + " for §f$" + money(transaction.total()));
         } else {
-            if (!removeSnapshots(player, transaction.items())) { player.sendMessage("§cYour inventory changed. Sale cancelled."); return; }
+            if (!removeSnapshots(player, transaction.items(), transaction.sourceInventory())) { player.sendMessage("§cThe items changed. Sale cancelled."); return; }
             if (!economy.deposit(player.getUniqueId(), transaction.total())) {
-                transaction.items().forEach(x -> player.getInventory().addItem(x));
+                transaction.items().forEach(x -> { if (transaction.sourceInventory() == null) player.getInventory().addItem(x); else transaction.sourceInventory().addItem(x); });
                 player.sendMessage("§cCould not deposit money. Items returned.");
                 return;
             }
@@ -171,21 +183,22 @@ public final class ShopService implements Listener {
         }
     }
 
-    private boolean removeSnapshots(Player player, List<ItemStack> snapshots) {
+    private boolean removeSnapshots(Player player, List<ItemStack> snapshots, Inventory source) {
+        Inventory inventory = source == null ? player.getInventory() : source;
         for (ItemStack wanted : snapshots) {
             int found = 0;
-            for (ItemStack current : player.getInventory().getStorageContents()) if (current != null && current.isSimilar(wanted)) found += current.getAmount();
+            for (ItemStack current : inventory.getContents()) if (current != null && current.isSimilar(wanted)) found += current.getAmount();
             if (found < wanted.getAmount()) return false;
         }
         for (ItemStack wanted : snapshots) {
             int remaining = wanted.getAmount();
-            for (int slot = 0; slot < player.getInventory().getStorageContents().length && remaining > 0; slot++) {
-                ItemStack current = player.getInventory().getItem(slot);
+            for (int slot = 0; slot < inventory.getContents().length && remaining > 0; slot++) {
+                ItemStack current = inventory.getItem(slot);
                 if (current == null || !current.isSimilar(wanted)) continue;
                 int take = Math.min(remaining, current.getAmount());
                 current.setAmount(current.getAmount() - take);
-                if (current.getAmount() <= 0) player.getInventory().setItem(slot, null);
-                else player.getInventory().setItem(slot, current);
+                if (current.getAmount() <= 0) inventory.setItem(slot, null);
+                else inventory.setItem(slot, current);
                 remaining -= take;
             }
         }
