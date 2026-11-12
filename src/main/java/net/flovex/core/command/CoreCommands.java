@@ -184,7 +184,6 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  if(args.length==1)return switch(name){
   case "rtp"->List.of("overworld","nether","end");
   case "rtpq"->List.of("join","leave","status");
-  case "rtpq"->List.of("join","leave","status");
   case "auctionhouse"->List.of("sell","buy","claim","search","my","cancel");
   case "orders"->List.of("create","cancel","my");
   case "friends"->List.of("list","add","remove");
