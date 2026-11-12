@@ -8,7 +8,7 @@ FlovexCore is the standalone Paper core for FlovexSMP. Current source version: *
 - Java 25
 - Maven 3.9+
 - Vault-compatible economy provider for money features (ExcellentEconomy supported through Vault)
-- Optional: LuckPerms, PlaceholderAPI, Geyser + Floodgate, LibsDisguises
+- Optional: LuckPerms, PlaceholderAPI, CoinsEngine (shard scoreboard placeholder), Geyser + Floodgate, LibsDisguises
 
 Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 
