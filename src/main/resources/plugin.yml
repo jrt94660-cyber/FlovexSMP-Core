@@ -12,6 +12,7 @@ commands:
   rtpq: {description: Join or leave the random teleport queue, permission: flovexcore.teleport.use}
   shop: {description: Open the Quick Buy shop, permission: flovexcore.shop.use}
   shardshop: {description: Open the Shard Shop, permission: flovexcore.shards.use}
+  amethysttool: {description: Give configured amethyst tools, permission: flovexcore.shards.admin}
   shards: {description: View shard balance, permission: flovexcore.shards.use}
   shardpay: {description: Pay shards to another player, permission: flovexcore.shards.use}
   addshards: {description: Add shards to a player}
