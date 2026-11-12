@@ -10,10 +10,14 @@ import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 import java.util.*;
 
-public final class RtpQueueService {
+public final class RtpQueueService implements Listener {
     private final FlovexCore plugin;
     private final LinkedHashSet<UUID> queue = new LinkedHashSet<>();
     private BukkitTask worker;
@@ -28,6 +32,7 @@ public final class RtpQueueService {
     public void stop() { if (worker != null) worker.cancel(); }
 
     public void open(Player player) {
+        if (plugin.getPlatform().isBedrock(player)) { openFallback(player); return; }
         int position = position(player.getUniqueId());
         String state = position == 0 ? "You are not in the queue." : "Your queue position: " + position + " / " + queue.size();
         try {
@@ -40,9 +45,34 @@ public final class RtpQueueService {
                     ActionButton.create(Component.text("Leave Queue"), Component.text("Remove yourself from the queue"), 120, DialogAction.commandTemplate("/rtpq leave"))
                 ), null, 2))));
         } catch (Throwable error) {
-            player.sendMessage("§bRTP Queue §7- " + state);
-            player.sendMessage("§a/rtpq join §7or §c/rtpq leave");
+            openFallback(player);
         }
+    }
+
+    private void openFallback(Player player) {
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "RTP Queue");
+        inv.setItem(11, option(Material.LIME_DYE, "&aJoin Queue", "&7Join the Overworld RTP queue"));
+        inv.setItem(13, option(Material.PAPER, "&fQueue Status", "&7Players waiting: " + queue.size() + "\nYour position: " + position(player.getUniqueId())));
+        inv.setItem(15, option(Material.RED_DYE, "&cLeave Queue", "&7Leave the RTP queue"));
+        player.openInventory(inv);
+    }
+
+    @EventHandler public void onQueueClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player) || !event.getView().getTitle().equals(ChatColor.DARK_GRAY + "RTP Queue")) return;
+        event.setCancelled(true);
+        if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+        if (event.getSlot() == 11) { player.closeInventory(); join(player); }
+        else if (event.getSlot() == 15) { player.closeInventory(); leave(player); }
+        else if (event.getSlot() == 13) openFallback(player);
+    }
+
+    private ItemStack option(Material material, String name, String lore) {
+        ItemStack item = new ItemStack(material);
+        var meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        meta.setLore(Arrays.stream(lore.split("\\n")).map(x -> ChatColor.translateAlternateColorCodes('&', x)).toList());
+        item.setItemMeta(meta);
+        return item;
     }
 
     public void join(Player player) {
