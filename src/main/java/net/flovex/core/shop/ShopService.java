@@ -228,7 +228,7 @@ public final class ShopService implements Listener {
                     ItemStack stack = player.getInventory().getItem(view.inventorySlots().get(slot));
                     if (stack != null && isSellable(stack.getType())) {
                         ItemStack snapshot = stack.clone();
-                        confirm(player, new Pending(false, List.of(snapshot), null, snapshot.getAmount(), sellUnitPrice(snapshot.getType()) * snapshot.getAmount()));
+                        confirm(player, new Pending(false, List.of(snapshot), null, snapshot.getAmount(), sellUnitPrice(snapshot.getType()) * snapshot.getAmount(), null));
                     }
                 }
             }
