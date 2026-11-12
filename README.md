@@ -15,17 +15,21 @@ Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 ## Included systems
 
 ### Economy, shop, and selling
-- 54-slot Quick Buy shop backed by the full worth catalog in `worth.yml`
+- 54-slot Quick Buy shop backed by the full worth catalog in `worth.yml`, with configured vanilla-material blacklist and auto-balanced prices for unlisted items
 - Shop buy prices use a 20x worth multiplier
+- Shop buy prices use a 20x multiplier for listed and auto-balanced items
 - Sell prices are 50% of the resulting shop price; sell value cannot exceed shop price
 - Confirmation menu before money is charged or items are removed
-- `/sell`, `/sellhand`, `/sellall`, `/worth`, `/sellhistory`, and `/topsell`
+- `/shop`, `/sell`, `/sellhand`, `/sellall`, `/sellmulti`, `/sellmultiplier`, `/sellprogress`, `/worth`, `/sellhistory`, and `/topsell`
+- Vault `/balance`, `/pay`, and staff money adjustment commands
 - Shard balance, shard payments, kill rewards, and the configured Shard Shop catalog through the Bow item
+- Amethyst Drill, Shovel, Chopper, Sell Axe, and Haste Potion tools with configured expiry; Sell Axe uses the same sale confirmation and 50% shop-price rule
 - Auction House listings/search/buy/claim/cancel and player buy orders with reserved funds, expiry refunds, and claims
 
 ### Player and social systems
 - TPA, TPAHere, accept/deny/cancel, auto-accept preferences, and a queued Overworld RTP
-- `/rtp` native Paper dialog with exactly three world buttons: Overworld, Nether, End
+- `/rtp` native Paper dialog with exactly three world buttons: Overworld, Nether, End; Bedrock gets a three-choice chest GUI
+- `/randomteleport` alias and `/rtpq` join/leave queue with Java Dialog and Bedrock GUI
 - Friends, private messages, reply, ignore/unignore, profiles, stats, playtime, ping, and leaderboards
 - Teams with invites, member limits, team chat, team homes, and friendly-fire control
 - Named warps and configurable proxy portals
@@ -34,7 +38,7 @@ Run `mvn -B clean verify`. GitHub Actions builds the versioned JAR.
 - LuckPerms group-priority loading from `luckpermsranks.yml`; this file only controls display order and never creates or edits LuckPerms groups
 - Tablist and scoreboard display the selected LuckPerms group prefix only; they do not concatenate inherited prefixes
 - FlovexSMP gradient tablist, online count, branded scoreboard, compact money formatting (k/m/b/t/q/qq)
-- Chat formatting uses the selected LuckPerms prefix and FlovexSMP blue styling
+- Chat formatting uses the selected LuckPerms prefix and FlovexSMP blue styling; join title and RTP/shop actionbars use the same branding
 - Settings categories: Chat, Notifications, PvP, Visuals, Privacy, Scoreboard, General
 - Privacy category places TPA Auto first; settings persist per UUID
 - Java clients receive native Paper Dialogs; Bedrock clients receive chest-GUI fallbacks where supported
