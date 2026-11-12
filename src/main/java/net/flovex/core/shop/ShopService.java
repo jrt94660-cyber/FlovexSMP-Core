@@ -198,7 +198,7 @@ public final class ShopService implements Listener {
                     return;
                 }
             }
-            player.sendMessage("§aPurchased " + transaction.amount() + " " + pretty(transaction.material()) + " for §f$" + money(transaction.total()));
+            player.sendMessage(plugin.getMessages().prefix() + "§aPurchased " + transaction.amount() + " " + pretty(transaction.material()) + " for §f$" + money(transaction.total()));
         } else {
             if (!removeSnapshots(player, transaction.items(), transaction.sourceInventory())) { player.sendMessage(plugin.getMessages().prefix() + "§cThe items changed. Sale cancelled."); return; }
             if (!economy.deposit(player.getUniqueId(), transaction.total())) {
@@ -210,7 +210,7 @@ public final class ShopService implements Listener {
                     player.getUniqueId().toString(), transaction.amount(), transaction.total(), System.currentTimeMillis());
             plugin.getStorage().update("INSERT INTO sell_stats(uuid,items_sold,total_earned) VALUES(?,?,?) ON CONFLICT(uuid) DO UPDATE SET items_sold=items_sold+excluded.items_sold,total_earned=total_earned+excluded.total_earned",
                     player.getUniqueId().toString(), transaction.amount(), transaction.total());
-            player.sendMessage("§aSold " + transaction.amount() + " items for §f$" + money(transaction.total()));
+            player.sendMessage(plugin.getMessages().prefix() + "§aSold " + transaction.amount() + " items for §f$" + money(transaction.total()));
         }
     }
 
