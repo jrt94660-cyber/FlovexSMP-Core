@@ -3,7 +3,7 @@ title: '&#38BDFB&lFLOVEXSMP'
 update-ticks: 20
 lines:
   - '&7%date%'
-  - '&f%player%'
+  - '&f%rank% &7%player%'
   - '&8&m----------------'
   - '&bKills: &f%kills%'
   - '&cDeaths: &f%deaths%'
@@ -14,7 +14,7 @@ styles:
     title: '&#38BDFB&lFLOVEXSMP'
     lines:
       - '&7%date%'
-      - '&f%player%'
+      - '&f%rank% &7%player%'
       - '&8&m----------------'
       - '&bKills: &f%kills%'
       - '&cDeaths: &f%deaths%'
