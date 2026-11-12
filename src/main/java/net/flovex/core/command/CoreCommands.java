@@ -42,6 +42,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
 
  @Override public boolean onCommand(CommandSender s,Command c,String label,String[] a){String cmd=c.getName().toLowerCase(Locale.ROOT);Player p=s instanceof Player?(Player)s:null;
  switch(cmd){
+ case "rtp"->{if(!player(s))return true;if(a.length==0){plugin.getRtp().open(p);}else plugin.getRtp().teleport(p,a[0]);}
  case "menu"->{if(!player(s))return true;plugin.getMenus().show(p,"FlovexCore","Social: /friends, /msg\nMarketplace: /ah, /orders\nPlayer: /stats, /settings");}
  case "tpa","tpahere"->{if(!player(s))return true;if(a.length<1){msg(s,"&cUsage: /"+cmd+" <player>");return true;}Player t=target(a[0]);if(t==null){msg(s,"&cPlayer not found.");return true;}request(p,t,cmd.equals("tpahere"));}
  case "tpaccept"->{if(!player(s))return true;Request r=requests.remove(p.getUniqueId());if(r==null||System.currentTimeMillis()-r.created()>plugin.teleportConfig().getInt("request-expiry-seconds",60)*1000L){msg(p,"&cNo pending request.");return true;}Player from=Bukkit.getPlayer(r.sender());if(from==null){msg(p,"&cRequester is offline.");return true;}if(r.here())teleport(from,p);else teleport(p,from);}
@@ -155,6 +156,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  @Override public List<String> onTabComplete(CommandSender sender,Command command,String alias,String[] args){
  String name=command.getName().toLowerCase(Locale.ROOT);
  if(args.length==1)return switch(name){
+  case "rtp"->List.of("overworld","nether","end");
   case "auctionhouse"->List.of("sell","buy","claim","search","my","cancel");
   case "orders"->List.of("create","cancel","my");
   case "friends"->List.of("list","add","remove");
