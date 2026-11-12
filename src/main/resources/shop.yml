@@ -1,0 +1,883 @@
+# ==============================================================================
+# FlovexCore Shop Configuration
+# /shop is modern DonutSMP Quick Buy with full Auction House integration.
+# Shard Shop items intentionally end at Bow (slot 20).
+# ==============================================================================
+
+# General Shop Settings
+SETTINGS:
+  # Make sure if you have this setting set to true,
+  # that your server has the correct safeguards so
+  # if someone spam buys something it doesn't lag your server.
+  DROP-ITEMS-IF-FULL: true
+
+# Shard Shop Menu (/shardshop) — layout locked to Design/Shards Shop
+SHARD-MENU:
+  TITLE: "&8Shard Shop"
+  SIZE: 54
+  CURRENCY: SHARD
+
+  BUTTONS:
+    BALANCE:
+      SLOT: 49
+      MATERIAL: AMETHYST_SHARD
+      NAME: "&fShard Shop"
+      LORE:
+        - "&fYou have &#A303F9{shards} Shards"
+        - ""
+        - "&fVisit our website to purchase shards"
+    RANKS:
+      SLOT: 50
+      MATERIAL: PLAYER_HEAD
+      # Leave HEAD-TEXTURE empty so the icon stays the default Steve head.
+      HEAD-TEXTURE: ""
+      NAME: "&fRanks"
+      LORE:
+        - "&fClick to view"
+
+  SHARD-PICKAXE-SILK-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_PICKAXE"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "SILK_TOUCH:1"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Pickaxe"
+    SLOT: 0
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fBreaks 9 Blocks at Once"
+      - "&7Silk Touch"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: DRILL
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-PICKAXE-FORTUNE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_PICKAXE"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "FORTUNE:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Pickaxe"
+    SLOT: 1
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fBreaks 9 Blocks at Once"
+      - "&7Fortune III"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: DRILL
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-AXE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_AXE"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Axe"
+    SLOT: 2
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fBreaks Full Tree"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: CHOPPER
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-SELL-AXE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_AXE"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Sell Axe"
+    SLOT: 3
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fSell Full Chests"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: SELL_AXE
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-SHOVEL-SILK-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_SHOVEL"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "SILK_TOUCH:1"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Shovel"
+    SLOT: 4
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fBreaks 9 Blocks at Once"
+      - "&7Silk Touch"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: SHOVEL
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-SHOVEL-FORTUNE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_SHOVEL"
+    HIDE-ENCHANTS: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "FORTUNE:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&#A303F9Shard Shovel"
+    SLOT: 5
+    PRICE-PER-UNIT: 1500
+    LORE:
+      - "&fBreaks 9 Blocks at Once"
+      - "&7Fortune III"
+      - "&7Efficiency V"
+      - "&7Unbreaking III"
+      - "&7Mending"
+      - "&cSelf Destruct: 24h"
+      - "&#A303F91.5K Shards"
+    COMMAND: ""
+    AMETHYST-TOOL: SHOVEL
+    AMETHYST-DURATION: 86400
+    GIVE-ITEM: true
+    KEEP-DISPLAY: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  SHARD-HASTE-POTION-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "POTION"
+    HIDE-ENCHANTS: true
+    DISPLAY-NAME: "&#A303F9Shard Potion of Haste"
+    SLOT: 6
+    PRICE-PER-UNIT: 250
+    LORE:
+      - "&cSelf Destructs in 24h"
+      - "&#A303F9250 Shards"
+    POTION-EFFECTS:
+      - "haste:1:9600"
+    POTION-COLOR: "A303F9"
+    AMETHYST-TOOL: HASTE_POTION
+    AMETHYST-DURATION: 86400
+    KEEP-DISPLAY: true
+    GIVE-ITEM: true
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-HELMET-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_HELMET"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "PROTECTION:4"
+      - "RESPIRATION:3"
+      - "AQUA_AFFINITY:1"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Helmet"
+    SLOT: 7
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-CHESTPLATE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_CHESTPLATE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "PROTECTION:4"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Chestplate"
+    SLOT: 8
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-LEGGINGS-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_LEGGINGS"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "PROTECTION:4"
+      - "SWIFT_SNEAK:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Leggings"
+    SLOT: 9
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-BOOTS-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_BOOTS"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "PROTECTION:4"
+      - "FEATHER_FALLING:4"
+      - "SOUL_SPEED:3"
+      - "DEPTH_STRIDER:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Boots"
+    SLOT: 10
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-SWORD-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_SWORD"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "SHARPNESS:5"
+      - "SWEEPING_EDGE:3"
+      - "FIRE_ASPECT:2"
+      - "KNOCKBACK:2"
+      - "LOOTING:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Sword"
+    SLOT: 11
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-PICKAXE-SILK-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_PICKAXE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "SILK_TOUCH:1"
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Pickaxe"
+    SLOT: 12
+    PRICE-PER-UNIT: 500
+    LORE:
+      - "&#A303F9500 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-PICKAXE-FORTUNE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_PICKAXE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "FORTUNE:3"
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Pickaxe"
+    SLOT: 13
+    PRICE-PER-UNIT: 500
+    LORE:
+      - "&#A303F9500 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-SHOVEL-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_SHOVEL"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Shovel"
+    SLOT: 14
+    PRICE-PER-UNIT: 400
+    LORE:
+      - "&#A303F9400 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-AXE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_AXE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Axe"
+    SLOT: 15
+    PRICE-PER-UNIT: 300
+    LORE:
+      - "&#A303F9300 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  MACE-DENSITY-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "MACE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "WIND_BURST:3"
+      - "DENSITY:5"
+      - "FIRE_ASPECT:2"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fMace"
+    SLOT: 16
+    PRICE-PER-UNIT: 1000
+    LORE:
+      - "&#A303F91K Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-SPEAR-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_SPEAR"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "LUNGE:3"
+      - "SHARPNESS:5"
+      - "FIRE_ASPECT:2"
+      - "KNOCKBACK:2"
+      - "LOOTING:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Spear"
+    SLOT: 17
+    PRICE-PER-UNIT: 750
+    LORE:
+      - "&#A303F9750 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  NETHERITE-HOE-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "NETHERITE_HOE"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "SILK_TOUCH:1"
+      - "EFFICIENCY:5"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fNetherite Hoe"
+    SLOT: 18
+    PRICE-PER-UNIT: 250
+    LORE:
+      - "&#A303F9250 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  CROSSBOW-PIERCING-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "CROSSBOW"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "PIERCING:4"
+      - "QUICK_CHARGE:3"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fCrossbow"
+    SLOT: 19
+    PRICE-PER-UNIT: 250
+    LORE:
+      - "&#A303F9250 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+  BOW-ITEM:
+    CURRENCY: SHARD
+    MATERIAL: "BOW"
+    VANILLA-NAME: true
+    ENCHANTMENTS:
+      - "POWER:5"
+      - "FLAME:1"
+      - "PUNCH:2"
+      - "UNBREAKING:3"
+      - "MENDING:1"
+    DISPLAY-NAME: "&fBow"
+    SLOT: 20
+    PRICE-PER-UNIT: 250
+    LORE:
+      - "&#A303F9250 Shards"
+    MIN-QUANTITY: 1
+    MAX-QUANTITY: 1
+    DEFAULT-QUANTITY: 1
+    HIDE-QUANTITY-BUTTONS: true
+
+# Configuration section for Shop Web Analytics Server
+
+# Configuration section for Shop Web Analytics Server
+SHOP-GUI:
+  SHOW-AUCTION-PRICE: true
+  # Configuration section for Item.
+  ITEM:
+    # Configuration section for Lore.
+    LORE:
+    - '&7Shop price: {shop_price}'
+    - '{auction_line}'
+    - ''
+    - '{favorite_line}'
+    - '&eLeft-click to buy from the shop'
+    - '{auction_action}'
+    - '{favorite_action}'
+  FAVORITES:
+    ENABLED: true
+  WEB-SERVER:
+    # Set to true to enable the embedded Shop Analytics web server
+    ENABLED: false
+    # Port for the embedded web server (e.g. 8080 or 25580)
+    PORT: 8080
+    # Optional custom domain or public URL (e.g. "https://stats.flovexcoremc.net" or "http://192.168.1.15:8080/stats")
+    # If left empty (""), it automatically resolves to http://localhost:<PORT>/stats
+    PUBLIC-URL: ""
+
+# Quick Buy configuration (/shop overhaul)
+QUICK-BUY:
+  # Master toggle for Quick Buy system
+  ENABLED: true
+
+  # Action bar message displayed above the hotbar when purchasing an item
+  # Placeholders: {amount}, {item}, {price}, {price_formatted}
+  ACTION-BAR: "&fYou bought {amount} {item} for &a$ &f{price}"
+
+  # Optional override for the purchase sound. Leave blank to use sounds.yml QUICK_BUY.BUY-SUCCESS.
+  PURCHASE-SOUND: "minecraft:entity.experience_orb.pickup|1.0|1.0"
+
+  # Dynamic pricing settings for Quick Buy and market price estimation
+  PRICING:
+    # Disabled so every Quick Buy price follows the configured 10x original-base buy rule.
+    USE-AUCTION-HOUSE: false
+    # Buy multiplier relative to the doubled sell value in worth.yml. 5x doubled sell = 10x original base price.
+    WORTH-MULTIPLIER: 5.0
+    # Automatically calculate a fair balanced price for items missing from worth.yml
+    AUTO-BALANCE-MISSING: true
+    # Auto-balanced items use a 10x buy multiplier against the unscaled estimated baseline.
+    AUTO-BALANCE-MULTIPLIER: 10.0
+    # WORTH (default) still prices items that are not listed under FIXED-ITEMS from worth.yml.
+    # AUCTION-ONLY leaves those items out of stock until a matching auction listing exists.
+    # A material under FIXED-ITEMS sells at that price per item even when the auction house is empty.
+    # A cheaper auction listing still wins. A more expensive listing is ignored.
+    # Enchantment worth from worth.yml is added on top, so a sharpness sword costs more than the plain sword.
+    # ENCHANTED_BOOK is the exception. That one price covers every enchant and level, including a book
+    # with more than one enchant. Worth.yml is not added.
+    # A line such as ENCHANTED_BOOK:SHARPNESS:3 overrides just that book.
+    # Names are Bukkit materials. Quote a namespaced id, for example "minecraft:stick".
+    UNLISTED: WORTH
+    # FIXED-ITEMS:
+    #   STICK: 1.0
+    #   DIAMOND: 50.0
+    #   ENCHANTED_BOOK: 23332
+    #   ENCHANTED_BOOK:SHARPNESS:3: 5000
+
+  # Main GUI title and inventory size
+  TITLE: '&8Quick Buy'
+  SIZE: 54
+
+  # Item selection dialog configuration (Choose Item screen)
+  CHOOSE-ITEM:
+    # Mode for obtaining selectable items:
+    # VANILLA: all items/blocks/armor/swords directly from vanilla Minecraft matching the server version (default)
+    # CUSTOM: items configured in worth.yml
+    MODE: VANILLA
+    # Maximum number of items to display in the selection list (default: 2000)
+    MAX-ITEMS: 2000
+    # Extra materials hidden from Quick Buy's Choose Item screen. Does not affect /orders.
+    # Wildcards such as *_SPAWN_EGG are allowed.
+    # Command-block variants, infested blocks, and spawn eggs are always hidden even if omitted here.
+    BLACKLIST:
+      - BEDROCK
+      - BARRIER
+      - COMMAND_BLOCK
+      - CHAIN_COMMAND_BLOCK
+      - REPEATING_COMMAND_BLOCK
+      - COMMAND_BLOCK_MINECART
+      - STRUCTURE_BLOCK
+      - STRUCTURE_VOID
+      - JIGSAW
+      - LIGHT
+      - DEBUG_STICK
+      - KNOWLEDGE_BOOK
+      - TEST_BLOCK
+      - TEST_INSTANCE_BLOCK
+      - END_PORTAL_FRAME
+      - SPAWNER
+      - TRIAL_SPAWNER
+      - VAULT
+      - SPAWNER_EGG
+      - REINFORCED_DEEPSLATE
+      - BUDDING_AMETHYST
+      - FARMLAND
+      - DIRT_PATH
+      - CHORUS_PLANT
+      - PETRIFIED_OAK_SLAB
+      - FROGSPAWN
+      - SUSPICIOUS_SAND
+      - SUSPICIOUS_GRAVEL
+      - '*_SPAWN_EGG'
+      - 'INFESTED_*'
+
+  # Bedrock freezes on the Choose Item dialog, which is one button per material.
+  # Floodgate players get a paged form with search. Submitting search stays on that form.
+  # Without Floodgate, search asks in chat. false uses the chest catalogue for pinning.
+  BEDROCK:
+    ENABLED: true
+    PAGE-SIZE: 20
+
+  # Configuration for empty grid slots (slots 0-44)
+  EMPTY-SLOT:
+    MATERIAL: GRAY_STAINED_GLASS_PANE
+    NAME: '&fEmpty'
+    LORE:
+    - '&o&7Click to choose'
+    - '&o&7an item to buy'
+
+  # Item display and pricing lore formats for pinned quick buy items
+  ITEM:
+    PRICE-FORMAT: '&a$ &f{price}'
+    OUT-OF-STOCK: '&cOut of stock'
+    EDIT-REMOVE-LORE: '&o&7Click to remove'
+    EDIT-RESTORE-LORE: '&o&7Click to add back'
+
+  # Bottom navigation buttons in Quick Buy GUI
+  BUTTONS:
+    FILTER:
+      SLOT: 47
+      MATERIAL: HOPPER
+      NAME: '&fFilter'
+      LORE: '&o&7Click to change'
+    REFRESH:
+      SLOT: 48
+      MATERIAL: ENDER_CHEST
+      NAME: '&fQuick Buy'
+      LORE:
+      - '&o&7Click to refresh prices'
+    AUCTION:
+      SLOT: 49
+      MATERIAL: ANVIL
+      NAME: '&fAuction'
+      LORE:
+      - '&o&7Click to view'
+    SEARCH:
+      SLOT: 50
+      MATERIAL: OAK_SIGN
+      NAME: '&fSearch'
+      LORE:
+      - '&o&7Click to search'
+      ACTIVE-QUERY-LORE:
+      - '&7Current: &e{query}'
+      - '&8Right-click to clear'
+    YOUR-ITEMS:
+      SLOT: 51
+      MATERIAL: CHEST
+      NAME: '&fYour Items'
+      LORE:
+      - '&o&7Click to view'
+    EDIT:
+      SLOT: 53
+      MATERIAL: STICK
+      NAME: '&fEdit'
+      LORE-NORMAL: '&o&7Click to edit'
+      LORE-EDITING: '&o&7Click to save changes'
+
+  # Default pinned items for Quick Buy (leave commented out for an empty grid like default DonutSMP)
+  # DEFAULT-ENTRIES:
+  #   # Example configuration for default pinned quick buy items:
+  #   0:
+  #     MATERIAL: TOTEM_OF_UNDYING
+  #     AMOUNT: 1
+  #   1:
+  #     MATERIAL: GOLDEN_APPLE
+  #     AMOUNT: 64
+  #   2:
+  #     MATERIAL: END_CRYSTAL
+  #     AMOUNT: 64
+  #   3:
+  #     MATERIAL: RESPAWN_ANCHOR
+  #     AMOUNT: 64
+  #   4:
+  #     MATERIAL: GLOWSTONE
+  #     AMOUNT: 64
+  #   5:
+  #     MATERIAL: OBSIDIAN
+  #     AMOUNT: 64
+  #   6:
+  #     MATERIAL: EXPERIENCE_BOTTLE
+  #     AMOUNT: 64
+  #   7:
+  #     MATERIAL: FIREWORK_ROCKET
+  #     AMOUNT: 64
+  #   8:
+  #     MATERIAL: ELYTRA
+  #     AMOUNT: 1
+
+# Auction -> Your Items menu configuration
+# Page 1 (free rank): 18 List slots + 27 Elite locks. Page 2: 45 Flovex+ locks
+# (all five content rows), Previous page on the left. Visual slots follow rank, not listing limit.
+YOUR-ITEMS:
+  TITLE: 'Auction -> Your Items'
+  SIZE: 54
+  UNLOCKED-SLOTS: 18
+  DONUT-PLUS-SLOTS: 45
+  PLUS-PAGE-SLOTS: 45
+  SELL-BUTTON:
+    SLOT: 0
+    MATERIAL: GRAY_STAINED_GLASS_PANE
+    NAME: '&fList'
+    LORE:
+    - '&o&7Click to sell an item'
+  EMPTY-SLOT:
+    MATERIAL: GRAY_STAINED_GLASS_PANE
+    NAME: '&fList'
+    LORE:
+    - '&o&7Click to sell an item'
+  LOCKED-SLOT:
+    MATERIAL: RED_STAINED_GLASS_PANE
+    NAME: '&cLocked'
+    LORE:
+    - '&fBuy Elite&f for more auction slots'
+  LOCKED-PLUS-SLOT:
+    MATERIAL: RED_STAINED_GLASS_PANE
+    NAME: '&cLocked'
+    LORE:
+    - '&fBuy Flovex&b+&f for even more auction slots'
+  ACTIVE-ITEM:
+    PRICE-FORMAT: '&7Price: &a${price}'
+    EXPIRES-FORMAT: '&7Expires in: &e{time}'
+    CANCEL-LORE: '&cClick to cancel listing'
+  BUTTONS:
+    PREV:
+      SLOT: 45
+      MATERIAL: ARROW
+      NAME: '&fPrevious page'
+      LORE:
+      - '&o&7Click to view previous page'
+    FILTER:
+      SLOT: 47
+      MATERIAL: HOPPER
+      NAME: '&fFilter'
+      LORE:
+      - '&o&7Click to change'
+    QUICK-BUY:
+      SLOT: 48
+      MATERIAL: ENDER_CHEST
+      NAME: '&fQuick Buy'
+      LORE:
+      - '&o&7Click to view'
+    AUCTION:
+      SLOT: 49
+      MATERIAL: ANVIL
+      NAME: '&fAuction'
+      LORE:
+      - '&o&7Click to view'
+    SEARCH:
+      SLOT: 50
+      MATERIAL: OAK_SIGN
+      NAME: '&fSearch'
+      LORE:
+      - '&o&7Click to search'
+      ACTIVE-QUERY-LORE:
+      - '&7Current: &e{query}'
+      - '&8Right-click to clear'
+    TRANSACTIONS:
+      SLOT: 51
+      MATERIAL: WRITABLE_BOOK
+      NAME: '&fTransactions'
+      LORE:
+      - '&o&7Click to view your transactions'
+    NEXT:
+      SLOT: 53
+      MATERIAL: ARROW
+      NAME: '&fNext page'
+      LORE:
+      - '&o&7Click to view next page'
+
+# Click to sell an item (5-slot hopper menu) configuration
+INSERT-ITEM:
+  TITLE: 'Click to sell an item'
+  CANCEL-BUTTON:
+    SLOT: 0
+    MATERIAL: RED_STAINED_GLASS_PANE
+    NAME: '&cCancel'
+    LORE:
+    - '&7Click to cancel and return'
+  CONFIRM-BUTTON:
+    SLOT: 4
+    MATERIAL: LIME_STAINED_GLASS_PANE
+    NAME: '&fConfirm'
+    LORE:
+    - '&o&7Click to confirm'
+  ESTIMATED-PRICE-FORMAT: '&a$ &f{price}'
+
+# Confirm Listing (27-slot chest menu) configuration
+CONFIRM-LISTING:
+  TITLE: 'Confirm Listing'
+  SIZE: 27
+  CANCEL-BUTTON:
+    SLOT: 11
+    MATERIAL: RED_STAINED_GLASS_PANE
+    NAME: '&cCancel'
+    LORE:
+    - '&o&7Click to cancel the sale'
+  CONFIRM-BUTTON:
+    SLOT: 15
+    MATERIAL: LIME_STAINED_GLASS_PANE
+    NAME: '&fConfirm'
+    LORE:
+    - '&o&7Click to sell'
+  PREVIEW-ITEM:
+    SLOT: 13
+    NOTICE-LINE-1: '&fYou''re going to sell'
+    NOTICE-LINE-2: '&fthis item for &#00FC00$ &#00FC00{price}'
+
+# Transactions log (54-slot chest menu) configuration
+TRANSACTIONS:
+  TITLE: 'Transactions'
+  SIZE: 54
+  END-OF-LIST:
+    MATERIAL: PAPER
+    NAME: '&cYou''ve reached the end'
+    LORE:
+    - '&fTransactions only last 90d'
+  BUTTONS:
+    STATS:
+      SLOT: 48
+      MATERIAL: BOOK
+      NAME: '&fStats'
+      LORE-SPENT: '&fTotal Spent: &a${spent}'
+      LORE-MADE: '&fTotal Made: &a${made}'
+    REFRESH:
+      SLOT: 49
+      MATERIAL: WRITABLE_BOOK
+      NAME: '&fTransactions'
+      LORE:
+      - '&o&7Click to refresh'
+    SEARCH:
+      SLOT: 50
+      MATERIAL: OAK_SIGN
+      NAME: '&fSearch'
+      LORE:
+      - '&o&7Click to search'
+      ACTIVE-QUERY-LORE:
+      - '&7Current: &e{query}'
+      - '&8Right-click to clear'
+    PREV-PAGE:
+      SLOT: 45
+      MATERIAL: ARROW
+      NAME: '&fPrevious Page'
+      LORE:
+      - '&7Page {page}'
+    NEXT-PAGE:
+      SLOT: 53
+      MATERIAL: ARROW
+      NAME: '&fNext Page'
+      LORE:
+      - '&7Page {page}'
+    BACK:
+      SLOT: -1
+      MATERIAL: ARROW
+      NAME: '&fBack'
+      LORE:
+      - '&7Return to Your Items'
