@@ -20,6 +20,8 @@ commands:
   sell: {description: Open the sell inventory}
   sellhand: {description: Sell the item in your hand}
   sellall: {description: Sell all sellable inventory items}
+  sellhistory: {description: View your recent sales}
+  topsell: {description: View top sellers}
   worth: {description: Check shop and sell prices}
   menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
