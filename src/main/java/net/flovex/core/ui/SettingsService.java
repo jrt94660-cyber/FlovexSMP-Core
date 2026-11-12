@@ -78,8 +78,8 @@ public final class SettingsService implements Listener {
             if (next) plugin.getScoreboard().update(player);
             else player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
         }
-        if (normalized.equals("safety") && next) player.sendMessage("§aPvP safety is enabled.");
-        else player.sendMessage("§7" + labelFor(normalized) + ": " + (next ? "§aON" : "§cOFF"));
+        if (normalized.equals("safety") && next) player.sendMessage(plugin.getMessages().prefix() + "§aPvP safety is enabled.");
+        else player.sendMessage(plugin.getMessages().prefix() + "§7" + labelFor(normalized) + ": " + (next ? "§aON" : "§cOFF"));
     }
 
     private void openCategories(Player player) {
