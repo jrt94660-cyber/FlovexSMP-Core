@@ -3,3 +3,14 @@ menus:
   java-native-dialogs: true
 phantom:
   radius: 64
+
+tablist:
+  header: '&#38BDFB&lFLOVEXSMP'
+  footer: '&7flovexsmp.play-mc.fun'
+rtp:
+  min-radius: 1000
+  max-radius: 10000
+  worlds:
+    overworld: world
+    nether: world_nether
+    end: world_the_end
