@@ -58,12 +58,13 @@ public final class RtpService {
             Block floor = world.getBlockAt(x, y, z);
             Block feet = world.getBlockAt(x, y + 1, z);
             Block head = world.getBlockAt(x, y + 2, z);
-            if (!floor.getType().isSolid() || floor.isLiquid() || feet.isLiquid() || head.isLiquid()
+            if (!floor.getType().isSolid() || floor.getType()==Material.BEDROCK || floor.isLiquid() || feet.isLiquid() || head.isLiquid()
                     || !feet.isPassable() || !head.isPassable()) continue;
             Location destination = new Location(world, x + 0.5, y + 1, z + 0.5);
-            player.sendMessage(Component.text("Finding a safe location..."));
+            if (!world.getWorldBorder().isInside(destination)) continue;
+            plugin.getMessages().actionBar(player,"&bFinding a safe location...");
             player.teleportAsync(destination).thenAccept(success -> Bukkit.getScheduler().runTask(plugin, () ->
-                player.sendMessage(Component.text(success ? "Random teleport complete." : "Teleport failed."))));
+                plugin.getMessages().actionBar(player,success ? "&aRandom teleport complete." : "&cTeleport failed.")));
             return;
         }
         player.sendMessage(Component.text("Could not find a safe location. Try again."));
