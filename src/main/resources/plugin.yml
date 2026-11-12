@@ -11,6 +11,12 @@ commands:
   rtp: {description: Open the three-world random teleport dialog}
   rtpq: {description: Join or leave the random teleport queue}
   shop: {description: Open the Quick Buy shop}
+  shardshop: {description: Open the Shard Shop}
+  shards: {description: View shard balance}
+  shardpay: {description: Pay shards to another player}
+  addshards: {description: Add shards to a player}
+  removeshards: {description: Remove shards from a player}
+  setshards: {description: Set a player's shard balance}
   sell: {description: Open the sell inventory}
   sellhand: {description: Sell the item in your hand}
   sellall: {description: Sell all sellable inventory items}
@@ -98,6 +104,8 @@ permissions:
   flovexcore.staff: {default: op}
   flovexcore.market.use: {default: true}
   flovexcore.shop.use: {default: true}
+  flovexcore.shards.use: {default: true}
+  flovexcore.shards.admin: {default: op}
   flovexcore.sell.use: {default: true}
   flovexcore.rtp.queue: {default: true}
   flovexcore.settings.use: {default: true}
