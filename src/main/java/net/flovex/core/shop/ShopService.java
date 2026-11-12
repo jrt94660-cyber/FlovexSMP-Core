@@ -216,13 +216,22 @@ public final class ShopService implements Listener {
 
     private boolean removeSnapshots(Player player, List<ItemStack> snapshots, Inventory source) {
         Inventory inventory = source == null ? player.getInventory() : source;
+        List<ItemStack> prototypes = new ArrayList<>();
+        List<Integer> required = new ArrayList<>();
         for (ItemStack wanted : snapshots) {
-            int found = 0;
-            for (ItemStack current : inventory.getContents()) if (current != null && current.isSimilar(wanted)) found += current.getAmount();
-            if (found < wanted.getAmount()) return false;
+            int group = -1;
+            for (int i = 0; i < prototypes.size(); i++) if (prototypes.get(i).isSimilar(wanted)) { group = i; break; }
+            if (group < 0) { prototypes.add(wanted.clone()); required.add(wanted.getAmount()); }
+            else required.set(group, required.get(group) + wanted.getAmount());
         }
-        for (ItemStack wanted : snapshots) {
-            int remaining = wanted.getAmount();
+        for (int i = 0; i < prototypes.size(); i++) {
+            int found = 0;
+            for (ItemStack current : inventory.getContents()) if (current != null && current.isSimilar(prototypes.get(i))) found += current.getAmount();
+            if (found < required.get(i)) return false;
+        }
+        for (int i = 0; i < prototypes.size(); i++) {
+            ItemStack wanted = prototypes.get(i);
+            int remaining = required.get(i);
             for (int slot = 0; slot < inventory.getContents().length && remaining > 0; slot++) {
                 ItemStack current = inventory.getItem(slot);
                 if (current == null || !current.isSimilar(wanted)) continue;
@@ -235,7 +244,6 @@ public final class ShopService implements Listener {
         }
         return true;
     }
-
     @EventHandler public void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         View view = views.get(player.getUniqueId());
