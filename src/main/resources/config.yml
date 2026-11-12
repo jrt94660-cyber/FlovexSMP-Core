@@ -1,4 +1,12 @@
 prefix: '&#38BDFB&lFLOVEX &8» '
+chat:
+  format-enabled: true
+  format: '%prefix%%player%&7: &f%message%'
+titles:
+  join:
+    enabled: true
+    title: '&#38BDFB&lFLOVEXSMP'
+    subtitle: '&7Welcome back, &f%player%'
 menus:
   java-native-dialogs: true
 phantom:
