@@ -162,17 +162,18 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
  lastChat.put(p.getUniqueId(),now);
  String plain=net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(e.message());
  if(!p.hasPermission("flovexcore.chat.color"))plain=plain.replaceAll("(?i)[&§][0-9a-fk-orx]","");
+  final String messageText=plain;
  if(plugin.getConfig().getBoolean("chat.format-enabled",true)){
   String format=plugin.getConfig().getString("chat.format","%prefix%%player%&7: &f%message%");
-  String rendered=format.replace("%prefix%",plugin.getRanks().getDisplayPrefix(p)).replace("%player%",p.getName()).replace("%message%",plain);
+  String rendered=format.replace("%prefix%",plugin.getRanks().getDisplayPrefix(p)).replace("%player%",p.getName()).replace("%message%",messageText);
   Component chatLine=LegacyComponentSerializer.legacySection().deserialize(ColorUtil.color(rendered));
   e.renderer((source,displayName,message,viewer)->chatLine);
  }
  int max=plugin.moderationConfig().getInt("chat.max-message-length",256);
- if(plain.length()>max){e.setCancelled(true);msg(p,"&cMessage too long.");return;}
+ if(messageText.length()>max){e.setCancelled(true);msg(p,"&cMessage too long.");return;}
  if(!staff(p)&&plugin.moderationConfig().getStringList("chat.blocked-words").stream().anyMatch(w->!w.isBlank()&&plain.toLowerCase(Locale.ROOT).contains(w.toLowerCase(Locale.ROOT)))){e.setCancelled(true);msg(p,"&cYour message contains a blocked word.");return;}
- db.update("INSERT INTO chat_logs(uuid,name,message,created) VALUES(?,?,?,?)",id(p),p.getName(),plain,System.currentTimeMillis());
- if(Boolean.parseBoolean(db.preference(p.getUniqueId(),"teamchat","false"))){if(plugin.getTeams().hasTeam(p)){e.setCancelled(true);Bukkit.getScheduler().runTask(plugin,()->plugin.getTeams().chat(p,plain));return;}db.setPreference(p.getUniqueId(),"teamchat","false");msg(p,"&cYou are not in a team; team chat was disabled.");}
+ db.update("INSERT INTO chat_logs(uuid,name,message,created) VALUES(?,?,?,?)",id(p),p.getName(),messageText,System.currentTimeMillis());
+ if(Boolean.parseBoolean(db.preference(p.getUniqueId(),"teamchat","false"))){if(plugin.getTeams().hasTeam(p)){e.setCancelled(true);Bukkit.getScheduler().runTask(plugin,()->plugin.getTeams().chat(p,messageText));return;}db.setPreference(p.getUniqueId(),"teamchat","false");msg(p,"&cYou are not in a team; team chat was disabled.");}
  for(Player viewer:Bukkit.getOnlinePlayers())if(!viewer.equals(p)&&!db.rows("SELECT target FROM social WHERE owner=? AND target=? AND kind='IGNORE'",viewer.getUniqueId().toString(),id(p)).isEmpty())e.viewers().remove(viewer);
 }
 @EventHandler public void onInventory(InventoryClickEvent e){if(!(e.getWhoClicked() instanceof Player p)||!e.getView().getTitle().equals(ChatColor.DARK_GRAY+"Flovex Auction House"))return;e.setCancelled(true);ItemStack item=e.getCurrentItem();if(item==null||!item.hasItemMeta()||!item.getItemMeta().hasLore())return;for(String line:item.getItemMeta().getLore())if(line.startsWith("§7Listing: §f#")){try{long id=Long.parseLong(line.substring(line.indexOf('#')+1));if(market.buy(p,id))msg(p,"&aPurchased. Use /ah claim.");else msg(p,"&cPurchase failed.");}catch(Exception ignored){}break;}}
