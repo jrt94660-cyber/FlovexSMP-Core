@@ -43,6 +43,7 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
 
  @Override public boolean onCommand(CommandSender s,Command c,String label,String[] a){String cmd=c.getName().toLowerCase(Locale.ROOT);Player p=s instanceof Player?(Player)s:null;
  switch(cmd){
+ case "amethysttool"->{if(!staff(s)||a.length<3||!a[0].equalsIgnoreCase("give")){msg(s,"&cUsage: /amethysttool give <player> <type> [duration-seconds]");return true;}Player target=target(a[1]);if(target==null){msg(s,"&cPlayer not found.");return true;}long duration=0;if(a.length>=4)try{duration=Long.parseLong(a[3]);}catch(NumberFormatException ex){msg(s,"&cInvalid duration.");return true;}if(!plugin.getShardShop().giveTool(target,a[2],duration))msg(s,"&cUnknown amethyst tool type.");else msg(s,"&aGave "+a[2]+" to "+target.getName()+".");}
  case "shardshop"->{if(!player(s))return true;plugin.getShardShop().open(p);}
  case "shards"->{if(!player(s))return true;msg(p,"&dYour Shards: &f"+String.format(Locale.US,"%,d",plugin.getShardShop().balance(p.getUniqueId())));}
  case "shardpay"->{if(!player(s))return true;if(a.length<2){msg(p,"&cUsage: /shardpay <player> <amount>");return true;}Player target=target(a[0]);if(target==null){msg(p,"&cPlayer not found.");return true;}try{long amount=Long.parseLong(a[1]);if(amount<=0||target.equals(p)||!plugin.getShardShop().take(p.getUniqueId(),amount)){msg(p,"&cInvalid amount or insufficient shards.");return true;}plugin.getShardShop().add(target.getUniqueId(),amount);msg(p,"&aSent "+amount+" Shards to "+target.getName()+".");msg(target,"&dReceived "+amount+" Shards from "+p.getName()+".");}catch(NumberFormatException ex){msg(p,"&cInvalid amount.");}}
@@ -198,6 +199,9 @@ public final class CoreCommands implements CommandExecutor, TabCompleter, Listen
   case "warp"->plugin.getWarps().list();
   default->Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
  };
+ if(name.equals("amethysttool")&&args.length==1)return List.of("give","reload");
+ if(name.equals("amethysttool")&&args.length==2)return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+ if(name.equals("amethysttool")&&args.length==3)return List.of("DRILL","SHOVEL","CHOPPER","SELL_AXE","HASTE_POTION");
  if(name.equals("orders")&&args.length==2&&args[0].equalsIgnoreCase("create"))return Arrays.stream(Material.values()).filter(Material::isItem).map(m->m.name().toLowerCase(Locale.ROOT)).filter(n->n.startsWith(args[1].toLowerCase(Locale.ROOT))).limit(50).toList();
  if(name.equals("team")&&args.length==2&&args[0].equalsIgnoreCase("invite"))return Bukkit.getOnlinePlayers().stream().map(Player::getName).filter(n->n.toLowerCase(Locale.ROOT).startsWith(args[1].toLowerCase(Locale.ROOT))).toList();
  if(name.equals("auctionhouse")&&args.length==2&&args[0].equalsIgnoreCase("cancel")&&sender instanceof Player p)return db.rows("SELECT id FROM auctions WHERE seller=? AND sold=0",id(p)).stream().map(r->String.valueOf(r.get("id"))).toList();
