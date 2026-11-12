@@ -31,8 +31,8 @@ commands:
   sellprogress: {description: View your selling progress}
   meta: {description: View item market value}
   sellhistory: {description: View your recent sales}
-  topsell: {description: View top sellers}
-  worth: {description: Check shop and sell prices, permission: flovexcore.sell.use}
+  topsell: {description: View top sellers, aliases: [sellstats]}
+  worth: {description: Check shop and sell prices, aliases: [prices], permission: flovexcore.sell.use}
   menu: {description: Open the FlovexCore menu}
   auctionhouse: {description: Auction House, aliases: [ah]}
   orders: {description: Player buy orders}
@@ -62,7 +62,7 @@ commands:
   chatlog: {description: Review chat logs}
   chat: {description: Chat moderation}
   freeze: {description: Freeze a player}
-  staffmode: {description: Toggle staff mode}
+  staffmode: {description: Toggle staff mode, aliases: [staff]}
   stafflist: {description: Online staff}
   staffchat: {description: Staff chat}
   helpop: {description: Contact staff}
